@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import axios from 'axios';
+import Dropdown from 'react-bootstrap/Dropdown';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const EditProduct = () => {
     const { id } = useParams();
@@ -9,24 +11,38 @@ const EditProduct = () => {
     const [formData, setFormData] = useState({
         name: '',
         description: '',
+        category_id: '',
     });
+    const [categories, setCategories] = useState([]);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        const fetchUserData = async () => {
+        const fetchProductData = async () => {
             try {
                 const response = await axios.get(`http://127.0.0.1:5173/api/products/${id}`);
                 setFormData({
                     name: response.data.name || '',
-                    description: response.data.description || ''
+                    description: response.data.description || '',
+                    category_id: response.data.category_id || '',
                 });
                 setLoading(false);
             } catch (error) {
-                console.error('Error fetching user data:', error);
+                console.error('Error fetching product data:', error);
                 setLoading(false);
             }
         };
-        fetchUserData();
+
+        const fetchCategories = async () => {
+            try {
+                const response = await axios.get('http://127.0.0.1:5173/api/categories');
+                setCategories(response.data);
+            } catch (error) {
+                console.error('Error fetching categories:', error);
+            }
+        };
+
+        fetchProductData();
+        fetchCategories();
     }, [id]);
 
     const handleChange = (e) => {
@@ -42,7 +58,7 @@ const EditProduct = () => {
             await axios.put(`http://127.0.0.1:5173/api/products/${id}`, formData);
             history.push('/products-list');
         } catch (error) {
-            console.error('Error updating user:', error);
+            console.error('Error updating product:', error);
         }
     };
 
@@ -75,7 +91,7 @@ const EditProduct = () => {
                                     <div className="form-group mb-3">
                                         <label>Description</label>
                                         <input
-                                            type="description"
+                                            type="text"
                                             className="form-control"
                                             name="description"
                                             value={formData.description}
@@ -85,12 +101,38 @@ const EditProduct = () => {
                                     </div>
                                 </div>
                             </div>
+                            <div className="row mb-4">
+                                <div className="col-xl-4">
+                                    <div className="form-group mb-3 invoice">
+                                        <label>Category</label>
+                                        <div className="basic-dropdown">
+                                            <Dropdown>
+                                                <Dropdown.Toggle variant="primary" className="form-control">
+                                                    {formData.category_id
+                                                        ? categories.find(category => category._id === formData.category_id)?.name || 'Select Category'
+                                                        : 'Select Category'}
+                                                </Dropdown.Toggle>
+                                                <Dropdown.Menu>
+                                                    {categories.map((category) => (
+                                                        <Dropdown.Item
+                                                            key={category._id}
+                                                            onClick={() => setFormData({ ...formData, category_id: category._id })}
+                                                        >
+                                                            {category.name}
+                                                        </Dropdown.Item>
+                                                    ))}
+                                                </Dropdown.Menu>
+                                            </Dropdown>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                             <div className="text-end mt-4">
-                                <button type="submit" className="btn btn-primary btn-lg me-1 me-sm-3">Save Category</button>
+                                <button type="submit" className="btn btn-primary btn-lg me-1 me-sm-3">Save Product</button>
                                 <button
                                     type="button"
                                     className="btn btn-primary light btn-lg"
-                                    onClick={() => history.push('/categories-list')}
+                                    onClick={() => history.push('/products-list')}
                                 >
                                     Cancel
                                 </button>

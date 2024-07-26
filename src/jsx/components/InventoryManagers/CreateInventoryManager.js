@@ -2,13 +2,17 @@ import React, { useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import axios from 'axios';
 import DropzoneBlog from '../Dashboard/Invoices/DropzoneBlog';
+import Dropdown from 'react-bootstrap/Dropdown';
+import 'bootstrap/dist/css/bootstrap.min.css'; 
 
-const CreateInventoryManager = () => {
+  const CreateInventoryManager = () => {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [role, setRole] = useState('');
     const history = useHistory();
+
+    const roles = ['admin', 'inventory-manager'];
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -54,7 +58,7 @@ const CreateInventoryManager = () => {
                                         <div className="form-group mb-3 invoice">
                                             <label>Email</label>
                                             <input
-                                                type="text"
+                                                type="email"
                                                 className="form-control"
                                                 placeholder="Enter Email"
                                                 value={email}
@@ -81,14 +85,23 @@ const CreateInventoryManager = () => {
                                     <div className="col-xl-4">
                                         <div className="form-group mb-3 invoice">
                                             <label>Role</label>
-                                            <input
-                                                type="text"
-                                                className="form-control"
-                                                placeholder="Enter Role"
-                                                value={role}
-                                                onChange={(e) => setRole(e.target.value)}
-                                                required
-                                            />
+                                            <div className="basic-dropdown">
+                                                <Dropdown>
+                                                    <Dropdown.Toggle variant="primary" className="form-control">
+                                                        {role || 'Select Role'}
+                                                    </Dropdown.Toggle>
+                                                    <Dropdown.Menu>
+                                                        {roles.map((roleOption) => (
+                                                            <Dropdown.Item 
+                                                                key={roleOption} 
+                                                                onClick={() => setRole(roleOption)}
+                                                            >
+                                                                {roleOption}
+                                                            </Dropdown.Item>
+                                                        ))}
+                                                    </Dropdown.Menu>
+                                                </Dropdown>
+                                            </div>
                                         </div>
                                     </div>									
                                 </div>
@@ -119,4 +132,5 @@ const CreateInventoryManager = () => {
     );
 };
 
-export default CreateInventoryManager
+export default CreateInventoryManager;
+
