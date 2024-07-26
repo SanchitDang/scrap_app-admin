@@ -12,7 +12,7 @@ const DropdownBlog = ({ userId, onDelete }) => {
     const handleClose = () => setShowModal(false);
 
     const handleEdit = () => {
-        history.push(`/edit-user/${userId}`);
+        history.push(`/edit-agent/${userId}`);
     };
 
     const handleDelete = () => {
@@ -38,9 +38,9 @@ const DropdownBlog = ({ userId, onDelete }) => {
 
             <Modal className="fade" show={showModal} onHide={handleClose}>
                 <Modal.Header closeButton>
-                    <Modal.Title>Delete User</Modal.Title>
+                    <Modal.Title>Delete Agent</Modal.Title>
                 </Modal.Header>
-                <Modal.Body>Are you sure you want to delete this user?</Modal.Body>
+                <Modal.Body>Are you sure you want to delete this agent?</Modal.Body>
                 <Modal.Footer>
                     <Button variant="primary" onClick={handleClose}>Close</Button>
                     <Button variant="danger light" onClick={handleDelete}>Delete</Button>
@@ -50,7 +50,7 @@ const DropdownBlog = ({ userId, onDelete }) => {
     );
 };
 
-const InvoicesList = () => {
+const AgentsList = () => {
     const [data, setData] = useState([]);
     const [currentPage, setCurrentPage] = useState(0);
     const [totalPages, setTotalPages] = useState(0);
@@ -59,7 +59,7 @@ const InvoicesList = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get('http://127.0.0.1:5173/api/users');
+                const response = await axios.get('http://127.0.0.1:5173/api/agents');
                 setData(response.data);
                 setTotalPages(Math.ceil(response.data.length / itemsPerPage));
             } catch (error) {
@@ -75,7 +75,7 @@ const InvoicesList = () => {
 
     const handleDelete = async (userId) => {
         try {
-            await axios.delete(`http://127.0.0.1:5173/api/users/${userId}`);
+            await axios.delete(`http://127.0.0.1:5173/api/agents/${userId}`);
             setData(data.filter(user => user._id !== userId));
         } catch (error) {
             console.error('Error deleting user:', error);
@@ -90,12 +90,12 @@ const InvoicesList = () => {
         <>
             <div className="d-flex mb-3">
                 <div className="mb-3 align-items-center me-auto">
-                    <h4 className="fs-24 font-w800">Users</h4>
-                    <span className="fs-12">List of all the users</span>
+                    <h4 className="fs-24 font-w800">Agents</h4>
+                    <span className="fs-12">List of all the agents</span>
                 </div>
                 <li className="nav-item invoices-btn">
-                    <Link to="/create-user" className="btn btn-primary ms-5">
-                        <i className="far fa-file-alt fs-20 me-2"></i>Add User
+                    <Link to="/create-agent" className="btn btn-primary ms-5">
+                        <i className="far fa-file-alt fs-20 me-2"></i>Add Agent
                     </Link>
                 </li>
             </div>
@@ -137,7 +137,7 @@ const InvoicesList = () => {
                             </div>
                             <div className='dataTables_paginate paging_simple_numbers mb-0' id='example5_paginate'>
                                 <Link
-                                    to='/users-list'
+                                    to='/agents-list'
                                     className='paginate_button previous'
                                     onClick={() => currentPage > 0 && handlePageChange(currentPage - 1)}
                                 >
@@ -147,7 +147,7 @@ const InvoicesList = () => {
                                     {[...Array(totalPages)].map((_, i) => (
                                         <Link
                                             key={i}
-                                            to='/users-list'
+                                            to='/agents-list'
                                             className={`paginate_button ${currentPage === i ? 'current' : ''}`}
                                             onClick={() => handlePageChange(i)}
                                         >
@@ -156,7 +156,7 @@ const InvoicesList = () => {
                                     ))}
                                 </span>
                                 <Link
-                                    to='/users-list'
+                                    to='/agents-list'
                                     className='paginate_button next'
                                     onClick={() => currentPage + 1 < totalPages && handlePageChange(currentPage + 1)}
                                 >
@@ -171,4 +171,4 @@ const InvoicesList = () => {
     );
 };
 
-export default InvoicesList;
+export default AgentsList;

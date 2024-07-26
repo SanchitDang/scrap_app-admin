@@ -11800,7 +11800,10 @@ html[dir="rtl"] [direction="rtl"][data-sidebar-style="compact"]:not([data-layout
         padding: 0; } }
 
 .copyright {
-  padding: 0 1.875rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
   color: #9fa4a6;
   margin-top: 1.875rem; }
   .copyright p {

@@ -3,9 +3,9 @@ import { Link, useHistory } from 'react-router-dom';
 import axios from 'axios';
 import DropzoneBlog from '../Dashboard/Invoices/DropzoneBlog';
 
-const CreateUser = () => {
+const CreateServiceRequest = () => {
     const [fullName, setFullName] = useState('');
-    const [phone, setPhone] = useState('');
+    const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const history = useHistory();
@@ -15,14 +15,14 @@ const CreateUser = () => {
 
         const userData = {
             fullName,
-            phone,
+            username,
             email,
             password,
         };
 
         try {
-            await axios.post('http://127.0.0.1:5173/api/users', userData);
-            history.push('/users-list');
+            await axios.post('http://127.0.0.1:5173/api/serviceRequests', userData);
+            history.push('/servicerequests-list');
         } catch (error) {
             console.error('Error creating user:', error);
         }
@@ -52,13 +52,13 @@ const CreateUser = () => {
                                     </div>
                                     <div className="col-xl-4">
                                         <div className="form-group mb-3 invoice">
-                                            <label>Phone</label>
+                                            <label>Username</label>
                                             <input
                                                 type="text"
                                                 className="form-control"
-                                                placeholder="Enter Phone"
-                                                value={phone}
-                                                onChange={(e) => setPhone(e.target.value)}
+                                                placeholder="Enter Username"
+                                                value={username}
+                                                onChange={(e) => setUsername(e.target.value)}
                                                 required
                                             />
                                         </div>
@@ -108,7 +108,7 @@ const CreateUser = () => {
                                     <div className="col-xl-6">
                                         <div className="text-end mt-4">
                                             <button type="submit" className="btn btn-primary btn-lg me-1 me-sm-3">
-                                                Save User
+                                                Save Service Request
                                             </button>
                                             <Link to="#" className="btn btn-primary light btn-lg">
                                                 Cancel
@@ -125,4 +125,4 @@ const CreateUser = () => {
     );
 };
 
-export default CreateUser;
+export default CreateServiceRequest

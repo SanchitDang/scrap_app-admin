@@ -2,29 +2,23 @@ import React, { useState, useEffect } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import axios from 'axios';
 
-const EditUser = () => {
-    const { id } = useParams(); // Get the user ID from the URL parameters
+const EditCategory = () => {
+    const { id } = useParams();
     const history = useHistory();
-    
-    // State to hold form data and loading state
+
     const [formData, setFormData] = useState({
         name: '',
-        phone: '',
-        email: '',
-        password: '',
+        description: '',
     });
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        // Fetch user data when component mounts
         const fetchUserData = async () => {
             try {
-                const response = await axios.get(`http://127.0.0.1:5173/api/users/${id}`);
+                const response = await axios.get(`http://127.0.0.1:5173/api/categories/${id}`);
                 setFormData({
                     name: response.data.name || '',
-                    phone: response.data.phone || '',
-                    email: response.data.email || '',
-                    password: '',
+                    description: response.data.description || ''
                 });
                 setLoading(false);
             } catch (error) {
@@ -45,8 +39,8 @@ const EditUser = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            await axios.put(`http://127.0.0.1:5173/api/users/${id}`, formData);
-            history.push('/users-list');
+            await axios.put(`http://127.0.0.1:5173/api/categories/${id}`, formData);
+            history.push('/categories-list');
         } catch (error) {
             console.error('Error updating user:', error);
         }
@@ -64,27 +58,14 @@ const EditUser = () => {
                             <div className="row mb-4">
                                 <div className="col-xl-4">
                                     <div className="form-group mb-3">
-                                        <label>Full Name</label>
+                                        <label>Name</label>
                                         <input
                                             type="text"
                                             className="form-control"
                                             name="name"
                                             value={formData.name}
                                             onChange={handleChange}
-                                            placeholder="Enter Full Name"
-                                        />
-                                    </div>
-                                </div>
-                                <div className="col-xl-4">
-                                    <div className="form-group mb-3">
-                                        <label>Phone</label>
-                                        <input
-                                            type="text"
-                                            className="form-control"
-                                            phone="phone"
-                                            value={formData.phone}
-                                            onChange={handleChange}
-                                            placeholder="Enter Phone"
+                                            placeholder="Enter Name"
                                         />
                                     </div>
                                 </div>
@@ -92,37 +73,24 @@ const EditUser = () => {
                             <div className="row mb-4">
                                 <div className="col-xl-4">
                                     <div className="form-group mb-3">
-                                        <label>Email</label>
+                                        <label>Description</label>
                                         <input
-                                            type="email"
+                                            type="description"
                                             className="form-control"
-                                            name="email"
-                                            value={formData.email}
+                                            name="description"
+                                            value={formData.description}
                                             onChange={handleChange}
-                                            placeholder="Enter Email"
-                                        />
-                                    </div>
-                                </div>
-                                <div className="col-xl-4">
-                                    <div className="form-group mb-3">
-                                        <label>Password</label>
-                                        <input
-                                            type="password"
-                                            className="form-control"
-                                            name="password"
-                                            value={formData.password}
-                                            onChange={handleChange}
-                                            placeholder="Enter Password"
+                                            placeholder="Enter Description"
                                         />
                                     </div>
                                 </div>
                             </div>
                             <div className="text-end mt-4">
-                                <button type="submit" className="btn btn-primary btn-lg me-1 me-sm-3">Save User</button>
+                                <button type="submit" className="btn btn-primary btn-lg me-1 me-sm-3">Save Category</button>
                                 <button
                                     type="button"
                                     className="btn btn-primary light btn-lg"
-                                    onClick={() => history.push('/users-list')}
+                                    onClick={() => history.push('/categories-list')}
                                 >
                                     Cancel
                                 </button>
@@ -135,4 +103,4 @@ const EditUser = () => {
     );
 };
 
-export default EditUser;
+export default EditCategory;

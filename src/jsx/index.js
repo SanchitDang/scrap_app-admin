@@ -19,15 +19,29 @@ import CreateUser from "./components/Users/CreateUser";
 import EditUser from "./components/Users/EditUser";
 
 /// Agents
+import AgentsList from "./components/Agents/AgentsList";
+import CreateAgent from "./components/Agents/CreateAgent";
+import EditAgent from "./components/Agents/EditAgent";
 
 /// Inventory Managers
+import InventoryManagersList from "./components/InventoryManagers/InventoryManagersList";
+import CreateInventoryManager from "./components/InventoryManagers/CreateInventoryManager";
+import EditInventoryManager from "./components/InventoryManagers/EditInventoryManager";
 
 /// Service Requests
+import ServiceRequestsList from "./components/ServiceRequests/ServiceRequestsList";
+import CreateServiceRequest from "./components/ServiceRequests/CreateServiceRequest";
+import EditServiceRequest from "./components/ServiceRequests/EditServiceRequest";
 
 /// Categories
+import CategoriesList from "./components/Categories/CategoriesList";
+import CreateCategory from "./components/Categories/CreateCategory";
+import EditCategory from "./components/Categories/EditCategory";
 
 /// Products
-
+import ProductsList from "./components/Products/ProductsList";
+import CreateProduct from "./components/Products/CreateProduct";
+import EditProduct from "./components/Products/EditProduct";
 
 /// Dashboard
 import Home from "./components/Dashboard/Home";
@@ -138,15 +152,29 @@ const Markup = () => {
     { url: "edit-user/:id", component: EditUser },
 
     /// Agents
+    { url: "agents-list", component: AgentsList },
+    { url: "create-agent", component: CreateAgent },
+    { url: "edit-agent/:id", component: EditAgent },
 
     /// Inventory Managers
+    { url: "inventorymanagers-list", component: InventoryManagersList },
+    { url: "create-inventorymanager", component: CreateInventoryManager },
+    { url: "edit-inventorymanager/:id", component: EditInventoryManager },
 
     /// Service Requests
+    { url: "servicerequests-list", component: ServiceRequestsList },
+    { url: "create-servicerequest", component: CreateServiceRequest },
+    { url: "edit-servicerequest/:id", component: EditServiceRequest },
 
     /// Categories
+    { url: "categories-list", component: CategoriesList },
+    { url: "create-category", component: CreateCategory },
+    { url: "edit-category/:id", component: EditCategory },
 
     /// Products
-
+    { url: "products-list", component: ProductsList },
+    { url: "create-product", component: CreateProduct },
+    { url: "edit-product/:id", component: EditProduct },
 
     /// Dashboard
     { url: "", component: Home },

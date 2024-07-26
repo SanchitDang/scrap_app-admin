@@ -12,7 +12,7 @@ const DropdownBlog = ({ userId, onDelete }) => {
     const handleClose = () => setShowModal(false);
 
     const handleEdit = () => {
-        history.push(`/edit-user/${userId}`);
+        history.push(`/edit-inventorymanager/${userId}`);
     };
 
     const handleDelete = () => {
@@ -38,9 +38,9 @@ const DropdownBlog = ({ userId, onDelete }) => {
 
             <Modal className="fade" show={showModal} onHide={handleClose}>
                 <Modal.Header closeButton>
-                    <Modal.Title>Delete User</Modal.Title>
+                    <Modal.Title>Delete Inventory Manager</Modal.Title>
                 </Modal.Header>
-                <Modal.Body>Are you sure you want to delete this user?</Modal.Body>
+                <Modal.Body>Are you sure you want to delete this inventory manager?</Modal.Body>
                 <Modal.Footer>
                     <Button variant="primary" onClick={handleClose}>Close</Button>
                     <Button variant="danger light" onClick={handleDelete}>Delete</Button>
@@ -50,7 +50,7 @@ const DropdownBlog = ({ userId, onDelete }) => {
     );
 };
 
-const InvoicesList = () => {
+const InventoryManagersList = () => {
     const [data, setData] = useState([]);
     const [currentPage, setCurrentPage] = useState(0);
     const [totalPages, setTotalPages] = useState(0);
@@ -59,7 +59,7 @@ const InvoicesList = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get('http://127.0.0.1:5173/api/users');
+                const response = await axios.get('http://127.0.0.1:5173/api/admins');
                 setData(response.data);
                 setTotalPages(Math.ceil(response.data.length / itemsPerPage));
             } catch (error) {
@@ -75,7 +75,7 @@ const InvoicesList = () => {
 
     const handleDelete = async (userId) => {
         try {
-            await axios.delete(`http://127.0.0.1:5173/api/users/${userId}`);
+            await axios.delete(`http://127.0.0.1:5173/api/admins/${userId}`);
             setData(data.filter(user => user._id !== userId));
         } catch (error) {
             console.error('Error deleting user:', error);
@@ -90,24 +90,24 @@ const InvoicesList = () => {
         <>
             <div className="d-flex mb-3">
                 <div className="mb-3 align-items-center me-auto">
-                    <h4 className="fs-24 font-w800">Users</h4>
-                    <span className="fs-12">List of all the users</span>
+                    <h4 className="fs-24 font-w800">Inventory Managers</h4>
+                    <span className="fs-12">List of all the Inventory Manager</span>
                 </div>
                 <li className="nav-item invoices-btn">
-                    <Link to="/create-user" className="btn btn-primary ms-5">
-                        <i className="far fa-file-alt fs-20 me-2"></i>Add User
+                    <Link to="/create-inventorymanager" className="btn btn-primary ms-5">
+                        <i className="far fa-file-alt fs-20 me-2"></i>Add Inventory Manager
                     </Link>
                 </li>
             </div>
             <div className="row">
                 <div className="col-xl-12">
                     <div className="table-responsive table-hover fs-14 dataTables_wrapper" id="invoices-data">
-                        <table className='table display mb-4 dataTablesCard dataTable no-footer' id='example5'>
+                    <table className='table display mb-4 dataTablesCard dataTable no-footer' id='example5'>
                             <thead>
                                 <tr role='row'>
                                     <th className="sorting_asc">Name</th>
                                     <th className="sorting_asc">Email</th>
-                                    <th className="sorting_asc">Phone</th>
+                                    <th className="sorting_asc">Role</th>
                                     <th className="sorting_asc">Date Created</th>
                                     <th className="sorting_asc"></th>
                                 </tr>
@@ -124,7 +124,7 @@ const InvoicesList = () => {
                                             </div>
                                         </td>
                                         <td><span className="text-black">{user.email}</span></td>
-                                        <td><span className="text-black">{user.phone}</span></td>
+                                        <td><span className="text-black">{user.role}</span></td>
                                         <td><span className="text-black text-nowrap">{new Date(user.createdAt).toLocaleDateString()}</span></td>
                                         <td><DropdownBlog userId={user._id} onDelete={handleDelete} /></td>
                                     </tr>
@@ -137,7 +137,7 @@ const InvoicesList = () => {
                             </div>
                             <div className='dataTables_paginate paging_simple_numbers mb-0' id='example5_paginate'>
                                 <Link
-                                    to='/users-list'
+                                    to='/inventorymanagers-list'
                                     className='paginate_button previous'
                                     onClick={() => currentPage > 0 && handlePageChange(currentPage - 1)}
                                 >
@@ -147,7 +147,7 @@ const InvoicesList = () => {
                                     {[...Array(totalPages)].map((_, i) => (
                                         <Link
                                             key={i}
-                                            to='/users-list'
+                                            to='/inventorymanagers-list'
                                             className={`paginate_button ${currentPage === i ? 'current' : ''}`}
                                             onClick={() => handlePageChange(i)}
                                         >
@@ -156,7 +156,7 @@ const InvoicesList = () => {
                                     ))}
                                 </span>
                                 <Link
-                                    to='/users-list'
+                                    to='/inventorymanagers-list'
                                     className='paginate_button next'
                                     onClick={() => currentPage + 1 < totalPages && handlePageChange(currentPage + 1)}
                                 >
@@ -171,4 +171,4 @@ const InvoicesList = () => {
     );
 };
 
-export default InvoicesList;
+export default InventoryManagersList;

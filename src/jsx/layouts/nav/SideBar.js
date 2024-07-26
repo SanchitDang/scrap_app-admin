@@ -72,7 +72,36 @@ const SideBar = () => {
        "transaction-details",
        "task",
     ],
-    user = ["users-list"],
+    user = [
+      "users-list",
+      "create-user",
+      "edit-user/:id"
+    ],
+    agent = [
+      "agents-list",
+      "create-agent",
+      "edit-agent/:id"
+    ],
+    servicerequest = [
+      "servicerequests-list",
+      "create-servicerequest",
+      "edit-servicerequest/:id"
+    ],
+    inventorymanager = [
+      "inventorymanagers-list",
+      "create-inventorymanager",
+      "edit-inventorymanager/:id"
+    ],
+    category = [
+      "categories-list",
+      "create-category",
+      "edit-category/:id"
+    ],
+    product = [
+      "products-list",
+      "create-product",
+      "edit-product/:id"
+    ],
     app = [
       "app-profile",
       "post-details",
@@ -224,32 +253,32 @@ const SideBar = () => {
               <span className="nav-text">Users</span>
             </Link>
           </li>
-          <li className={`${widget.includes(path) ? "mm-active" : ""}`}>
-            <Link to="widget-basic" className="ai-icon" >
+          <li className={`${agent.includes(path) ? "mm-active" : ""}`}>
+            <Link to="/agents-list" className="ai-icon" >
               <i className="fas fa-user-check"></i>
               <span className="nav-text">Agents</span>
             </Link>
           </li>
-          <li className={`${widget.includes(path) ? "mm-active" : ""}`}>
-            <Link to="widget-basic" className="ai-icon" >
+          <li className={`${inventorymanager.includes(path) ? "mm-active" : ""}`}>
+            <Link to="/inventorymanagers-list" className="ai-icon" >
               <i className="fas fa-user-check"></i>
               <span className="nav-text">Inventory Managers</span>
             </Link>
           </li>
-          <li className={`${widget.includes(path) ? "mm-active" : ""}`}>
-            <Link to="widget-basic" className="ai-icon" >
+          <li className={`${servicerequest.includes(path) ? "mm-active" : ""}`}>
+            <Link to="/servicerequests-list" className="ai-icon" >
               <i className="fas fa-user-check"></i>
               <span className="nav-text">Service Requests</span>
             </Link>
           </li>
-          <li className={`${widget.includes(path) ? "mm-active" : ""}`}>
-            <Link to="widget-basic" className="ai-icon" >
+          <li className={`${category.includes(path) ? "mm-active" : ""}`}>
+            <Link to="/categories-list" className="ai-icon" >
               <i className="fas fa-user-check"></i>
               <span className="nav-text">Categories</span>
             </Link>
           </li>
-          <li className={`${widget.includes(path) ? "mm-active" : ""}`}>
-            <Link to="widget-basic" className="ai-icon" >
+          <li className={`${product.includes(path) ? "mm-active" : ""}`}>
+            <Link to="/products-list" className="ai-icon" >
               <i className="fas fa-user-check"></i>
               <span className="nav-text">Products</span>
             </Link>
