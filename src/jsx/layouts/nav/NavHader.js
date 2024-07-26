@@ -1,5 +1,4 @@
 import React, { Fragment, useContext, useState } from "react";
-/// React router dom
 import { Link } from "react-router-dom";
 import { ThemeContext } from "../../../context/ThemeContext";
 
@@ -21,8 +20,8 @@ const NavHader = () => {
 					</defs>
 				</svg>
 				<div className="brand-title">
-					<h2 className="">inv<span>ome</span></h2>
-					<span className="brand-sub-title">Invoicing Admin</span>					
+					<h2 className="">Scrap<span>App</span></h2>
+					{/* <span className="brand-sub-title">Scraping Admin</span>					 */}
 				</div>
 			</Fragment>
         ) : (
@@ -34,8 +33,8 @@ const NavHader = () => {
 					</defs>
 				</svg>
 				<div className="brand-title">
-					<h2 className="">inv<span>ome</span></h2>
-					<span className="brand-sub-title">Invoicing Admin</span>					
+					<h2 className="">Scrap<span>App</span></h2>
+					{/* <span className="brand-sub-title">Scraping Admin</span>					 */}
 				</div>
 			</Fragment>
         )}
