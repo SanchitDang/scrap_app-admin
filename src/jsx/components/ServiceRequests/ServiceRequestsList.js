@@ -12,7 +12,7 @@ const DropdownBlog = ({ userId, onDelete }) => {
     const handleClose = () => setShowModal(false);
 
     const handleEdit = () => {
-        history.push(`/edit-servicerequests/${userId}`);
+        history.push(`/edit-servicerequest/${userId}`);
     };
 
     const handleDelete = () => {

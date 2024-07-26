@@ -1,53 +1,75 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import axios from 'axios';
+import Dropdown from 'react-bootstrap/Dropdown';
 
 const EditServiceRequest = () => {
     const { id } = useParams();
     const history = useHistory();
 
-    const [formData, setFormData] = useState({
-        fullName: '',
-        username: '',
-        phone: '',
-        email: '',
-        password: '',
-        date: '',
-    });
+    const [user_id, setUser_id] = useState('');
+    const [agent_id, setAgent_id] = useState('');
+    const [category, setCategory] = useState('');
+    const [product, setProduct] = useState('');
+    const [pick_address_lat, setPick_address_lat] = useState('');
+    const [pick_address_lng, setPick_address_lng] = useState('');
+    const [description, setDescription] = useState('');
+    const [users, setUsers] = useState([]);
+    const [agents, setAgents] = useState([]);
+    const [categories, setCategories] = useState([]);
+    const [products, setProducts] = useState([]);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        const fetchUserData = async () => {
+        const fetchData = async () => {
             try {
-                const response = await axios.get(`http://127.0.0.1:5173/api/serviceRequests/${id}`);
-                setFormData({
-                    username: response.data.username || '',
-                    email: response.data.email || '',
-                    password: '',
-                });
+                const usersResponse = await axios.get('http://127.0.0.1:5173/api/users');
+                const agentsResponse = await axios.get('http://127.0.0.1:5173/api/agents');
+                const categoriesResponse = await axios.get('http://127.0.0.1:5173/api/categories');
+                const productsResponse = await axios.get('http://127.0.0.1:5173/api/products');
+                const serviceRequestResponse = await axios.get(`http://127.0.0.1:5173/api/serviceRequests/${id}`);
+                
+                setUsers(usersResponse.data);
+                setAgents(agentsResponse.data);
+                setCategories(categoriesResponse.data);
+                setProducts(productsResponse.data);
+
+                const { user_id, agent_id, category, product, pick_address_lat, pick_address_lng, description } = serviceRequestResponse.data;
+                setUser_id(user_id);
+                setAgent_id(agent_id);
+                setCategory(category);
+                setProduct(product);
+                setPick_address_lat(pick_address_lat);
+                setPick_address_lng(pick_address_lng);
+                setDescription(description);
                 setLoading(false);
             } catch (error) {
-                console.error('Error fetching user data:', error);
+                console.error('Error fetching data:', error);
                 setLoading(false);
             }
         };
-        fetchUserData();
+
+        fetchData();
     }, [id]);
 
-    const handleChange = (e) => {
-        setFormData({
-            ...formData,
-            [e.target.name]: e.target.value,
-        });
-    };
+    const handleSubmit = async (event) => {
+        event.preventDefault();
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
+        const requestData = {
+            user_id,
+            agent_id,
+            category,
+            product,
+            pick_address_lat,
+            pick_address_lng,
+            description
+        };
+
         try {
-            await axios.put(`http://127.0.0.1:5173/api/serviceRequests/${id}`, formData);
+            await axios.put(`http://127.0.0.1:5173/api/serviceRequests/${id}`, requestData);
             history.push('/servicerequests-list');
         } catch (error) {
-            console.error('Error updating user:', error);
+            console.error('Error updating service request:', error);
         }
     };
 
@@ -58,57 +80,137 @@ const EditServiceRequest = () => {
             <div className="col-xl-12">
                 <div className="card">
                     <div className="card-body">
-                        <h4 className="fs-24 font-w800">GENERAL</h4>
+                        <h4 className="fs-24 font-w800">Edit Service Request</h4>
                         <form onSubmit={handleSubmit}>
                             <div className="row mb-4">
                                 <div className="col-xl-4">
-                                    <div className="form-group mb-3">
-                                        <label>Username</label>
-                                        <input
-                                            type="text"
-                                            className="form-control"
-                                            name="username"
-                                            value={formData.username}
-                                            onChange={handleChange}
-                                            placeholder="Enter Username"
-                                        />
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="row mb-4">
-                                <div className="col-xl-4">
-                                    <div className="form-group mb-3">
-                                        <label>Email</label>
-                                        <input
-                                            type="email"
-                                            className="form-control"
-                                            name="email"
-                                            value={formData.email}
-                                            onChange={handleChange}
-                                            placeholder="Enter Email"
-                                        />
+                                    <div className="form-group mb-3 invoice">
+                                        <label>User</label>
+                                        <Dropdown>
+                                            <Dropdown.Toggle variant="primary" className="form-control">
+                                                {user_id ? users.find(user => user._id === user_id)?.name : 'Select User'}
+                                            </Dropdown.Toggle>
+                                            <Dropdown.Menu>
+                                                {users.map(user => (
+                                                    <Dropdown.Item 
+                                                        key={user._id} 
+                                                        onClick={() => setUser_id(user._id)}
+                                                    >
+                                                        {user.name}
+                                                    </Dropdown.Item>
+                                                ))}
+                                            </Dropdown.Menu>
+                                        </Dropdown>
                                     </div>
                                 </div>
                                 <div className="col-xl-4">
-                                    <div className="form-group mb-3">
-                                        <label>Password</label>
+                                    <div className="form-group mb-3 invoice">
+                                        <label>Agent</label>
+                                        <Dropdown>
+                                            <Dropdown.Toggle variant="primary" className="form-control">
+                                                {agent_id ? agents.find(agent => agent._id === agent_id)?.name : 'Select Agent'}
+                                            </Dropdown.Toggle>
+                                            <Dropdown.Menu>
+                                                {agents.map(agent => (
+                                                    <Dropdown.Item 
+                                                        key={agent._id} 
+                                                        onClick={() => setAgent_id(agent._id)}
+                                                    >
+                                                        {agent.name}
+                                                    </Dropdown.Item>
+                                                ))}
+                                            </Dropdown.Menu>
+                                        </Dropdown>
+                                    </div>
+                                </div>
+                                <div className="col-xl-4">
+                                    <div className="form-group mb-3 invoice">
+                                        <label>Category</label>
+                                        <Dropdown>
+                                            <Dropdown.Toggle variant="primary" className="form-control">
+                                                {category || 'Select Category'}
+                                            </Dropdown.Toggle>
+                                            <Dropdown.Menu>
+                                                {categories.map(cat => (
+                                                    <Dropdown.Item 
+                                                        key={cat._id} 
+                                                        onClick={() => setCategory(cat.name)}
+                                                    >
+                                                        {cat.name}
+                                                    </Dropdown.Item>
+                                                ))}
+                                            </Dropdown.Menu>
+                                        </Dropdown>
+                                    </div>
+                                </div>
+                                <div className="col-xl-4">
+                                    <div className="form-group mb-3 invoice">
+                                        <label>Product</label>
+                                        <Dropdown>
+                                            <Dropdown.Toggle variant="primary" className="form-control">
+                                                {product || 'Select Product'}
+                                            </Dropdown.Toggle>
+                                            <Dropdown.Menu>
+                                                {products.map(prod => (
+                                                    <Dropdown.Item 
+                                                        key={prod._id} 
+                                                        onClick={() => setProduct(prod.name)}
+                                                    >
+                                                        {prod.name}
+                                                    </Dropdown.Item>
+                                                ))}
+                                            </Dropdown.Menu>
+                                        </Dropdown>
+                                    </div>
+                                </div>
+                                <div className="col-xl-4">
+                                    <div className="form-group mb-3 invoice">
+                                        <label>Pickup Address Latitude</label>
                                         <input
-                                            type="password"
+                                            type="number"
                                             className="form-control"
-                                            name="password"
-                                            value={formData.password}
-                                            onChange={handleChange}
-                                            placeholder="Enter Password"
+                                            placeholder="Enter Pickup Address Latitude"
+                                            value={pick_address_lat}
+                                            onChange={(e) => setPick_address_lat(e.target.value)}
+                                            required
+                                        />
+                                    </div>
+                                </div>
+                                <div className="col-xl-4">
+                                    <div className="form-group mb-3 invoice">
+                                        <label>Pickup Address Longitude</label>
+                                        <input
+                                            type="number"
+                                            className="form-control"
+                                            placeholder="Enter Pickup Address Longitude"
+                                            value={pick_address_lng}
+                                            onChange={(e) => setPick_address_lng(e.target.value)}
+                                            required
+                                        />
+                                    </div>
+                                </div>
+                                <div className="col-xl-12">
+                                    <div className="form-group mb-3 invoice">
+                                        <label>Description</label>
+                                        <textarea
+                                            rows={6}
+                                            className="form-control bg-transparent"
+                                            placeholder="Enter the description...."
+                                            value={description}
+                                            onChange={(e) => setDescription(e.target.value)}
+                                            required
                                         />
                                     </div>
                                 </div>
                             </div>
                             <div className="text-end mt-4">
-                                <button type="submit" className="btn btn-primary btn-lg me-1 me-sm-3">Save Service Request</button>
+                                <button type="submit" className="btn btn-primary btn-lg me-1 me-sm-3">
+                                    Save Service Request
+                                </button>
                                 <button
                                     type="button"
                                     className="btn btn-primary light btn-lg"
-                                    onClick={() => history.push('/serviceRequests-list')}
+                                    onClick={() => history.push('/servicerequests-list')}
                                 >
                                     Cancel
                                 </button>
