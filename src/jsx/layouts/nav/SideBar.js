@@ -1,8 +1,10 @@
 /// Menu
 import Metismenu from "metismenujs";
 import React, { Component, useContext, useEffect } from "react";
+
 /// Scroll
 import PerfectScrollbar from "react-perfect-scrollbar";
+
 /// Link
 import { Link } from "react-router-dom";
 import { Dropdown } from "react-bootstrap";
@@ -11,9 +13,7 @@ import { ThemeContext } from "../../../context/ThemeContext";
 import LogoutPage from './Logout';
 
 /// Image
-//import user from "../../../images/user.jpg";
 import profile from "../../../images/user.jpg";
-
 
 class MM extends Component {
 	componentDidMount() {
@@ -57,18 +57,20 @@ const SideBar = () => {
 	
   }, []);
   let scrollPosition = useScrollPosition();
+
   /// Path
   let path = window.location.pathname;
   path = path.split("/");
   path = path[path.length - 1];
+
   /// Active menu
   let deshBoard = [
       "",
       "dashboard-dark",
-	  "wallet",
-	  "invoices-list",
-	  "create-invoices",
-	  "card-center",
+      "wallet",
+      "invoices-list",
+      "create-invoices",
+      "card-center",
        "transaction-details",
        "task",
     ],
@@ -157,7 +159,6 @@ const SideBar = () => {
     ],
     plugins = [
       "uc-select2",
-      
       "uc-sweetalert",
       "uc-toastr",
       "uc-noui-slider",
@@ -165,9 +166,9 @@ const SideBar = () => {
       "uc-lightgallery",
     ],
 	redux = [
-       "redux-form",
-	   "redux-wizard",    
-       "todo",
+      "redux-form",
+	    "redux-wizard",    
+      "todo",
     ],
     widget = ["widget-basic"],
     forms = [
@@ -249,7 +250,7 @@ const SideBar = () => {
 
           <li className={`${user.includes(path) ? "mm-active" : ""}`}>
             <Link to="/users-list" className="ai-icon" >
-              <i className="fas fa-user-check"></i>
+              <i className="fas fa-user"></i>
               <span className="nav-text">Users</span>
             </Link>
           </li>
@@ -261,32 +262,30 @@ const SideBar = () => {
           </li>
           <li className={`${inventorymanager.includes(path) ? "mm-active" : ""}`}>
             <Link to="/inventorymanagers-list" className="ai-icon" >
-              <i className="fas fa-user-check"></i>
+              <i className="fas fa-user-md"></i>
               <span className="nav-text">Inventory Managers</span>
             </Link>
           </li>
           <li className={`${servicerequest.includes(path) ? "mm-active" : ""}`}>
             <Link to="/servicerequests-list" className="ai-icon" >
-              <i className="fas fa-user-check"></i>
+              <i className="fas fa-paper-plane"></i>
               <span className="nav-text">Service Requests</span>
             </Link>
           </li>
           <li className={`${category.includes(path) ? "mm-active" : ""}`}>
             <Link to="/categories-list" className="ai-icon" >
-              <i className="fas fa-user-check"></i>
+              <i className="fas fa-clone"></i>
               <span className="nav-text">Categories</span>
             </Link>
           </li>
           <li className={`${product.includes(path) ? "mm-active" : ""}`}>
             <Link to="/products-list" className="ai-icon" >
-              <i className="fas fa-user-check"></i>
+              <i className="fas fa-clone"></i>
               <span className="nav-text">Products</span>
             </Link>
           </li>
 
-
-
-		      <li className={`${deshBoard.includes(path) ? "mm-active" : ""}`}>
+		      {/* <li className={`${deshBoard.includes(path) ? "mm-active" : ""}`}>
             <Link className="has-arrow" to="#" >
               <i className="fas fa-home"></i>
               <span className="nav-text">Dashboard</span>
@@ -302,7 +301,6 @@ const SideBar = () => {
               <li><Link className={`${path === "task" ? "mm-active" : ""}`} to="/task">Task</Link></li>
             </ul>
           </li>
-			
           <li className={`${app.includes(path) ? "mm-active" : ""}`}>
             <Link className="has-arrow ai-icon" to="#" >
               <i className="fas fa-info-circle"></i>
@@ -460,7 +458,7 @@ const SideBar = () => {
                 </li>
                 <li><Link className={`${path === "page-lock-screen" ? "mm-active" : ""}`} to="/page-lock-screen">Lock Screen</Link></li>
               </ul>
-          </li>
+          </li> */}
         </MM>
 		<div className="copyright">
 			<p><strong>ScrapApp Admin Dashboard</strong> © 2024 All Rights Reserved</p>

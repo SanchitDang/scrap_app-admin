@@ -132,14 +132,14 @@ function Login (props) {
                                     </button>
                                   </div>
                                 </form>
-                                <div className="new-account mt-2">
+                                {/* <div className="new-account mt-2">
                                   <p className="">
                                     Don't have an account?{" "}
                                     <Link className="text-primary" to="./page-register">
                                       Sign up
                                     </Link>
                                   </p>
-                                </div>
+                                </div> */}
                               </div>
                             </div>
                           </div>

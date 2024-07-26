@@ -119,7 +119,7 @@ const AgentsList = () => {
                                             <div className="d-flex align-items-center">
                                                 <img src="path-to-default-avatar" alt="" className="rounded me-3" width="50" />
                                                 <div>
-                                                    <h6 className="fs-16 text-black font-w600 mb-0 text-nowrap">{user.username}</h6>
+                                                    <h6 className="fs-16 text-black font-w600 mb-0 text-nowrap">{user.name}</h6>
                                                 </div>
                                             </div>
                                         </td>

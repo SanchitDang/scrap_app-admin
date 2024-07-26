@@ -11,6 +11,7 @@ const EditInventoryManager = () => {
     const [formData, setFormData] = useState({
         name: '',
         email: '',
+        phone: '',
         password: '',
         role: '',
     });
@@ -25,6 +26,7 @@ const EditInventoryManager = () => {
                 setFormData({
                     name: response.data.name || '',
                     email: response.data.email || '',
+                    phone: response.data.phone || '',
                     password: '',
                     role: response.data.role || 'admin', // Set default role if not provided
                 });
@@ -84,8 +86,6 @@ const EditInventoryManager = () => {
                                         />
                                     </div>
                                 </div>
-                            </div>
-                            <div className="row mb-4">
                                 <div className="col-xl-4">
                                     <div className="form-group mb-3">
                                         <label>Email</label>
@@ -101,6 +101,21 @@ const EditInventoryManager = () => {
                                 </div>
                                 <div className="col-xl-4">
                                     <div className="form-group mb-3">
+                                        <label>Phone</label>
+                                        <input
+                                            type="phone"
+                                            className="form-control"
+                                            name="phone"
+                                            value={formData.phone}
+                                            onChange={handleChange}
+                                            placeholder="Enter Phone"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="row mb-4">
+                                <div className="col-xl-4">
+                                    <div className="form-group mb-3">
                                         <label>Password</label>
                                         <input
                                             type="password"
@@ -112,8 +127,6 @@ const EditInventoryManager = () => {
                                         />
                                     </div>
                                 </div>
-                            </div>
-                            <div className="row mb-4">
                                 <div className="col-xl-4">
                                     <div className="form-group mb-3 invoice">
                                         <label>Role</label>

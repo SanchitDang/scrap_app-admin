@@ -4,7 +4,7 @@ import axios from 'axios';
 import DropzoneBlog from '../Dashboard/Invoices/DropzoneBlog';
 
 const CreateUser = () => {
-    const [fullName, setFullName] = useState('');
+    const [name, setName] = useState('');
     const [phone, setPhone] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -14,7 +14,7 @@ const CreateUser = () => {
         event.preventDefault();
 
         const userData = {
-            fullName,
+            name,
             phone,
             email,
             password,
@@ -44,8 +44,8 @@ const CreateUser = () => {
                                                 type="text"
                                                 className="form-control"
                                                 placeholder="Enter Full Name"
-                                                value={fullName}
-                                                onChange={(e) => setFullName(e.target.value)}
+                                                value={name}
+                                                onChange={(e) => setName(e.target.value)}
                                                 required
                                             />
                                         </div>

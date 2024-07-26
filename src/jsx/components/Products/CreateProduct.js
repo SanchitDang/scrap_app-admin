@@ -68,21 +68,6 @@ const CreateProduct = () => {
                                 <div className="row mb-4">
                                     <div className="col-xl-4">
                                         <div className="form-group mb-3 invoice">
-                                            <label>Description</label>
-                                            <input
-                                                type="text"
-                                                className="form-control"
-                                                placeholder="Enter Description"
-                                                value={description}
-                                                onChange={(e) => setDescription(e.target.value)}
-                                                required
-                                            />
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="row mb-4">
-                                    <div className="col-xl-4">
-                                        <div className="form-group mb-3 invoice">
                                             <label>Category</label>
                                             <div className="basic-dropdown">
                                                 <Dropdown>
@@ -104,12 +89,23 @@ const CreateProduct = () => {
                                         </div>
                                     </div>
                                 </div>
-                                <h4 className="fs-24 font-w800">Profile Picture</h4>
+                                <div className="row mb-4">
+                                    <div className="col-xl-4">
+                                        <div className="form-group mb-3 invoice">
+                                            <label>Description</label>
+                                            <input
+                                                type="text"
+                                                className="form-control"
+                                                placeholder="Enter Description"
+                                                value={description}
+                                                onChange={(e) => setDescription(e.target.value)}
+                                                required
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
                                 <div className="row mt-4">
                                     <div className="col-xl-6">
-                                        <div className="dropzone dropzone-multi dz-dropzone-box d-flex" id="kt_dropzone_5">
-                                            <DropzoneBlog />
-                                        </div>
                                     </div>
                                     <div className="col-xl-6">
                                         <div className="text-end mt-4">

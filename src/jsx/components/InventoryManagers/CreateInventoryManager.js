@@ -8,6 +8,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
   const CreateInventoryManager = () => {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
+    const [phone, setPhone] = useState('');
     const [password, setPassword] = useState('');
     const [role, setRole] = useState('');
     const history = useHistory();
@@ -20,6 +21,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
         const userData = {
             name,
             email,
+            phone,
             password,
             role
         };
@@ -63,6 +65,19 @@ import 'bootstrap/dist/css/bootstrap.min.css';
                                                 placeholder="Enter Email"
                                                 value={email}
                                                 onChange={(e) => setEmail(e.target.value)}
+                                                required
+                                            />
+                                        </div>
+                                    </div>
+                                    <div className="col-xl-4">
+                                        <div className="form-group mb-3 invoice">
+                                            <label>Phone</label>
+                                            <input
+                                                type="phone"
+                                                className="form-control"
+                                                placeholder="Enter Phone"
+                                                value={phone}
+                                                onChange={(e) => setPhone(e.target.value)}
                                                 required
                                             />
                                         </div>

@@ -105,29 +105,26 @@ const ServiceRequestsList = () => {
                         <table className='table display mb-4 dataTablesCard dataTable no-footer' id='example5'>
                             <thead>
                                 <tr role='row'>
-                                    <th className="sorting_asc">Name</th>
-                                    <th className="sorting_asc">Email</th>
-                                    <th className="sorting_asc">Username</th>
-                                    <th className="sorting_asc">Date Created</th>
+                                    <th className="sorting_asc">Category</th>
+                                    <th className="sorting_asc">Product</th>
                                     <th className="sorting_asc">Approval Status</th>
+                                    <th className="sorting_asc">Date Created</th>
                                     <th className="sorting_asc"></th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {currentData.map(user => (
                                     <tr key={user._id} role='row'>
+                                        <td><span className="text-black">{user.category}</span></td>
+                                        <td><span className="text-black">{user.product}</span></td>
                                         <td>
-                                            <div className="d-flex align-items-center">
-                                                <img src="path-to-default-avatar" alt="" className="rounded me-3" width="50" />
-                                                <div>
-                                                    <h6 className="fs-16 text-black font-w600 mb-0 text-nowrap">{user.username}</h6>
-                                                </div>
-                                            </div>
+                                            {user.status === 'completed' ? (
+                                                <Link to="#" className="btn btn-success light">Completed</Link>
+                                            ) : (
+                                                <Link to="#" className="btn btn-danger light">Pending</Link>
+                                            )}
                                         </td>
-                                        <td><span className="text-black">{user.email}</span></td>
-                                        <td><span className="text-black">{user.username}</span></td>
                                         <td><span className="text-black text-nowrap">{new Date(user.createdAt).toLocaleDateString()}</span></td>
-                                        <td><Link to="#" className="btn btn-success light">Completed</Link></td>
                                         <td><DropdownBlog userId={user._id} onDelete={handleDelete} /></td>
                                     </tr>
                                 ))}

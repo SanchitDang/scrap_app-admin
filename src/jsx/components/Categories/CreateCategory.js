@@ -62,12 +62,8 @@ const CreateCategory = () => {
                                         </div>
                                     </div>
                                 </div>
-                                <h4 className="fs-24 font-w800">Profile Picture</h4>
                                 <div className="row mt-4 ">
                                     <div className="col-xl-6">
-                                        <div className="dropzone dropzone-multi dz-dropzone-box d-flex" id="kt_dropzone_5">
-                                            <DropzoneBlog />
-                                        </div>
                                     </div>
                                     <div className="col-xl-6">
                                         <div className="text-end mt-4">
