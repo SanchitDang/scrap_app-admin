@@ -34,7 +34,7 @@ function Login (props) {
 			return ;
 		}
 		dispatch(loadingToggleAction(true));	
-        dispatch(loginAction(email, password, props.history));
+    dispatch(loginAction(email, password, props.history));
     }
 
   return (

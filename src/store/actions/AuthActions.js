@@ -46,13 +46,14 @@ export function loginAction(email, password, history) {
     return (dispatch) => {
         login(email, password)
             .then((response) => {
-                saveTokenInLocalStorage(response.data);
+                console.log(response.data);
+                saveTokenInLocalStorage(response.data.result);
                 runLogoutTimer(
                     dispatch,
-                    response.data.expiresIn * 1000,
+                    response.data.result.expiresIn * 1000,
                     history,
                 );
-                dispatch(loginConfirmedAction(response.data));
+                dispatch(loginConfirmedAction(response.data.result));
 				history.push('/dashboard');                
             })
             .catch((error) => {

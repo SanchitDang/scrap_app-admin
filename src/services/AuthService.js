@@ -25,7 +25,7 @@ export function login(email, password) {
         returnSecureToken: true,
     };
     return axios.post(
-        `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyD3RPAp3nuETDn9OQimqn_YF6zdzqWITII`,
+        `http://localhost:5173/api/admins/login`,
         postData,
     );
 }

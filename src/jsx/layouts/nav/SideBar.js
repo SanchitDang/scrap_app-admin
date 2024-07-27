@@ -8,20 +8,19 @@ import PerfectScrollbar from "react-perfect-scrollbar";
 /// Link
 import { Link } from "react-router-dom";
 import { Dropdown } from "react-bootstrap";
-import {useScrollPosition} from "@n8tb1t/use-scroll-position";
+import { useScrollPosition } from "@n8tb1t/use-scroll-position";
 import { ThemeContext } from "../../../context/ThemeContext";
-import LogoutPage from './Logout';
+import LogoutPage from "./Logout";
 
 /// Image
 import profile from "../../../images/user.jpg";
 
 class MM extends Component {
-	componentDidMount() {
-		this.$el = this.el;
-		this.mm = new Metismenu(this.$el);
-	}
-  componentWillUnmount() {
+  componentDidMount() {
+    this.$el = this.el;
+    this.mm = new Metismenu(this.$el);
   }
+  componentWillUnmount() {}
   render() {
     return (
       <div className="mm-wrapper">
@@ -34,12 +33,8 @@ class MM extends Component {
 }
 
 const SideBar = () => {
-	const {
-		iconHover,
-		sidebarposition,
-		headerposition,
-		sidebarLayout,
-	} = useContext(ThemeContext);
+  const { iconHover, sidebarposition, headerposition, sidebarLayout } =
+    useContext(ThemeContext);
   useEffect(() => {
     var btn = document.querySelector(".nav-control");
     var aaa = document.querySelector("#main-wrapper");
@@ -47,16 +42,17 @@ const SideBar = () => {
       return aaa.classList.toggle("menu-toggle");
     }
     btn.addEventListener("click", toggleFunc);
-	
-	//sidebar icon Heart blast
-	var handleheartBlast = document.querySelector('.heart');
-        function heartBlast() {
-            return handleheartBlast.classList.toggle("heart-blast");
-        }
-        handleheartBlast.addEventListener('click', heartBlast);
-	
+
+    //sidebar icon Heart blast
+    var handleheartBlast = document.querySelector(".heart");
+    function heartBlast() {
+      return handleheartBlast.classList.toggle("heart-blast");
+    }
+    handleheartBlast.addEventListener("click", heartBlast);
   }, []);
   let scrollPosition = useScrollPosition();
+
+  const userData = JSON.parse(localStorage.getItem("userDetails"));
 
   /// Path
   let path = window.location.pathname;
@@ -71,39 +67,23 @@ const SideBar = () => {
       "invoices-list",
       "create-invoices",
       "card-center",
-       "transaction-details",
-       "task",
+      "transaction-details",
+      "task",
     ],
-    user = [
-      "users-list",
-      "create-user",
-      "edit-user/:id"
-    ],
-    agent = [
-      "agents-list",
-      "create-agent",
-      "edit-agent/:id"
-    ],
+    user = ["users-list", "create-user", "edit-user/:id"],
+    agent = ["agents-list", "create-agent", "edit-agent/:id"],
     servicerequest = [
       "servicerequests-list",
       "create-servicerequest",
-      "edit-servicerequest/:id"
+      "edit-servicerequest/:id",
     ],
     inventorymanager = [
       "inventorymanagers-list",
       "create-inventorymanager",
-      "edit-inventorymanager/:id"
+      "edit-inventorymanager/:id",
     ],
-    category = [
-      "categories-list",
-      "create-category",
-      "edit-category/:id"
-    ],
-    product = [
-      "products-list",
-      "create-product",
-      "edit-product/:id"
-    ],
+    category = ["categories-list", "create-category", "edit-category/:id"],
+    product = ["products-list", "create-product", "edit-product/:id"],
     app = [
       "app-profile",
       "post-details",
@@ -165,11 +145,7 @@ const SideBar = () => {
       "map-jqvmap",
       "uc-lightgallery",
     ],
-	redux = [
-      "redux-form",
-	    "redux-wizard",    
-      "todo",
-    ],
+    redux = ["redux-form", "redux-wizard", "todo"],
     widget = ["widget-basic"],
     forms = [
       "form-element",
@@ -209,83 +185,125 @@ const SideBar = () => {
       }`}
     >
       <PerfectScrollbar className="dlabnav-scroll">
-		  	<Dropdown className="dropdown header-profile2">
-			  <Dropdown.Toggle variant="" as="a" className="nav-link i-false c-pointer">
-				<div className="header-info2 d-flex align-items-center border">
-				  <img src={profile} width={20} alt="" />
-				  <div className="d-flex align-items-center sidebar-info">
-					<div>
-					  <span className="font-w700 d-block mb-2">Demo</span>
-					  <small className="text-end font-w400">Super Admin</small>
-					</div>
-					<i className="fas fa-sort-down ms-4"></i>
-				  </div>
-				</div>
-			  </Dropdown.Toggle>
-				  <Dropdown.Menu align="right" className=" dropdown-menu dropdown-menu-end">
-					<Link to="/app-profile" className="dropdown-item ai-icon">
-					  <svg id="icon-user1" xmlns="http://www.w3.org/2000/svg" className="text-primary me-1"
-						width={18} height={18} viewBox="0 0 24 24" fill="none"
-						stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round"
-					  >
-						<path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
-						<circle cx={12} cy={7} r={4} />
-					  </svg>
-					  <span className="ms-2">Profile </span>
-					</Link>
-					<Link to="/email-inbox" className="dropdown-item ai-icon">
-					  <svg id="icon-inbox" xmlns="http://www.w3.org/2000/svg" className="text-success me-1" width={18}
-						height={18} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}
-						strokeLinecap="round" strokeLinejoin="round"
-					  >
-						<path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
-						<polyline points="22,6 12,13 2,6" />
-					  </svg>
-					  <span className="ms-2">Inbox</span>
-					</Link>
-					<LogoutPage />
-				  </Dropdown.Menu>
-			  </Dropdown> 
+        <Dropdown className="dropdown header-profile2">
+          <Dropdown.Toggle
+            variant=""
+            as="a"
+            className="nav-link i-false c-pointer"
+          >
+            <div className="header-info2 d-flex align-items-center border">
+              <img src={profile} width={20} alt="" />
+              <div className="d-flex align-items-center sidebar-info">
+                <div>
+                  <span className="font-w700 d-block mb-2">
+                    {userData.user?.name || "Demo"}
+                  </span>
+                  <small className="text-end font-w400">
+                    {userData.user?.role}
+                  </small>
+                </div>
+                <i className="fas fa-sort-down ms-4"></i>
+              </div>
+            </div>
+          </Dropdown.Toggle>
+          <Dropdown.Menu
+            align="right"
+            className=" dropdown-menu dropdown-menu-end"
+          >
+            <Link to="/app-profile" className="dropdown-item ai-icon">
+              <svg
+                id="icon-user1"
+                xmlns="http://www.w3.org/2000/svg"
+                className="text-primary me-1"
+                width={18}
+                height={18}
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth={2}
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                <circle cx={12} cy={7} r={4} />
+              </svg>
+              <span className="ms-2">Profile </span>
+            </Link>
+            <Link to="/email-inbox" className="dropdown-item ai-icon">
+              <svg
+                id="icon-inbox"
+                xmlns="http://www.w3.org/2000/svg"
+                className="text-success me-1"
+                width={18}
+                height={18}
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth={2}
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+                <polyline points="22,6 12,13 2,6" />
+              </svg>
+              <span className="ms-2">Inbox</span>
+            </Link>
+            <LogoutPage />
+          </Dropdown.Menu>
+        </Dropdown>
         <MM className="metismenu" id="menu">
-
-          <li className={`${user.includes(path) ? "mm-active" : ""}`}>
-            <Link to="/users-list" className="ai-icon" >
-              <i className="fas fa-user"></i>
-              <span className="nav-text">Users</span>
-            </Link>
-          </li>
-          <li className={`${agent.includes(path) ? "mm-active" : ""}`}>
-            <Link to="/agents-list" className="ai-icon" >
-              <i className="fas fa-user-check"></i>
-              <span className="nav-text">Agents</span>
-            </Link>
-          </li>
-          <li className={`${inventorymanager.includes(path) ? "mm-active" : ""}`}>
-            <Link to="/inventorymanagers-list" className="ai-icon" >
-              <i className="fas fa-user-md"></i>
-              <span className="nav-text">Inventory Managers</span>
-            </Link>
-          </li>
+          {userData.user?.role === "admin" && (
+            <li className={`${user.includes(path) ? "mm-active" : ""}`}>
+              <Link to="/users-list" className="ai-icon">
+                <i className="fas fa-user"></i>
+                <span className="nav-text">Users</span>
+              </Link>
+            </li>
+          )}
+          {userData.user?.role === "admin" && (
+            <li className={`${agent.includes(path) ? "mm-active" : ""}`}>
+              <Link to="/agents-list" className="ai-icon">
+                <i className="fas fa-user-check"></i>
+                <span className="nav-text">Agents</span>
+              </Link>
+            </li>
+          )}
+          {userData.user?.role === "admin" && (
+            <li
+              className={`${
+                inventorymanager.includes(path) ? "mm-active" : ""
+              }`}
+            >
+              <Link to="/inventorymanagers-list" className="ai-icon">
+                <i className="fas fa-user-md"></i>
+                <span className="nav-text">Inventory Managers</span>
+              </Link>
+            </li>
+          )}
           <li className={`${servicerequest.includes(path) ? "mm-active" : ""}`}>
-            <Link to="/servicerequests-list" className="ai-icon" >
+            <Link to="/servicerequests-list" className="ai-icon">
               <i className="fas fa-paper-plane"></i>
               <span className="nav-text">Service Requests</span>
             </Link>
           </li>
-          <li className={`${category.includes(path) ? "mm-active" : ""}`}>
-            <Link to="/categories-list" className="ai-icon" >
-              <i className="fas fa-clone"></i>
-              <span className="nav-text">Categories</span>
-            </Link>
-          </li>
-          <li className={`${product.includes(path) ? "mm-active" : ""}`}>
-            <Link to="/products-list" className="ai-icon" >
-              <i className="fas fa-clone"></i>
-              <span className="nav-text">Products</span>
-            </Link>
-          </li>
+          {userData.user?.role === "admin" && (
+            <li className={`${category.includes(path) ? "mm-active" : ""}`}>
+              <Link to="/categories-list" className="ai-icon">
+                <i className="fas fa-clone"></i>
+                <span className="nav-text">Categories</span>
+              </Link>
+            </li>
+          )}
+          {userData.user?.role === "admin" && (
+            <li className={`${product.includes(path) ? "mm-active" : ""}`}>
+              <Link to="/products-list" className="ai-icon">
+                <i className="fas fa-clone"></i>
+                <span className="nav-text">Products</span>
+              </Link>
+            </li>
+          )}
 
-		      {/* <li className={`${deshBoard.includes(path) ? "mm-active" : ""}`}>
+          {/* <li className={`${deshBoard.includes(path) ? "mm-active" : ""}`}>
             <Link className="has-arrow" to="#" >
               <i className="fas fa-home"></i>
               <span className="nav-text">Dashboard</span>
@@ -460,10 +478,14 @@ const SideBar = () => {
               </ul>
           </li> */}
         </MM>
-		<div className="copyright">
-			<p><strong>ScrapApp Admin Dashboard</strong> © 2024 All Rights Reserved</p>
-			<p className="fs-12">Made with <span className="heart"></span> by Dem & Mux</p>
-		</div>
+        <div className="copyright">
+          <p>
+            <strong>ScrapApp Admin Dashboard</strong> © 2024 All Rights Reserved
+          </p>
+          <p className="fs-12">
+            Made with <span className="heart"></span> by Dem & Mux
+          </p>
+        </div>
       </PerfectScrollbar>
     </div>
   );
