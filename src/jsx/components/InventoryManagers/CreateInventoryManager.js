@@ -13,7 +13,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
     const [role, setRole] = useState('');
     const history = useHistory();
 
-    const roles = ['admin', 'inventory-manager'];
+    // todo: add 'admin' for making admin accounts
+    const roles = ['inventory-manager'];
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -120,7 +121,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
                                         </div>
                                     </div>									
                                 </div>
-                                <h4 className="fs-24 font-w800">Profile Picture</h4>
+                                <h4 className="fs-24 font-w800">Profile Picture (optional)</h4>
                                 <div className="row mt-4 ">
                                     <div className="col-xl-6">
                                         <div className="dropzone dropzone-multi dz-dropzone-box d-flex" id="kt_dropzone_5">

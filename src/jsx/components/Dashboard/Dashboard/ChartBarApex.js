@@ -7,9 +7,8 @@ class ChartBarApex extends React.Component {
 		this.state = {
 			series: [
 				{
-					name: 'Running',
-					data: [50, 18, 70, 40, 90, 70, 20],
-					//radius: 12,	
+				  name: 'Running',
+				  data: [50, 18, 70, 40, 90, 70, 20],
 				}, 
 				{
 				  name: 'Cycling',
@@ -38,7 +37,6 @@ class ChartBarApex extends React.Component {
 					}
 				},
 				colors:['#D2D2D2', '#EBEBEB'],
-				//colors:['var(--primary)'],
 				dataLabels: {
 					enabled: false,
 				},

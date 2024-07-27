@@ -229,7 +229,7 @@ const SideBar = () => {
               </svg>
               <span className="ms-2">Profile </span>
             </Link>
-            <Link to="/email-inbox" className="dropdown-item ai-icon">
+            {/* <Link to="/email-inbox" className="dropdown-item ai-icon">
               <svg
                 id="icon-inbox"
                 xmlns="http://www.w3.org/2000/svg"
@@ -247,7 +247,7 @@ const SideBar = () => {
                 <polyline points="22,6 12,13 2,6" />
               </svg>
               <span className="ms-2">Inbox</span>
-            </Link>
+            </Link> */}
             <LogoutPage />
           </Dropdown.Menu>
         </Dropdown>

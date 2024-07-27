@@ -10,10 +10,10 @@ import logoWhite from "../../images/logo-whiite-text.png";
 import loginbg from "../../images/bg-login.jpg";
 
 function Login (props) {
-  const [email, setEmail] = useState('demo@example.com');
+    const [email, setEmail] = useState('');
     let errorsObj = { email: '', password: '' };
     const [errors, setErrors] = useState(errorsObj);
-    const [password, setPassword] = useState('123456');
+    const [password, setPassword] = useState('');
 
     const dispatch = useDispatch();
 
@@ -56,7 +56,7 @@ function Login (props) {
                         <div className="mt-5 bottom-privacy">
                             <Link to={"#"} className="mr-4">Privacy Policy</Link>
                             <Link to={"#"} className="mr-4">Contact</Link>
-                            <Link to={"#"} className="">© 20222 DexignLab</Link>
+                            <Link to={"#"} className="">© 2024 Dem & Mux</Link>
                         </div>
                     </div>
                 </div>
