@@ -62,7 +62,9 @@ const InventoryManagersList = () => {
         const fetchData = async () => {
             try {
                 const response = await axios.get('http://127.0.0.1:5173/api/admins');
-                setData(response.data);
+                // todo: modification to show only inventory managers
+                const inventoryManagers = response.data.filter(user => user.role === 'inventory-manager');
+                setData(inventoryManagers);
                 setTotalPages(Math.ceil(response.data.length / itemsPerPage));
             } catch (error) {
                 console.error('Error fetching data:', error);

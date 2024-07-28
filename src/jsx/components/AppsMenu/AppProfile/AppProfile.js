@@ -41,7 +41,6 @@ const AppProfile = () => {
   });
 
   const handleChange = (e) => {
-    console.log(imageUrl);
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,

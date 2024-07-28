@@ -11,6 +11,7 @@ const EditServiceRequest = () => {
     const [agent_id, setAgent_id] = useState('');
     const [category, setCategory] = useState('');
     const [product, setProduct] = useState('');
+    const [pick_address, setPick_address] = useState('');
     const [pick_address_lat, setPick_address_lat] = useState('');
     const [pick_address_lng, setPick_address_lng] = useState('');
     const [description, setDescription] = useState('');
@@ -34,11 +35,12 @@ const EditServiceRequest = () => {
                 setCategories(categoriesResponse.data);
                 setProducts(productsResponse.data);
 
-                const { user_id, agent_id, category, product, pick_address_lat, pick_address_lng, description } = serviceRequestResponse.data;
+                const { user_id, agent_id, category, product, pick_address, pick_address_lat, pick_address_lng, description } = serviceRequestResponse.data;
                 setUser_id(user_id);
                 setAgent_id(agent_id);
                 setCategory(category);
                 setProduct(product);
+                setPick_address(pick_address);
                 setPick_address_lat(pick_address_lat);
                 setPick_address_lng(pick_address_lng);
                 setDescription(description);
@@ -60,6 +62,7 @@ const EditServiceRequest = () => {
             agent_id,
             category,
             product,
+            pick_address,
             pick_address_lat,
             pick_address_lng,
             description
@@ -88,7 +91,7 @@ const EditServiceRequest = () => {
                                         <label>User</label>
                                         <Dropdown>
                                             <Dropdown.Toggle variant="primary" className="form-control">
-                                                {user_id ? users.find(user => user._id === user_id)?.name : 'Select User'}
+                                                {user_id._id ? users.find(user => user._id === user_id._id)?.name : 'Select User'}
                                             </Dropdown.Toggle>
                                             <Dropdown.Menu>
                                                 {users.map(user => (
@@ -108,7 +111,7 @@ const EditServiceRequest = () => {
                                         <label>Agent</label>
                                         <Dropdown>
                                             <Dropdown.Toggle variant="primary" className="form-control">
-                                                {agent_id ? agents.find(agent => agent._id === agent_id)?.name : 'Select Agent'}
+                                                {agent_id._id ? agents.find(agent => agent._id === agent_id._id)?.name : 'Select Agent'}
                                             </Dropdown.Toggle>
                                             <Dropdown.Menu>
                                                 {agents.map(agent => (
@@ -186,6 +189,18 @@ const EditServiceRequest = () => {
                                             value={pick_address_lng}
                                             onChange={(e) => setPick_address_lng(e.target.value)}
                                             required
+                                        />
+                                    </div>
+                                </div>
+                                <div className="col-xl-12">
+                                    <div className="form-group mb-3 invoice">
+                                        <label className="form-label">Address</label>
+                                        <input
+                                        type="text"
+                                        placeholder="Enter Address"
+                                        className="form-control"
+                                        value={pick_address}
+                                        onChange={(e) => setPick_address(e.target.value)}
                                         />
                                     </div>
                                 </div>

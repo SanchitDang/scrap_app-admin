@@ -69,9 +69,21 @@ const ServiceRequestsList = () => {
         fetchData();
     }, [itemsPerPage]);
 
-    const handleChangeStatus = async () => {
-        axios.put()
-    }
+    const handleChangeStatus = async (id) => {
+        try {
+            await axios.put(`http://127.0.0.1:5173/api/dashboard/changeServiceRequestStatus/${id}`);
+            const updatedData = data.map(user => {
+                if (user._id === id) {
+                    return { ...user, status: user.status === 'completed' ? 'pending' : 'completed' };
+                }
+                return user;
+            });
+            setData(updatedData);
+        } catch (error) {
+            console.error('Error updating status:', error);
+        }
+    };
+
     const handlePageChange = (pageNumber) => {
         setCurrentPage(pageNumber);
     };
@@ -108,6 +120,8 @@ const ServiceRequestsList = () => {
                         <table className='table display mb-4 dataTablesCard dataTable no-footer' id='example5'>
                             <thead>
                                 <tr role='row'>
+                                    <th className="sorting_asc">User</th>
+                                    <th className="sorting_asc">Agent</th>
                                     <th className="sorting_asc">Category</th>
                                     <th className="sorting_asc">Product</th>
                                     <th className="sorting_asc">Approval Status</th>
@@ -118,13 +132,15 @@ const ServiceRequestsList = () => {
                             <tbody>
                                 {currentData.map(user => (
                                     <tr key={user._id} role='row'>
+                                        <td><span className="text-black">{user.user_id.name}</span></td>
+                                        <td><span className="text-black">{user.agent_id.name}</span></td>
                                         <td><span className="text-black">{user.category}</span></td>
                                         <td><span className="text-black">{user.product}</span></td>
                                         <td>
                                             {user.status === 'completed' ? (
-                                                <Link to="#" className="btn btn-success light">Completed</Link>
+                                                <Link to="#" className="btn btn-success light" onClick={() => handleChangeStatus(user._id)}>Completed</Link>
                                             ) : (
-                                                <Link to="#" className="btn btn-danger light">Pending</Link>
+                                                <Link to="#" className="btn btn-danger light" onClick={() => handleChangeStatus(user._id)}>Pending</Link>
                                             )}
                                         </td>
                                         <td><span className="text-black text-nowrap">{new Date(user.createdAt).toLocaleDateString()}</span></td>

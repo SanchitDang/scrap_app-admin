@@ -57,7 +57,7 @@ export function loginAction(email, password, history) {
 				history.push('/dashboard');                
             })
             .catch((error) => {
-				//console.log(error);
+				console.log(error);
                 const errorMessage = formatError(error.response.data);
                 dispatch(loginFailedAction(errorMessage));
             });

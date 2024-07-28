@@ -8,6 +8,7 @@ const CreateServiceRequest = () => {
     const [agent_id, setAgent_id] = useState('');
     const [category, setCategory] = useState('');
     const [product, setProduct] = useState('');
+    const [pick_address, setPick_address] = useState('');
     const [pick_address_lat, setPick_address_lat] = useState('');
     const [pick_address_lng, setPick_address_lng] = useState('');
     const [description, setDescription] = useState('');
@@ -44,6 +45,7 @@ const CreateServiceRequest = () => {
             agent_id,
             category,
             product,
+            pick_address,
             pick_address_lat,
             pick_address_lng,
             description
@@ -172,6 +174,18 @@ const CreateServiceRequest = () => {
                                             />
                                         </div>
                                     </div>
+                                    <div className="col-xl-12">
+                                    <div className="form-group mb-3 invoice">
+                                        <label className="form-label">Address</label>
+                                        <input
+                                        type="text"
+                                        placeholder="Enter Address"
+                                        className="form-control"
+                                        value={pick_address}
+                                        onChange={(e) => setPick_address(e.target.value)}
+                                        />
+                                    </div>
+                                </div>
                                     <div className="col-xl-12">
                                         <div className="form-group mb-3 invoice">
                                             <label>Description</label>
