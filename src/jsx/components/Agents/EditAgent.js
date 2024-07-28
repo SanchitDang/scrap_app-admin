@@ -23,7 +23,7 @@ const EditAgent = () => {
                     name: response.data.name || '',
                     phone: response.data.phone || '',
                     email: response.data.email || '',
-                    password: '',
+                    password: response.data.password || '',
                 });
                 setLoading(false);
             } catch (error) {

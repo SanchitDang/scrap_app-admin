@@ -13,6 +13,12 @@ import 'bootstrap/dist/css/bootstrap.min.css';
     const [role, setRole] = useState('');
     const history = useHistory();
 
+    const [selectedFile, setSelectedFile] = useState(null);
+  
+    const handleFileChange = (e) => {
+        setSelectedFile(e.target.files[0]);
+    };
+
     // todo: add 'admin' for making admin accounts
     const roles = ['inventory-manager'];
 
@@ -28,7 +34,26 @@ import 'bootstrap/dist/css/bootstrap.min.css';
         };
 
         try {
-            await axios.post('http://127.0.0.1:5173/api/admins', userData);
+            const response = await axios.post('http://127.0.0.1:5173/api/admins', userData);
+
+            if (selectedFile) {
+                const formData = new FormData();
+                formData.append('user_type', 'user');
+                formData.append('user_id', response.data._id); 
+                formData.append('profilePic', selectedFile);
+                try {
+                const response = await axios.put('http://127.0.0.1:5173/api/dashboard/uploadProfilePic', formData, {
+                        headers: {
+                            'Content-Type': 'multipart/form-data'
+                        }
+                    });
+                    
+                } catch (error) {
+                    console.error('Error uploading profile picture', error);
+                    alert('Error uploading profile picture');
+                }
+            }
+
             history.push('/inventorymanagers-list');
         } catch (error) {
             console.error('Error creating user:', error);
@@ -123,15 +148,19 @@ import 'bootstrap/dist/css/bootstrap.min.css';
                                 </div>
                                 <h4 className="fs-24 font-w800">Profile Picture (optional)</h4>
                                 <div className="row mt-4 ">
-                                    <div className="col-xl-6">
-                                        <div className="dropzone dropzone-multi dz-dropzone-box d-flex" id="kt_dropzone_5">
-                                            <DropzoneBlog />
-                                        </div>
+                                    <div className="col-xl-4">
+                                        <input
+                                            type="file"
+                                            className="form-control"
+                                            id="profilePic"
+                                            accept=".jpeg, .jpg, .png"
+                                            onChange={handleFileChange}
+                                        />
                                     </div>
-                                    <div className="col-xl-6">
+                                    <div className="col-xl-8">
                                         <div className="text-end mt-4">
                                             <button type="submit" className="btn btn-primary btn-lg me-1 me-sm-3">
-                                                Save Agent
+                                                Save User
                                             </button>
                                             <Link to="#" className="btn btn-primary light btn-lg">
                                                 Cancel

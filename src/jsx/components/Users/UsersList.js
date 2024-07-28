@@ -4,6 +4,8 @@ import axios from 'axios';
 import { useHistory } from 'react-router-dom';
 import { Dropdown, Modal, Button } from 'react-bootstrap';
 
+import profile from "../../../images/avatar/1.png";
+
 const DropdownBlog = ({ userId, onDelete }) => {
     const [showModal, setShowModal] = useState(false);
     const history = useHistory();
@@ -117,7 +119,7 @@ const InvoicesList = () => {
                                     <tr key={user._id} role='row'>
                                         <td>
                                             <div className="d-flex align-items-center">
-                                                <img src="path-to-default-avatar" alt="" className="rounded me-3" width="50" />
+                                                <img src={user.image_url === "" ? (profile) : ("http://127.0.0.1:5173"+user.image_url)} alt="" className="rounded me-3" width="50" />
                                                 <div>
                                                     <h6 className="fs-16 text-black font-w600 mb-0 text-nowrap">{user.name}</h6>
                                                 </div>

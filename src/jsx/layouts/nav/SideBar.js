@@ -192,14 +192,14 @@ const SideBar = () => {
             className="nav-link i-false c-pointer"
           >
             <div className="header-info2 d-flex align-items-center border">
-              <img src={profile} width={20} alt="" />
+              <img src={userData.user.image_url === "" ? (profile) : ("http://127.0.0.1:5173"+userData.user.image_url)} width={20} alt="" />
               <div className="d-flex align-items-center sidebar-info">
                 <div>
                   <span className="font-w700 d-block mb-2">
                     {userData.user?.name || "Demo"}
                   </span>
                   <small className="text-end font-w400">
-                    {userData.user?.role}
+                    {userData.user?.role==="inventory-manager"?("Inventory Manager"):("Super Admin")}
                   </small>
                 </div>
                 <i className="fas fa-sort-down ms-4"></i>

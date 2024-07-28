@@ -225,7 +225,7 @@ const Home = () => {
                     <h4 className="fs-20 text-black mb-1 font-w700">
                       Service Requests Overview
                     </h4>
-                    <span className="fs-12">Summary of Service Requests</span>
+                    <span className="fs-12">Summary of previous week's Service Requests</span>
                   </div>
                 </div>
                 <div className="card-body">

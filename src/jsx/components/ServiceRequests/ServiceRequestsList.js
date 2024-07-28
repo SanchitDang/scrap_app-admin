@@ -69,6 +69,9 @@ const ServiceRequestsList = () => {
         fetchData();
     }, [itemsPerPage]);
 
+    const handleChangeStatus = async () => {
+        axios.put()
+    }
     const handlePageChange = (pageNumber) => {
         setCurrentPage(pageNumber);
     };

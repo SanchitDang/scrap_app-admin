@@ -3,12 +3,35 @@ import React, { Fragment, useEffect, useState } from "react";
 import { Tab, Nav } from "react-bootstrap";
 import PageTitle from "../../../layouts/PageTitle";
 
+import { Alert } from 'react-bootstrap';
 import bg5 from "../../../../images/big/img5.jpg";
-import profile from "../../../../images/profile/profile.png";
+import profile from "../../../../images/user.jpg";
+
+const emojis = {
+  welcome: (
+    <svg
+      viewBox='0 0 24 24'
+      width='24'
+      height='24'
+      stroke='currentColor'
+      strokeWidth='2'
+      fill='none'
+      strokeLinecap='round'
+      strokeLinejoin='round'
+      className='me-2'
+    >
+      <circle cx='12' cy='12' r='10'></circle>
+      <path d='M8 14s1.5 2 4 2 4-2 4-2'></path>
+      <line x1='9' y1='9' x2='9.01' y2='9'></line>
+      <line x1='15' y1='9' x2='15.01' y2='9'></line>
+    </svg>
+  ),
+}
 
 const AppProfile = () => {
   const userdata = JSON.parse(localStorage.getItem("userDetails"));
   const [id, setId] = useState(userdata.user._id);
+  const [imageUrl, setImageUrl] = useState("http://127.0.0.1:5173"+userdata.user.image_url);
   const [formData, setFormData] = useState({
     name: userdata.user.name || '',
     email: userdata.user.email || '',
@@ -18,6 +41,7 @@ const AppProfile = () => {
   });
 
   const handleChange = (e) => {
+    console.log(imageUrl);
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
@@ -49,6 +73,48 @@ const AppProfile = () => {
 			console.error('Error updating user:', error);
 		}
 	};
+
+  const [selectedFile, setSelectedFile] = useState(null);
+  const [showAlert, setShowAlert] = useState(false);
+
+  const handleFileChange = (e) => {
+      setSelectedFile(e.target.files[0]);
+  };
+
+  const handleProfileSubmit = async (e) => {
+    e.preventDefault();
+    if (!selectedFile) {
+      alert('Please select a file');
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append('user_type', 'admin');
+    formData.append('user_id', id); 
+    formData.append('profilePic', selectedFile);
+
+    try {
+      const response = await axios.put('http://127.0.0.1:5173/api/dashboard/uploadProfilePic', formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        });
+        
+         // Update localStorage with the new user details
+         const updatedUserDetails = {
+          ...userdata,
+          user: {
+              ...userdata.user,
+              profile_url: response.data.imageUrl,
+          }
+      };
+      localStorage.setItem("userDetails", JSON.stringify(updatedUserDetails));  
+      setShowAlert(true);   
+    } catch (error) {
+        console.error('Error uploading profile picture', error);
+        alert('Error uploading profile picture');
+    }
+  };
 
   return (
     <Fragment>
@@ -133,7 +199,7 @@ const AppProfile = () => {
                                   <input
                                     type="text"
                                     className="form-control"
-                                    value="Super Admin"
+                                    value={formData.role==="inventory-manager"?("Inventory Manager"):("Super Admin")}
                                     readOnly
                                   />
                                 </div>
@@ -163,7 +229,7 @@ const AppProfile = () => {
                       style={{ backgroundImage: `url(${bg5})` }}
                     >
                       <img
-                        src={profile}
+                        src={userdata.user.image_url === "" ? (profile) : (imageUrl)}
                         width="100"
                         className="img-fluid rounded-circle"
                         alt=""
@@ -181,15 +247,28 @@ const AppProfile = () => {
                         <div className="col-6">
                           <div className="bgl-primary rounded p-3">
                             <h4 className="mb-0">Role</h4>
-                            <small>Super Admin</small>
+                            <small>{formData.role==="inventory-manager"?("Inventory Manager"):("Super Admin")}</small>
                           </div>
                         </div>
                       </div>
                     </div>
                     <div className="card-footer mt-0">
-                      <button className="btn btn-primary btn-lg btn-block">
-                        Change Profile Picture
-                      </button>
+                        <div>
+                          <form onSubmit={handleProfileSubmit}>
+                              <div className="form-group">
+                                  <input
+                                      type="file"
+                                      className="form-control"
+                                      id="profilePic"
+                                      accept=".jpeg, .jpg, .png"
+                                      onChange={handleFileChange}
+                                  />
+                              </div>
+                              <button type="submit" className="btn btn-primary btn-lg btn-block">
+                                  Change Profile Picture
+                              </button>
+                          </form>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -198,6 +277,12 @@ const AppProfile = () => {
           </div>
         </div>
       </div>
+      {showAlert && (
+        <Alert variant="primary" dismissible onClose={() => setShowAlert(false)}>
+          {emojis.welcome}
+            <strong>Success! </strong> Profile Picture uploaded...
+        </Alert>
+      )}
     </Fragment>
   );
 };

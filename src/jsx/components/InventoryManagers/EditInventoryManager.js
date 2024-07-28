@@ -17,7 +17,8 @@ const EditInventoryManager = () => {
     });
     const [loading, setLoading] = useState(true);
 
-    const roles = ['admin', 'inventory-manager'];
+    // todo: add 'admin' if want admin role also
+    const roles = ['inventory-manager'];
 
     useEffect(() => {
         const fetchUserData = async () => {
@@ -27,7 +28,7 @@ const EditInventoryManager = () => {
                     name: response.data.name || '',
                     email: response.data.email || '',
                     phone: response.data.phone || '',
-                    password: '',
+                    password: response.data.password || '',
                     role: response.data.role || 'admin', // Set default role if not provided
                 });
                 setLoading(false);
