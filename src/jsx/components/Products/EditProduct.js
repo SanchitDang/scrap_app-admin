@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { apiUrl } from '../../../constants';
 import { useParams, useHistory } from 'react-router-dom';
 import axios from 'axios';
 import Dropdown from 'react-bootstrap/Dropdown';
@@ -19,7 +20,7 @@ const EditProduct = () => {
     useEffect(() => {
         const fetchProductData = async () => {
             try {
-                const response = await axios.get(`http://127.0.0.1:5173/api/products/${id}`);
+                const response = await axios.get(apiUrl+`products/${id}`);
                 setFormData({
                     name: response.data.name || '',
                     description: response.data.description || '',
@@ -34,7 +35,7 @@ const EditProduct = () => {
 
         const fetchCategories = async () => {
             try {
-                const response = await axios.get('http://127.0.0.1:5173/api/categories');
+                const response = await axios.get(apiUrl+'categories');
                 setCategories(response.data);
             } catch (error) {
                 console.error('Error fetching categories:', error);
@@ -55,7 +56,7 @@ const EditProduct = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            await axios.put(`http://127.0.0.1:5173/api/products/${id}`, formData);
+            await axios.put(apiUrl+`products/${id}`, formData);
             history.push('/products-list');
         } catch (error) {
             console.error('Error updating product:', error);

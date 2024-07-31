@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { apiUrl } from '../../../constants';
 import { useParams, useHistory } from 'react-router-dom';
 import axios from 'axios';
 
@@ -19,7 +20,7 @@ const EditUser = () => {
         // Fetch user data when component mounts
         const fetchUserData = async () => {
             try {
-                const response = await axios.get(`http://127.0.0.1:5173/api/users/${id}`);
+                const response = await axios.get(apiUrl+`users/${id}`);
                 setFormData({
                     name: response.data.name || '',
                     phone: response.data.phone || '',
@@ -45,7 +46,7 @@ const EditUser = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            await axios.put(`http://127.0.0.1:5173/api/users/${id}`, formData);
+            await axios.put(apiUrl+`users/${id}`, formData);
             history.push('/users-list');
         } catch (error) {
             console.error('Error updating user:', error);

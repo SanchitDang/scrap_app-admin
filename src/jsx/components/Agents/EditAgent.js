@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { apiUrl } from '../../../constants';
 import { useParams, useHistory } from 'react-router-dom';
 import axios from 'axios';
 
@@ -18,7 +19,7 @@ const EditAgent = () => {
     useEffect(() => {
         const fetchUserData = async () => {
             try {
-                const response = await axios.get(`http://127.0.0.1:5173/api/agents/${id}`);
+                const response = await axios.get(apiUrl+`agents/${id}`);
                 setFormData({
                     name: response.data.name || '',
                     phone: response.data.phone || '',
@@ -44,7 +45,7 @@ const EditAgent = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            await axios.put(`http://127.0.0.1:5173/api/agents/${id}`, formData);
+            await axios.put(apiUrl+`agents/${id}`, formData);
             history.push('/agents-list');
         } catch (error) {
             console.error('Error updating user:', error);

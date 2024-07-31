@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { apiUrl } from '../constants';
 import swal from "sweetalert";
 import {
     loginConfirmedAction,
@@ -25,7 +26,7 @@ export function login(email, password) {
         returnSecureToken: true,
     };
     return axios.post(
-        `http://localhost:5173/api/admins/login`,
+        apiUrl+`admins/login`,
         postData,
     );
 }

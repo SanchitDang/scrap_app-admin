@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { apiUrl } from '../../../constants';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
@@ -59,7 +60,7 @@ const ServiceRequestsList = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get('http://127.0.0.1:5173/api/serviceRequests');
+                const response = await axios.get(apiUrl+'serviceRequests');
                 setData(response.data);
                 setTotalPages(Math.ceil(response.data.length / itemsPerPage));
             } catch (error) {
@@ -71,7 +72,7 @@ const ServiceRequestsList = () => {
 
     const handleChangeStatus = async (id) => {
         try {
-            await axios.put(`http://127.0.0.1:5173/api/dashboard/changeServiceRequestStatus/${id}`);
+            await axios.put(apiUrl+`dashboard/changeServiceRequestStatus/${id}`);
             const updatedData = data.map(user => {
                 if (user._id === id) {
                     return { ...user, status: user.status === 'completed' ? 'pending' : 'completed' };
@@ -90,7 +91,7 @@ const ServiceRequestsList = () => {
 
     const handleDelete = async (userId) => {
         try {
-            await axios.delete(`http://127.0.0.1:5173/api/serviceRequests/${userId}`);
+            await axios.delete(apiUrl+`serviceRequests/${userId}`);
             setData(data.filter(user => user._id !== userId));
         } catch (error) {
             console.error('Error deleting user:', error);

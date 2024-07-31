@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { apiUrl } from '../../../constants';
 import { useParams, useHistory } from 'react-router-dom';
 import axios from 'axios';
 
@@ -15,7 +16,7 @@ const EditCategory = () => {
     useEffect(() => {
         const fetchUserData = async () => {
             try {
-                const response = await axios.get(`http://127.0.0.1:5173/api/categories/${id}`);
+                const response = await axios.get(apiUrl+`categories/${id}`);
                 setFormData({
                     name: response.data.name || '',
                     description: response.data.description || ''
@@ -39,7 +40,7 @@ const EditCategory = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            await axios.put(`http://127.0.0.1:5173/api/categories/${id}`, formData);
+            await axios.put(apiUrl+`categories/${id}`, formData);
             history.push('/categories-list');
         } catch (error) {
             console.error('Error updating user:', error);

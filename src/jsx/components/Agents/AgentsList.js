@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { apiUrl, baseUrl } from '../../../constants';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
@@ -61,7 +62,7 @@ const AgentsList = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get('http://127.0.0.1:5173/api/agents');
+                const response = await axios.get(apiUrl+'agents');
                 setData(response.data);
                 setTotalPages(Math.ceil(response.data.length / itemsPerPage));
             } catch (error) {
@@ -77,7 +78,7 @@ const AgentsList = () => {
 
     const handleDelete = async (userId) => {
         try {
-            await axios.delete(`http://127.0.0.1:5173/api/agents/${userId}`);
+            await axios.delete(apiUrl+`agents/${userId}`);
             setData(data.filter(user => user._id !== userId));
         } catch (error) {
             console.error('Error deleting user:', error);
@@ -119,7 +120,7 @@ const AgentsList = () => {
                                     <tr key={user._id} role='row'>
                                         <td>
                                             <div className="d-flex align-items-center">
-                                                <img src={user.image_url === "" ? (profile) : ("http://127.0.0.1:5173"+user.image_url)} alt="" className="rounded me-3" width="50" />
+                                                <img src={user.image_url === "" ? (profile) : (baseUrl+user.image_url)} alt="" className="rounded me-3" width="50" />
                                                 <div>
                                                     <h6 className="fs-16 text-black font-w600 mb-0 text-nowrap">{user.name}</h6>
                                                 </div>

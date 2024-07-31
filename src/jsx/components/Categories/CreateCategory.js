@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { apiUrl } from '../../../constants';
 import { Link, useHistory } from 'react-router-dom';
 import axios from 'axios';
 import DropzoneBlog from '../Dashboard/Invoices/DropzoneBlog';
@@ -17,7 +18,7 @@ const CreateCategory = () => {
         };
 
         try {
-            await axios.post('http://127.0.0.1:5173/api/categories', userData);
+            await axios.post(apiUrl+'categories', userData);
             history.push('categories-list');
         } catch (error) {
             console.error('Error creating user:', error);

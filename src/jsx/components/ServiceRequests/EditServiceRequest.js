@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { apiUrl } from '../../../constants';
 import { useParams, useHistory } from 'react-router-dom';
 import axios from 'axios';
 import Dropdown from 'react-bootstrap/Dropdown';
@@ -24,11 +25,11 @@ const EditServiceRequest = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const usersResponse = await axios.get('http://127.0.0.1:5173/api/users');
-                const agentsResponse = await axios.get('http://127.0.0.1:5173/api/agents');
-                const categoriesResponse = await axios.get('http://127.0.0.1:5173/api/categories');
-                const productsResponse = await axios.get('http://127.0.0.1:5173/api/products');
-                const serviceRequestResponse = await axios.get(`http://127.0.0.1:5173/api/serviceRequests/${id}`);
+                const usersResponse = await axios.get(apiUrl+'users');
+                const agentsResponse = await axios.get(apiUrl+'agents');
+                const categoriesResponse = await axios.get(apiUrl+'categories');
+                const productsResponse = await axios.get(apiUrl+'products');
+                const serviceRequestResponse = await axios.get(apiUrl+`serviceRequests/${id}`);
                 
                 setUsers(usersResponse.data);
                 setAgents(agentsResponse.data);
@@ -69,7 +70,7 @@ const EditServiceRequest = () => {
         };
 
         try {
-            await axios.put(`http://127.0.0.1:5173/api/serviceRequests/${id}`, requestData);
+            await axios.put(apiUrl+`serviceRequests/${id}`, requestData);
             history.push('/servicerequests-list');
         } catch (error) {
             console.error('Error updating service request:', error);

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { apiUrl } from '../../../constants';
 import { Link, useHistory } from 'react-router-dom';
 import axios from 'axios';
 import Dropdown from 'react-bootstrap/Dropdown';
@@ -21,10 +22,10 @@ const CreateServiceRequest = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const usersResponse = await axios.get('http://127.0.0.1:5173/api/users');
-                const agentsResponse = await axios.get('http://127.0.0.1:5173/api/agents');
-                const categoriesResponse = await axios.get('http://127.0.0.1:5173/api/categories');
-                const productsResponse = await axios.get('http://127.0.0.1:5173/api/products');
+                const usersResponse = await axios.get(apiUrl+'users');
+                const agentsResponse = await axios.get(apiUrl+'agents');
+                const categoriesResponse = await axios.get(apiUrl+'categories');
+                const productsResponse = await axios.get(apiUrl+'products');
                 setUsers(usersResponse.data);
                 setAgents(agentsResponse.data);
                 setCategories(categoriesResponse.data);
@@ -52,7 +53,7 @@ const CreateServiceRequest = () => {
         };
 
         try {
-            await axios.post('http://127.0.0.1:5173/api/serviceRequests', requestData);
+            await axios.post(apiUrl+'serviceRequests', requestData);
             history.push('/servicerequests-list');
         } catch (error) {
             console.error('Error creating service request:', error);

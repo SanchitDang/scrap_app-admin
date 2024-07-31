@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { apiUrl } from '../../../constants';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
@@ -59,7 +60,7 @@ const CategoriesList = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get('http://127.0.0.1:5173/api/categories');
+                const response = await axios.get(apiUrl+'categories');
                 setData(response.data);
                 setTotalPages(Math.ceil(response.data.length / itemsPerPage));
             } catch (error) {
@@ -75,7 +76,7 @@ const CategoriesList = () => {
 
     const handleDelete = async (userId) => {
         try {
-            await axios.delete(`http://127.0.0.1:5173/api/categories/${userId}`);
+            await axios.delete(apiUrl+`categories/${userId}`);
             setData(data.filter(user => user._id !== userId));
         } catch (error) {
             console.error('Error deleting user:', error);

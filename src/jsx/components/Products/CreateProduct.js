@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { apiUrl } from '../../../constants';
 import { Link, useHistory } from 'react-router-dom';
 import axios from 'axios';
 import Dropdown from 'react-bootstrap/Dropdown';
@@ -15,7 +16,7 @@ const CreateProduct = () => {
     useEffect(() => {
         const fetchCategories = async () => {
             try {
-                const response = await axios.get('http://127.0.0.1:5173/api/categories');
+                const response = await axios.get(apiUrl+'categories');
                 setCategories(response.data);
             } catch (error) {
                 console.error('Error fetching categories:', error);
@@ -35,7 +36,7 @@ const CreateProduct = () => {
         };
 
         try {
-            await axios.post('http://127.0.0.1:5173/api/products', userData);
+            await axios.post(apiUrl+'products', userData);
             history.push('/products-list');
         } catch (error) {
             console.error('Error creating product:', error);

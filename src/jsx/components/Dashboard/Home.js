@@ -1,4 +1,5 @@
 import axios from "axios";
+import { apiUrl } from "../../../constants";
 import React, { useContext, useEffect, useState } from "react";
 import loadable from "@loadable/component";
 import pMinDelay from "p-min-delay";
@@ -38,7 +39,7 @@ const Home = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get("http://127.0.0.1:5173/api/dashboard");
+        const response = await axios.get(apiUrl+"dashboard");
         const data = response.data;
         setNoUsers(data.users);
         setNoAgents(data.agents);

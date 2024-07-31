@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { apiUrl } from '../../../constants';
 import { Link, useHistory } from 'react-router-dom';
 import axios from 'axios';
 import DropzoneBlog from '../Dashboard/Invoices/DropzoneBlog';
@@ -27,7 +28,7 @@ const CreateUser = () => {
         };
 
         try {
-            const response = await axios.post('http://127.0.0.1:5173/api/users', userData);
+            const response = await axios.post(apiUrl+'users', userData);
 
             if (selectedFile) {
                 const formData = new FormData();
@@ -35,7 +36,7 @@ const CreateUser = () => {
                 formData.append('user_id', response.data._id); 
                 formData.append('profilePic', selectedFile);
                 try {
-                const response = await axios.put('http://127.0.0.1:5173/api/dashboard/uploadProfilePic', formData, {
+                const response = await axios.put(apiUrl+'dashboard/uploadProfilePic', formData, {
                         headers: {
                             'Content-Type': 'multipart/form-data'
                         }

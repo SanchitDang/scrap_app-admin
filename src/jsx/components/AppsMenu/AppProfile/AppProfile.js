@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { apiUrl, baseUrl } from '../../../../constants';
 import React, { Fragment, useEffect, useState } from "react";
 import { Tab, Nav } from "react-bootstrap";
 import PageTitle from "../../../layouts/PageTitle";
@@ -31,7 +32,7 @@ const emojis = {
 const AppProfile = () => {
   const userdata = JSON.parse(localStorage.getItem("userDetails"));
   const [id, setId] = useState(userdata.user._id);
-  const [imageUrl, setImageUrl] = useState("http://127.0.0.1:5173"+userdata.user.image_url);
+  const [imageUrl, setImageUrl] = useState(baseUrl+userdata.user.image_url);
   const [formData, setFormData] = useState({
     name: userdata.user.name || '',
     email: userdata.user.email || '',
@@ -50,7 +51,7 @@ const AppProfile = () => {
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		try {
-			const response = await axios.put(`http://127.0.0.1:5173/api/admins/${id}`, {
+			const response = await axios.put(apiUrl+`admins/${id}`, {
 				name: formData.name,
 				email: formData.email,
 				phone: formData.phone,
@@ -93,7 +94,7 @@ const AppProfile = () => {
     formData.append('profilePic', selectedFile);
 
     try {
-      const response = await axios.put('http://127.0.0.1:5173/api/dashboard/uploadProfilePic', formData, {
+      const response = await axios.put(apiUrl+'dashboard/uploadProfilePic', formData, {
             headers: {
                 'Content-Type': 'multipart/form-data'
             }

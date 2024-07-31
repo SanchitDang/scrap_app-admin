@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { apiUrl } from '../../../constants';
 import { useParams, useHistory } from 'react-router-dom';
 import axios from 'axios';
 import Dropdown from 'react-bootstrap/Dropdown';
@@ -23,7 +24,7 @@ const EditInventoryManager = () => {
     useEffect(() => {
         const fetchUserData = async () => {
             try {
-                const response = await axios.get(`http://127.0.0.1:5173/api/admins/${id}`);
+                const response = await axios.get(apiUrl+`admins/${id}`);
                 setFormData({
                     name: response.data.name || '',
                     email: response.data.email || '',
@@ -57,7 +58,7 @@ const EditInventoryManager = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            await axios.put(`http://127.0.0.1:5173/api/admins/${id}`, formData);
+            await axios.put(apiUrl+`admins/${id}`, formData);
             history.push('/inventorymanagers-list');
         } catch (error) {
             console.error('Error updating user:', error);

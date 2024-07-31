@@ -2,6 +2,8 @@
 import Metismenu from "metismenujs";
 import React, { Component, useContext, useEffect } from "react";
 
+import { baseUrl } from "../../../constants";
+
 /// Scroll
 import PerfectScrollbar from "react-perfect-scrollbar";
 
@@ -192,7 +194,7 @@ const SideBar = () => {
             className="nav-link i-false c-pointer"
           >
             <div className="header-info2 d-flex align-items-center border">
-              <img src={userData.user.image_url === "" ? (profile) : ("http://127.0.0.1:5173"+userData.user.image_url)} width={20} alt="" />
+              <img src={userData.user.image_url === "" ? (profile) : (baseUrl+userData.user.image_url)} width={20} alt="" />
               <div className="d-flex align-items-center sidebar-info">
                 <div>
                   <span className="font-w700 d-block mb-2">
