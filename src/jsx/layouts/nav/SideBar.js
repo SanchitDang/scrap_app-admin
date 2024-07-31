@@ -286,22 +286,20 @@ const SideBar = () => {
               <span className="nav-text">Service Requests</span>
             </Link>
           </li>
-          {userData.user?.role === "admin" && (
-            <li className={`${category.includes(path) ? "mm-active" : ""}`}>
-              <Link to="/categories-list" className="ai-icon">
-                <i className="fas fa-clone"></i>
-                <span className="nav-text">Categories</span>
-              </Link>
-            </li>
-          )}
-          {userData.user?.role === "admin" && (
-            <li className={`${product.includes(path) ? "mm-active" : ""}`}>
-              <Link to="/products-list" className="ai-icon">
-                <i className="fas fa-clone"></i>
-                <span className="nav-text">Products</span>
-              </Link>
-            </li>
-          )}
+          
+          <li className={`${category.includes(path) ? "mm-active" : ""}`}>
+            <Link to="/categories-list" className="ai-icon">
+              <i className="fas fa-clone"></i>
+              <span className="nav-text">Categories</span>
+            </Link>
+          </li>
+          
+          <li className={`${product.includes(path) ? "mm-active" : ""}`}>
+            <Link to="/products-list" className="ai-icon">
+              <i className="fas fa-clone"></i>
+              <span className="nav-text">Products</span>
+            </Link>
+          </li>
 
           {/* <li className={`${deshBoard.includes(path) ? "mm-active" : ""}`}>
             <Link className="has-arrow" to="#" >

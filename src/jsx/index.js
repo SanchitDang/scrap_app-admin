@@ -43,6 +43,10 @@ import ProductsList from "./components/Products/ProductsList";
 import CreateProduct from "./components/Products/CreateProduct";
 import EditProduct from "./components/Products/EditProduct";
 
+/// Invoice
+import GenerateInvoice from "./components/Invoice/GenerateInvoce";
+import CreateInvoice from "./components/Invoice/CreateInvoice";
+
 /// Dashboard
 import Home from "./components/Dashboard/Home";
 import DashboardDark from "./components/Dashboard/DashboardDark";
@@ -175,6 +179,10 @@ const Markup = () => {
     { url: "products-list", component: ProductsList },
     { url: "create-product", component: CreateProduct },
     { url: "edit-product/:id", component: EditProduct },
+
+    //// Invoice
+    { url: "generate-invoice", component: GenerateInvoice },
+    { url: "create-invoice", component: CreateInvoice },
 
     /// Dashboard
     { url: "", component: Home },
