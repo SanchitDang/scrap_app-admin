@@ -91,3 +91,14 @@
   justify-content: space-between;
   margin-top: 20px;
 }
+
+.my-details {
+  padding-top: 20px;
+}
+
+.bullet-list {
+  list-style-type: disc;
+  padding-left: 20px;
+  padding-top: 20px;
+  margin: 0;
+}

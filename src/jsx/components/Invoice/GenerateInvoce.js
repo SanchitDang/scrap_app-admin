@@ -115,20 +115,19 @@ const GenerateInvoice = () => {
       </table>
       <div className="totals">
         <div className="notes">
-          <div>Please send two copies of your invoice.</div>
-          <div>
-            Enter this order in accordance with the prices, terms, delivery
-            method, and specifications listed above.
+          <ul class="bullet-list">
+            <li>Please send two copies of your invoice.</li>
+            <li>Enter this order in accordance with the prices, terms, delivery method, and specifications listed above.</li>
+            <li>Please notify us immediately if you are unable to ship as specified.</li>
+            <li>Send all correspondence to:</li>
+          </ul>
+          <div class="my-details">
+            <div>{parsedData.yourName}</div>
+            <div>{parsedData.streetAddress}</div>
+            <div>{parsedData.cityStateZip}</div>
+            <div>{parsedData.phoneNumber}</div>
+            <div>{parsedData.faxNumber}</div>
           </div>
-          <div>
-            Please notify us immediately if you are unable to ship as specified.
-          </div>
-          <div>Send all correspondence to:</div>
-          <div>{parsedData.yourName}</div>
-          <div>{parsedData.streetAddress}</div>
-          <div>{parsedData.cityStateZip}</div>
-          <div>{parsedData.phoneNumber}</div>
-          <div>{parsedData.faxNumber}</div>
         </div>
         <div className="summary">
           <div>Sub Total</div>
