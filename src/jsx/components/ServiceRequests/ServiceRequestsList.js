@@ -16,6 +16,10 @@ const DropdownBlog = ({ userId, onDelete }) => {
         history.push(`/edit-servicerequest/${userId}`);
     };
 
+    const handleGenerateInvoice = () => {
+        history.push(`/create-invoice/${userId}`)
+    }
+
     const handleDelete = () => {
         onDelete(userId);
         handleClose();
@@ -34,6 +38,7 @@ const DropdownBlog = ({ userId, onDelete }) => {
                 <Dropdown.Menu className="dropdown-menu dropdown-menu-right">
                     <Dropdown.Item onClick={handleShow}>Delete</Dropdown.Item>
                     <Dropdown.Item onClick={handleEdit}>Edit</Dropdown.Item>
+                    <Dropdown.Item onClick={handleGenerateInvoice}>Generate Invoice</Dropdown.Item>
                 </Dropdown.Menu>
             </Dropdown>
 

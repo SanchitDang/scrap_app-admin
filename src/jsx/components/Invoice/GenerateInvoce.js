@@ -1,8 +1,12 @@
 import React from "react";
 import "./Invoice.css";
+import { useParams } from "react-router-dom/cjs/react-router-dom.min";
 import html2pdf from "html2pdf.js";
 
 const GenerateInvoice = () => {
+  const { data } = useParams();
+  const parsedData = JSON.parse(decodeURIComponent(data));
+
   const handleSaveAsPDF = () => {
     const element = document.getElementById("invoice");
     
@@ -24,12 +28,12 @@ const GenerateInvoice = () => {
           <h1>PURCHASE ORDER</h1>
         </div>
         <div className="right-column">
-          <h2>COMPANY NAME</h2>
-          <p>[company slogan]</p>
-          <p>[street address here]</p>
-          <p>[city, state, zip code]</p>
-          <p>Phone: (111) 222 3333</p>
-          <p>Email: email@company.com</p>
+          <h2>{parsedData.companyName}</h2>
+          <div>{parsedData.companySlogan}</div>
+          <div>{parsedData.streetAddress}</div>
+          <div>{parsedData.cityStateZip}</div>
+          <div>Phone: {parsedData.phone}</div>
+          <div>Email: {parsedData.email}</div>
         </div>
       </div>
       <table className="details-table">
@@ -43,27 +47,24 @@ const GenerateInvoice = () => {
         <tbody>
           <tr>
             <td className="to">
-              <p>[PURCHASER NAME]</p>
-              <p>[Company Name]</p>
-              <p>[street address here]</p>
-              <p>[city, state, zip code]</p>
-              <p>Phone: (111) 222 3333</p>
-              <p>Email: email@company.com</p>
+              <div>{parsedData.purchaserName}</div>
+              <div>{parsedData.purchaserCompanyName}</div>
+              <div>{parsedData.purchaserStreetAddress}</div>
+              <div>{parsedData.purchaserCityStateZip}</div>
+              <div>Phone: {parsedData.purchaserPhone}</div>
+              <div>Email: {parsedData.purchaserEmail}</div>
             </td>
             <td className="ship-to">
-              <p>[RECIPIENT NAME]</p>
-              <p>[Company Name]</p>
-              <p>[street address here]</p>
-              <p>[city, state, zip code]</p>
-              <p>Phone: (111) 222 3333</p>
-              <p>Email: email@company.com</p>
+              <div>{parsedData.recipientName}</div>
+              <div>{parsedData.recipientCompanyName}</div>
+              <div>{parsedData.recipientStreetAddress}</div>
+              <div>{parsedData.recipientCityStateZip}</div>
+              <div>Phone: {parsedData.recipientPhone}</div>
+              <div>Email: {parsedData.recipientEmail}</div>
             </td>
             <td className="po-number">
-              <p>[P.O. number]</p>
-              <p>
-                [The P.O. number must appear on all related correspondence,
-                shipping papers, and invoices]
-              </p>
+              <div>{parsedData.poNumber}</div>
+              <div>{parsedData.poAdditionalInfo}</div>
             </td>
           </tr>
         </tbody>
@@ -79,13 +80,15 @@ const GenerateInvoice = () => {
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>10.11.2024</td>
-            <td>abc</td>
-            <td>def</td>
-            <td>ghi</td>
-            <td>jkl</td>
-          </tr>
+        {parsedData.poDetails.map((item, index) => (
+                        <tr key={index}>
+                            <td>{item.poDate}</td>
+                            <td>{item.requisitioner}</td>
+                            <td>{item.shippedVia}</td>
+                            <td>{item.fobPoint}</td>
+                            <td>{item.terms}</td>
+                        </tr>
+                    ))}
         </tbody>
       </table>
       <table className="items-table">
@@ -99,43 +102,45 @@ const GenerateInvoice = () => {
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>1</td>
-            <td>10</td>
-            <td>abc</td>
-            <td>500</td>
-            <td>600</td>
-          </tr>
+        {parsedData.items.map((item, index) => (
+                        <tr key={index}>
+                            <td>{item.qty}</td>
+                            <td>{item.unit}</td>
+                            <td>{item.description}</td>
+                            <td>{item.unitPrice}</td>
+                            <td>{item.total}</td>
+                        </tr>
+                    ))}
         </tbody>
       </table>
       <div className="totals">
         <div className="notes">
-          <p>Please send two copies of your invoice.</p>
-          <p>
+          <div>Please send two copies of your invoice.</div>
+          <div>
             Enter this order in accordance with the prices, terms, delivery
             method, and specifications listed above.
-          </p>
-          <p>
+          </div>
+          <div>
             Please notify us immediately if you are unable to ship as specified.
-          </p>
-          <p>Send all correspondence to:</p>
-          <p>[Your name]</p>
-          <p>[Street Address]</p>
-          <p>[City, ST ZIP Code]</p>
-          <p>[Phone Number]</p>
-          <p>[Fax Number]</p>
+          </div>
+          <div>Send all correspondence to:</div>
+          <div>{parsedData.yourName}</div>
+          <div>{parsedData.streetAddress}</div>
+          <div>{parsedData.cityStateZip}</div>
+          <div>{parsedData.phoneNumber}</div>
+          <div>{parsedData.faxNumber}</div>
         </div>
         <div className="summary">
-          <p>Sub Total</p>
-          <p>Sales Tax</p>
-          <p>Shipping & Handling</p>
-          <p>Other</p>
-          <p>Total</p>
+          <div>Sub Total</div>
+          <div>Sales Tax</div>
+          <div>Shipping & Handling</div>
+          <div>Other</div>
+          <div>Total</div>
         </div>
       </div>
-      <div className="footer">
-        <p>Authorized by [Your Name]</p>
-        <p>Pick the Date</p>
+      <div className="invoice-footer">
+        <div>Authorized by {parsedData.yourName}</div>
+        <div>{parsedData.pickDate}</div>
       </div>
       <button onClick={handleSaveAsPDF}>Save as PDF</button>
     </div>

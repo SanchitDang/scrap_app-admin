@@ -44,8 +44,8 @@ import CreateProduct from "./components/Products/CreateProduct";
 import EditProduct from "./components/Products/EditProduct";
 
 /// Invoice
-import GenerateInvoice from "./components/Invoice/GenerateInvoce";
 import CreateInvoice from "./components/Invoice/CreateInvoice";
+import GenerateInvoice from "./components/Invoice/GenerateInvoce";
 
 /// Dashboard
 import Home from "./components/Dashboard/Home";
@@ -181,8 +181,8 @@ const Markup = () => {
     { url: "edit-product/:id", component: EditProduct },
 
     //// Invoice
-    { url: "generate-invoice", component: GenerateInvoice },
-    { url: "create-invoice", component: CreateInvoice },
+    { url: "create-invoice/:userId", component: CreateInvoice },
+    { url: "generate-invoice/:data", component: GenerateInvoice },
 
     /// Dashboard
     { url: "", component: Home },
