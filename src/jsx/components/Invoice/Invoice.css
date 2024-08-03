@@ -83,22 +83,42 @@
 
 .summary {
   width: 30%;
+  padding-top: 20px;
+  padding-bottom: 20px;
   text-align: right;
 }
 
 .invoice-footer {
   display: flex;
   justify-content: space-between;
-  margin-top: 20px;
+  margin-top: 10px;
+  margin-left: 40%;
+}
+
+.signature-image {
+  width: 200px; 
+  height: 100px; 
+}
+
+.invoice-footer-sign {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 40px;
+  margin-left: 40%;
 }
 
 .my-details {
   padding-top: 20px;
+  padding-left: 0px;
 }
 
 .bullet-list {
   list-style-type: disc;
-  padding-left: 20px;
+  padding-left: 0px;
   padding-top: 20px;
   margin: 0;
+}
+
+.no-print {
+  display: none;
 }

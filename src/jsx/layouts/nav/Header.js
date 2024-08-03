@@ -1,6 +1,6 @@
 import React,{useState} from "react";
-
 import { Link } from "react-router-dom";
+
 /// Scroll
 import PerfectScrollbar from "react-perfect-scrollbar";
 
@@ -12,7 +12,14 @@ import { Dropdown } from "react-bootstrap";
 
 const Header = ({ onNote }) => {
   const [searchBut, setSearchBut] = useState(false);	
-  var path = window.location.pathname.split("/");
+  const path = window.location.pathname.split("/");
+  const lastSegment = path[path.length - 1];
+  
+  // Check if the URL contains requested part
+  const isGenerateInvoice = window.location.pathname.includes("generate-invoice");
+  const isEdit = window.location.pathname.includes("edit-");
+
+  // Process the path to determine the header title
   var name = path[path.length - 1].split("-");
   var filterName = name.length >= 3 ? name.filter((n, i) => i > 0) : name;
   var finalName = filterName.includes("app")
@@ -38,6 +45,21 @@ const Header = ({ onNote }) => {
     : filterName.includes("editor")
     ? filterName.filter((f) => f !== "editor")
     : filterName;
+
+  // Determine the header title using if-else
+  let headerTitle = "Dashboard"; // default title
+  if (isGenerateInvoice) {
+    headerTitle = "Generate Invoice";
+  } else if (isEdit) {
+    headerTitle = "Edit";
+  } else if (finalName.join(" ").length === 0) {
+    headerTitle = "Dashboard";
+  } else if (finalName.join(" ") === "dashboard dark") {
+    headerTitle = "Dashboard";
+  } else {
+    headerTitle = finalName.join(" ");
+  }
+
   return ( 
     <div className="header border-bottom">
       <div className="header-content">
@@ -48,11 +70,7 @@ const Header = ({ onNote }) => {
                 className="dashboard_bar"
                 style={{ textTransform: "capitalize" }}
                 >
-                {finalName.join(" ").length === 0
-                  ? "Dashboard"
-                  : finalName.join(" ") === "dashboard dark"
-                  ? "Dashboard"
-                  : finalName.join(" ")}
+                {headerTitle}
               </div>
             </div>
             <ul className="navbar-nav header-right">

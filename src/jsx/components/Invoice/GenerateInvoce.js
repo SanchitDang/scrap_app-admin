@@ -1,15 +1,18 @@
-import React from "react";
+import React, { useState } from "react";
 import "./Invoice.css";
 import { useParams } from "react-router-dom/cjs/react-router-dom.min";
 import html2pdf from "html2pdf.js";
+import mysign from '../../../images/sign.jpg';
 
 const GenerateInvoice = () => {
   const { data } = useParams();
   const parsedData = JSON.parse(decodeURIComponent(data));
+  const [isButtonVisible, setIsButtonVisible] = useState(true);
 
-  const handleSaveAsPDF = () => {
+  const handleSaveAsPDF = async () => {
+    setIsButtonVisible(false);
     const element = document.getElementById("invoice");
-    
+
     const opt = {
       margin: 1,
       filename: 'invoice.pdf',
@@ -17,8 +20,9 @@ const GenerateInvoice = () => {
       html2canvas: { scale: 4 },
       jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
     };
-    
-    html2pdf().from(element).set(opt).save();
+
+    await html2pdf().from(element).set(opt).save();
+    setIsButtonVisible(true);
   };
 
   return (
@@ -80,15 +84,15 @@ const GenerateInvoice = () => {
           </tr>
         </thead>
         <tbody>
-        {parsedData.poDetails.map((item, index) => (
-                        <tr key={index}>
-                            <td>{item.poDate}</td>
-                            <td>{item.requisitioner}</td>
-                            <td>{item.shippedVia}</td>
-                            <td>{item.fobPoint}</td>
-                            <td>{item.terms}</td>
-                        </tr>
-                    ))}
+          {parsedData.poDetails.map((item, index) => (
+            <tr key={index}>
+              <td>{item.poDate}</td>
+              <td>{item.requisitioner}</td>
+              <td>{item.shippedVia}</td>
+              <td>{item.fobPoint}</td>
+              <td>{item.terms}</td>
+            </tr>
+          ))}
         </tbody>
       </table>
       <table className="items-table">
@@ -102,26 +106,26 @@ const GenerateInvoice = () => {
           </tr>
         </thead>
         <tbody>
-        {parsedData.items.map((item, index) => (
-                        <tr key={index}>
-                            <td>{item.qty}</td>
-                            <td>{item.unit}</td>
-                            <td>{item.description}</td>
-                            <td>{item.unitPrice}</td>
-                            <td>{item.total}</td>
-                        </tr>
-                    ))}
+          {parsedData.items.map((item, index) => (
+            <tr key={index}>
+              <td>{item.qty}</td>
+              <td>{item.unit}</td>
+              <td>{item.description}</td>
+              <td>{item.unitPrice}</td>
+              <td>{item.total}</td>
+            </tr>
+          ))}
         </tbody>
       </table>
       <div className="totals">
         <div className="notes">
-          <ul class="bullet-list">
+          <ul className="bullet-list">
             <li>Please send two copies of your invoice.</li>
             <li>Enter this order in accordance with the prices, terms, delivery method, and specifications listed above.</li>
             <li>Please notify us immediately if you are unable to ship as specified.</li>
             <li>Send all correspondence to:</li>
           </ul>
-          <div class="my-details">
+          <div className="my-details">
             <div>{parsedData.yourName}</div>
             <div>{parsedData.streetAddress}</div>
             <div>{parsedData.cityStateZip}</div>
@@ -137,11 +141,19 @@ const GenerateInvoice = () => {
           <div>Total</div>
         </div>
       </div>
+      <div className="invoice-footer-sign">
+        <img src={mysign} alt="Signature" className="signature-image" />
+        <div></div>
+      </div>
       <div className="invoice-footer">
         <div>Authorized by {parsedData.yourName}</div>
         <div>{parsedData.pickDate}</div>
       </div>
-      <button onClick={handleSaveAsPDF}>Save as PDF</button>
+      {isButtonVisible && (
+        <button onClick={handleSaveAsPDF} className="btn btn-primary btn-lg me-1 me-sm-3">
+          Save as PDF
+        </button>
+      )}
     </div>
   );
 };
