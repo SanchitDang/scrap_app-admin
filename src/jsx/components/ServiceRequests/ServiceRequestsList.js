@@ -144,7 +144,7 @@ const ServiceRequestsList = () => {
                                         <td><span className="text-black">{user.product}</span></td>
                                         <td>
                                             {user.status === 'completed' ? (
-                                                <Link to="#" className="btn btn-success light" onClick={() => handleChangeStatus(user._id)}>Completed</Link>
+                                                <Link to="#" className="btn btn-success light" onClick={() => handleChangeStatus(user._id)}>Approved</Link>
                                             ) : (
                                                 <Link to="#" className="btn btn-danger light" onClick={() => handleChangeStatus(user._id)}>Pending</Link>
                                             )}

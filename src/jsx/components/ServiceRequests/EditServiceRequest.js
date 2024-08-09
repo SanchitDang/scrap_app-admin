@@ -1,17 +1,23 @@
 import React, { useState, useEffect } from 'react';
 import { apiUrl } from '../../../constants';
-import { useParams, useHistory } from 'react-router-dom';
+import { useParams, useHistory, Link } from 'react-router-dom';
 import axios from 'axios';
 import Dropdown from 'react-bootstrap/Dropdown';
+import { Button } from 'react-bootstrap';
+import  DatePicker  from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 const EditServiceRequest = () => {
     const { id } = useParams();
     const history = useHistory();
 
     const [user_id, setUser_id] = useState('');
-    const [agent_id, setAgent_id] = useState('');
-    const [category, setCategory] = useState('');
-    const [product, setProduct] = useState('');
+    const [agent_id, setAgent_id] = useState(null);
+    const [completionDate, setCompletionDate] = useState('');
+    const [selectedCategories, setSelectedCategories] = useState([]);
+    const [selectedProducts, setSelectedProducts] = useState([]);
+    const [type, setType] = useState('');
+    const [status, setStatus] = useState('');
     const [pick_address, setPick_address] = useState('');
     const [pick_address_lat, setPick_address_lat] = useState('');
     const [pick_address_lng, setPick_address_lng] = useState('');
@@ -21,6 +27,36 @@ const EditServiceRequest = () => {
     const [categories, setCategories] = useState([]);
     const [products, setProducts] = useState([]);
     const [loading, setLoading] = useState(true);
+
+    const addCategory = (category) => {
+        if (!selectedCategories.includes(category)) {
+            setSelectedCategories([...selectedCategories, category]);
+        }
+    };
+
+    const removeCategory = (category) => {
+        setSelectedCategories(selectedCategories.filter(cat => cat !== category));
+    };
+
+    const addProduct = (product) => {
+        if (!selectedProducts.includes(product)) {
+            setSelectedProducts([...selectedProducts, product]);
+        }
+    };
+
+    const removeProduct = (product) => {
+        setSelectedProducts(selectedProducts.filter(prod => prod !== product));
+    };
+
+    const handleChangeStatus = async (id) => {
+        try {
+            await axios.put(apiUrl+`dashboard/changeServiceRequestStatus/${id}`);
+            setStatus(status === 'completed' ? 'pending' : 'completed');
+
+        } catch (error) {
+            console.error('Error updating status:', error);
+        }
+    };
 
     useEffect(() => {
         const fetchData = async () => {
@@ -36,11 +72,14 @@ const EditServiceRequest = () => {
                 setCategories(categoriesResponse.data);
                 setProducts(productsResponse.data);
 
-                const { user_id, agent_id, category, product, pick_address, pick_address_lat, pick_address_lng, description } = serviceRequestResponse.data;
+                const { user_id, agent_id, type, completion_date, status, category, product, pick_address, pick_address_lat, pick_address_lng, description } = serviceRequestResponse.data;
                 setUser_id(user_id);
                 setAgent_id(agent_id);
-                setCategory(category);
-                setProduct(product);
+                setType(type);
+                setCompletionDate(completion_date);
+                setStatus(status);
+                setSelectedCategories(category);
+                setSelectedProducts(product);
                 setPick_address(pick_address);
                 setPick_address_lat(pick_address_lat);
                 setPick_address_lng(pick_address_lng);
@@ -61,9 +100,11 @@ const EditServiceRequest = () => {
         const requestData = {
             user_id,
             agent_id,
-            category,
-            product,
+            category: selectedCategories,
+            product: selectedProducts,
             pick_address,
+            completionDate,
+            type,
             pick_address_lat,
             pick_address_lng,
             description
@@ -129,44 +170,79 @@ const EditServiceRequest = () => {
                                 </div>
                                 <div className="col-xl-4">
                                     <div className="form-group mb-3 invoice">
-                                        <label>Category</label>
+                                        <label>Service Type</label>
                                         <Dropdown>
                                             <Dropdown.Toggle variant="primary" className="form-control">
-                                                {category || 'Select Category'}
+                                                {type || 'Select Service Type'}
                                             </Dropdown.Toggle>
                                             <Dropdown.Menu>
-                                                {categories.map(cat => (
-                                                    <Dropdown.Item 
-                                                        key={cat._id} 
-                                                        onClick={() => setCategory(cat.name)}
-                                                    >
-                                                        {cat.name}
-                                                    </Dropdown.Item>
-                                                ))}
+                                                    <Dropdown.Item type='waste-collection' onClick={() => setType("waste-collection")}> Waste Collection </Dropdown.Item>
+                                                    <Dropdown.Item type='buy-request' onClick={() => setType("buy-request")}> Buy Request </Dropdown.Item>
+                                                    <Dropdown.Item type='sell_request' onClick={() => setType("sell_request")}> Sell Request </Dropdown.Item>
                                             </Dropdown.Menu>
                                         </Dropdown>
                                     </div>
                                 </div>
-                                <div className="col-xl-4">
-                                    <div className="form-group mb-3 invoice">
-                                        <label>Product</label>
-                                        <Dropdown>
-                                            <Dropdown.Toggle variant="primary" className="form-control">
-                                                {product || 'Select Product'}
-                                            </Dropdown.Toggle>
-                                            <Dropdown.Menu>
-                                                {products.map(prod => (
-                                                    <Dropdown.Item 
-                                                        key={prod._id} 
-                                                        onClick={() => setProduct(prod.name)}
-                                                    >
-                                                        {prod.name}
-                                                    </Dropdown.Item>
+
+                                <div className="row">
+                                    <div className="col-xl-4">
+                                        <div className="form-group mb-3 invoice">
+                                            <label>Category</label>
+                                            <Dropdown>
+                                                <Dropdown.Toggle variant="primary" className="form-control">
+                                                    {selectedCategories.length > 0 ? 'Categories Selected' : 'Select Category'}
+                                                </Dropdown.Toggle>
+                                                <Dropdown.Menu>
+                                                    {categories.map(cat => (
+                                                        <Dropdown.Item
+                                                            key={cat._id}
+                                                            onClick={() => addCategory(cat.name)}
+                                                        >
+                                                            {cat.name}
+                                                        </Dropdown.Item>
+                                                    ))}
+                                                </Dropdown.Menu>
+                                            </Dropdown>
+                                            <ul className="mt-2">
+                                                {selectedCategories.map((cat, index) => (
+                                                    <li key={index}>
+                                                        {cat}
+                                                        <Button variant="danger" size="sm" onClick={() => removeCategory(cat)}>Remove</Button>
+                                                    </li>
                                                 ))}
-                                            </Dropdown.Menu>
-                                        </Dropdown>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div className="col-xl-4">
+                                        <div className="form-group mb-3 invoice">
+                                            <label>Product</label>
+                                            <Dropdown>
+                                                <Dropdown.Toggle variant="primary" className="form-control">
+                                                    {selectedProducts.length > 0 ? 'Products Selected' : 'Select Product'}
+                                                </Dropdown.Toggle>
+                                                <Dropdown.Menu>
+                                                    {products.map(prod => (
+                                                        <Dropdown.Item
+                                                            key={prod._id}
+                                                            onClick={() => addProduct(prod.name)}
+                                                        >
+                                                            {prod.name}
+                                                        </Dropdown.Item>
+                                                    ))}
+                                                </Dropdown.Menu>
+                                            </Dropdown>
+                                            <ul className="mt-2">
+                                                {selectedProducts.map((prod, index) => (
+                                                    <li key={index}>
+                                                        {prod}
+                                                        <Button variant="danger" size="sm" onClick={() => removeProduct(prod)}>Remove</Button>
+                                                    </li>
+                                                ))}
+                                            </ul>
+                                        </div>
                                     </div>
                                 </div>
+
                                 <div className="col-xl-4">
                                     <div className="form-group mb-3 invoice">
                                         <label>Pickup Address Latitude</label>
@@ -190,6 +266,19 @@ const EditServiceRequest = () => {
                                             value={pick_address_lng}
                                             onChange={(e) => setPick_address_lng(e.target.value)}
                                             required
+                                        />
+                                    </div>
+                                </div>
+                                <div className="col-xl-4">
+                                    <div className="form-group mb-3 invoice">
+                                        <label>Completion Date</label>
+                                        <DatePicker
+                                            selected={completionDate}
+                                            onChange={(date) => setCompletionDate(date)}
+                                            showTimeSelect
+                                            dateFormat="MMMM d, yyyy h:mm aa"
+                                            className="form-control"
+                                            placeholderText="Select Completion Date & Time"
                                         />
                                     </div>
                                 </div>
@@ -223,13 +312,11 @@ const EditServiceRequest = () => {
                                 <button type="submit" className="btn btn-primary btn-lg me-1 me-sm-3">
                                     Save Service Request
                                 </button>
-                                <button
-                                    type="button"
-                                    className="btn btn-primary light btn-lg"
-                                    onClick={() => history.push('/servicerequests-list')}
-                                >
-                                    Cancel
-                                </button>
+                                {status === 'completed' ? (
+                                                <Link to="#" className="btn btn-success light" onClick={() => handleChangeStatus(id)}>Approved</Link>
+                                            ) : (
+                                                <Link to="#" className="btn btn-danger light" onClick={() => handleChangeStatus(id)}>Pending</Link>
+                                            )}
                             </div>
                         </form>
                     </div>
