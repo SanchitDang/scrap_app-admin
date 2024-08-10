@@ -58,7 +58,7 @@ import CardCenter from "./components/Dashboard/CardCenter";
 import TransactionDetails from "./components/Dashboard/TransactionDetails";
 import Task from "./components/Dashboard/Task";
 
-/////Demo
+///// Demo
 import Theme1 from "./components/Dashboard/Demo/Theme1";
 import Theme2 from "./components/Dashboard/Demo/Theme2";
 import Theme3 from "./components/Dashboard/Demo/Theme3";
@@ -116,7 +116,7 @@ import Toastr from "./components/PluginsMenu/Toastr/Toastr";
 import JqvMap from "./components/PluginsMenu/JqvMap/JqvMap";
 import Lightgallery from "./components/PluginsMenu/Lightgallery/Lightgallery";
 
-//Redux
+// Redux
 import Todo from "./pages/Todo";
 
 /// Widget
