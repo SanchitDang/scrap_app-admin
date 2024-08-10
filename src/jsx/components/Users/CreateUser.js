@@ -2,15 +2,22 @@ import React, { useState } from 'react';
 import { apiUrl } from '../../../constants';
 import { Link, useHistory } from 'react-router-dom';
 import axios from 'axios';
+import Dropdown from 'react-bootstrap/Dropdown';
 import DropzoneBlog from '../Dashboard/Invoices/DropzoneBlog';
 
 const CreateUser = () => {
+    const history = useHistory();
+    const roles = ['household', 'company', 'industry', 'trader', 'recycler', 'manufacturer'];
+
     const [name, setName] = useState('');
     const [phone, setPhone] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const history = useHistory();
-
+    const [city, setCity] = useState('');
+    const [state, setState] = useState('');
+    const [pincode, setPincode] = useState('');
+    const [address, setAddress] = useState('');
+    const [role, setRole] = useState('');
     const [selectedFile, setSelectedFile] = useState(null);
   
     const handleFileChange = (e) => {
@@ -25,6 +32,11 @@ const CreateUser = () => {
             phone,
             email,
             password,
+            city,
+            state,
+            pincode,
+            address,
+            role
         };
 
         try {
@@ -117,12 +129,87 @@ const CreateUser = () => {
                                             />
                                         </div>
                                     </div>
+                                    <div className="col-xl-4">
+                                        <div className="form-group mb-3 invoice">
+                                            <label>City</label>
+                                            <input
+                                                type="text"
+                                                className="form-control"
+                                                placeholder="Enter City"
+                                                value={city}
+                                                onChange={(e) => setCity(e.target.value)}
+                                                required
+                                            />
+                                        </div>
+                                    </div>
+                                    <div className="col-xl-4">
+                                        <div className="form-group mb-3 invoice">
+                                            <label>State</label>
+                                            <input
+                                                type="text"
+                                                className="form-control"
+                                                placeholder="Enter State"
+                                                value={state}
+                                                onChange={(e) => setState(e.target.value)}
+                                                required
+                                            />
+                                        </div>
+                                    </div>
 									{/* <div className="col-xl-4">
 										<div className="form-group mb-3 invoice">
 											<label>Date</label>
 											<input size="16" type="date" className="form-control" />
 										</div>
 									</div> */}
+                                </div>
+                                <div className="row mb-4">
+                                    <div className="col-xl-4">
+                                        <div className="form-group mb-3 invoice">
+                                            <label>Pin Code</label>
+                                            <input
+                                                type="text"
+                                                className="form-control"
+                                                placeholder="Enter Pin Code"
+                                                value={pincode}
+                                                onChange={(e) => setPincode(e.target.value)}
+                                                required
+                                            />
+                                        </div>
+                                    </div>
+                                    <div className="col-xl-4">
+                                        <div className="form-group mb-3 invoice">
+                                            <label>Address</label>
+                                            <input
+                                                type="text"
+                                                className="form-control"
+                                                placeholder="Enter Address"
+                                                value={address}
+                                                onChange={(e) => setAddress(e.target.value)}
+                                                required
+                                            />
+                                        </div>
+                                    </div>
+                                    <div className="col-xl-4">
+                                        <div className="form-group mb-3 invoice">
+                                            <label>User Role</label>
+                                            <Dropdown>
+                                                <Dropdown.Toggle variant="primary" className="form-control">
+                                                    Select User Role
+                                                </Dropdown.Toggle>
+                                                <Dropdown.Menu>
+                                                    {roles.map((roleType) => (
+                                                    <Dropdown.Item
+                                                        key={roleType}
+                                                        type={roleType}
+                                                        onClick={() => setRole(roleType)}
+                                                    >
+                                                        {roleType.charAt(0).toUpperCase() + roleType.slice(1)} {/* Capitalize first letter */}
+                                                    </Dropdown.Item>
+                                                    ))}
+                                                </Dropdown.Menu>
+                                            </Dropdown>
+                                        </div>
+                                    </div>
                                 </div>
                                 <h4 className="fs-24 font-w800">Profile Picture</h4>
                                 <div className="row mt-4 ">

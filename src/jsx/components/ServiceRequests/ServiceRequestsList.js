@@ -128,8 +128,7 @@ const ServiceRequestsList = () => {
                                 <tr role='row'>
                                     <th className="sorting_asc">User</th>
                                     <th className="sorting_asc">Agent</th>
-                                    <th className="sorting_asc">Category</th>
-                                    <th className="sorting_asc">Product</th>
+                                    <th className="sorting_asc">Service Type</th>
                                     <th className="sorting_asc">Approval Status</th>
                                     <th className="sorting_asc">Date Created</th>
                                     <th className="sorting_asc"></th>
@@ -140,8 +139,7 @@ const ServiceRequestsList = () => {
                                     <tr key={user._id} role='row'>
                                         <td><span className="text-black">{user.user_id.name}</span></td>
                                         <td><span className="text-black">{user.agent_id.name}</span></td>
-                                        <td><span className="text-black">{user.category}</span></td>
-                                        <td><span className="text-black">{user.product}</span></td>
+                                        <td><span className="text-black">{user.type}</span></td>
                                         <td>
                                             {user.status === 'completed' ? (
                                                 <Link to="#" className="btn btn-success light" onClick={() => handleChangeStatus(user._id)}>Approved</Link>

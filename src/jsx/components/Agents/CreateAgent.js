@@ -9,6 +9,10 @@ const CreateAgent = () => {
     const [phone, setPhone] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [city, setCity] = useState('');
+    const [state, setState] = useState('');
+    const [pincode, setPincode] = useState('');
+    const [address, setAddress] = useState('');
     const history = useHistory();
 
     const [selectedFile, setSelectedFile] = useState(null);
@@ -24,7 +28,11 @@ const CreateAgent = () => {
             name,
             phone,
             email,
-            password,
+            password,            
+            city,
+            state,
+            pincode,
+            address,
         };
 
         try {
@@ -102,8 +110,6 @@ const CreateAgent = () => {
                                             />
                                         </div>
                                     </div>
-                                </div>
-                                <div className="row mb-4">
                                     <div className="col-xl-4">
                                         <div className="form-group mb-3 invoice">
                                             <label>Password</label>
@@ -113,6 +119,60 @@ const CreateAgent = () => {
                                                 placeholder="Enter Password"
                                                 value={password}
                                                 onChange={(e) => setPassword(e.target.value)}
+                                                required
+                                            />
+                                        </div>
+                                    </div>
+                                    <div className="col-xl-4">
+                                        <div className="form-group mb-3 invoice">
+                                            <label>City</label>
+                                            <input
+                                                type="text"
+                                                className="form-control"
+                                                placeholder="Enter City"
+                                                value={city}
+                                                onChange={(e) => setCity(e.target.value)}
+                                                required
+                                            />
+                                        </div>
+                                    </div>
+                                    <div className="col-xl-4">
+                                        <div className="form-group mb-3 invoice">
+                                            <label>State</label>
+                                            <input
+                                                type="text"
+                                                className="form-control"
+                                                placeholder="Enter State"
+                                                value={state}
+                                                onChange={(e) => setState(e.target.value)}
+                                                required
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="row mb-4">
+                                    <div className="col-xl-4">
+                                        <div className="form-group mb-3 invoice">
+                                            <label>Pin Code</label>
+                                            <input
+                                                type="text"
+                                                className="form-control"
+                                                placeholder="Enter Pin Code"
+                                                value={pincode}
+                                                onChange={(e) => setPincode(e.target.value)}
+                                                required
+                                            />
+                                        </div>
+                                    </div>
+                                    <div className="col-xl-4">
+                                        <div className="form-group mb-3 invoice">
+                                            <label>Address</label>
+                                            <input
+                                                type="text"
+                                                className="form-control"
+                                                placeholder="Enter Address"
+                                                value={address}
+                                                onChange={(e) => setAddress(e.target.value)}
                                                 required
                                             />
                                         </div>
@@ -132,7 +192,7 @@ const CreateAgent = () => {
                                     <div className="col-xl-8">
                                         <div className="text-end mt-4">
                                             <button type="submit" className="btn btn-primary btn-lg me-1 me-sm-3">
-                                                Save User
+                                                Save Agent
                                             </button>
                                             <Link to="#" className="btn btn-primary light btn-lg">
                                                 Cancel

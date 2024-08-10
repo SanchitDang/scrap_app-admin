@@ -23,6 +23,36 @@ const CreateServiceRequest = () => {
     const [products, setProducts] = useState([]);
     const history = useHistory();
 
+    const [productDetails, setProductDetails] = useState([]);
+    const [totalPrice, setTotalPrice] = useState(0);
+
+    const handleProductDetailAdd = () => {
+        const productsWithDetails = selectedProducts.map((product, index) => ({
+            product,
+            quantity: productDetails[index]?.quantity || 0,
+            amount_paid: productDetails[index]?.amount_paid || 0,
+        }));
+
+        console.log(productsWithDetails);
+    };
+
+    const handleDetailChange = (index, field, value) => {
+        const updatedDetails = [...productDetails];
+        updatedDetails[index] = {
+            ...updatedDetails[index],
+            product: selectedProducts[index],
+            [field]: parseFloat(value) || 0
+        };
+        setProductDetails(updatedDetails);
+    };
+
+    useEffect(() => {
+        const total = productDetails.reduce(
+            (sum, item) => sum + (item.amount_paid * item.quantity || 0), 0
+        );
+        setTotalPrice(total);
+    }, [productDetails]);
+
     const addCategory = (category) => {
         if (!selectedCategories.includes(category)) {
             setSelectedCategories([...selectedCategories, category]);
@@ -40,7 +70,10 @@ const CreateServiceRequest = () => {
     };
 
     const removeProduct = (product) => {
-        setSelectedProducts(selectedProducts.filter(prod => prod !== product));
+        const updatedProducts = selectedProducts.filter((p) => p !== product);
+        const updatedDetails = productDetails.filter((item) => item.product !== product);
+        setSelectedProducts(updatedProducts);
+        setProductDetails(updatedDetails);
     };
 
     useEffect(() => {
@@ -65,11 +98,19 @@ const CreateServiceRequest = () => {
     const handleSubmit = async (event) => {
         event.preventDefault();
 
+        const productsWithDetails = selectedProducts.map((product, index) => ({
+            product,
+            quantity: productDetails[index]?.quantity || 0,
+            amount_paid: productDetails[index]?.amount_paid || 0,
+        }));
+
         const requestData = {
             user_id,
             agent_id,
-            category,
-            product,
+            category: selectedCategories,
+            product: selectedProducts,
+            amount_paid_each_product: productsWithDetails,
+            type,
             pick_address,
             pick_address_lat,
             pick_address_lng,
@@ -260,6 +301,30 @@ const CreateServiceRequest = () => {
                                             />
                                         </div>
                                     </div>
+                                </div>
+                                <div>
+                                    <ul className="mt-2">
+                                        {selectedProducts.map((prod, index) => (
+                                            <li key={index}>
+                                                {prod}
+                                                <input
+                                                    type="number"
+                                                    placeholder="Enter quantity"
+                                                    value={productDetails[index]?.quantity || ''}
+                                                    onChange={(e) => handleDetailChange(index, 'quantity', e.target.value)}
+                                                />
+                                                <input
+                                                    type="number"
+                                                    placeholder="Enter price"
+                                                    value={productDetails[index]?.amount_paid || ''}
+                                                    onChange={(e) => handleDetailChange(index, 'amount_paid', e.target.value)}
+                                                />
+                                                <Button variant="danger" size="sm" onClick={() => removeProduct(prod)}>Remove</Button>
+                                            </li>
+                                        ))}
+                                    </ul>
+                                    <div>Total Price: Rs.{totalPrice.toFixed(2)}</div>
+                                    <Button variant="primary" onClick={handleProductDetailAdd}>Save</Button>
                                 </div>
                                 <div className="text-end mt-4">
                                     <button type="submit" className="btn btn-primary btn-lg me-1 me-sm-3">

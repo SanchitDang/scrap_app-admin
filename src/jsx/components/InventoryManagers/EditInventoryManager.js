@@ -152,6 +152,66 @@ const EditInventoryManager = () => {
                                     </div>
                                 </div>
                             </div>
+                            <div className="row mb-4">
+                                <div className="col-xl-4">
+                                    <div className="form-group mb-3">
+                                        <label>City</label>
+                                        <input
+                                        type="text"
+                                        className="form-control"
+                                        name="city"
+                                        value={formData.city}
+                                        onChange={handleChange}
+                                        placeholder="Enter City"
+                                        />
+                                    </div>
+                                </div>
+
+                                <div className="col-xl-4">
+                                    <div className="form-group mb-3">
+                                        <label>State</label>
+                                        <input
+                                        type="text"
+                                        className="form-control"
+                                        name="state"
+                                        value={formData.state}
+                                        onChange={handleChange}
+                                        placeholder="Enter State"
+                                        />
+                                    </div>
+                                </div>
+
+                                <div className="col-xl-4">
+                                    <div className="form-group mb-3">
+                                        <label>Pincode</label>
+                                        <input
+                                        type="text"
+                                        className="form-control"
+                                        name="pincode"
+                                        value={formData.pincode}
+                                        onChange={handleChange}
+                                        placeholder="Enter Pincode"
+                                        />
+                                    </div>
+                                </div>
+
+                                <div className="col-xl-4">
+                                    <div className="form-group mb-3">
+                                        <label>Address</label>
+                                        <input
+                                        type="text"
+                                        className="form-control"
+                                        name="address"
+                                        value={formData.address}
+                                        onChange={handleChange}
+                                        placeholder="Enter Address"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+
+                        
+
                             <div className="text-end mt-4">
                                 <button type="submit" className="btn btn-primary btn-lg me-1 me-sm-3">
                                     Save Inventory Manager

@@ -13,7 +13,7 @@ const EditServiceRequest = () => {
 
     const [user_id, setUser_id] = useState('');
     const [agent_id, setAgent_id] = useState(null);
-    const [completionDate, setCompletionDate] = useState('');
+    const [completion_date, setCompletionDate] = useState('');
     const [selectedCategories, setSelectedCategories] = useState([]);
     const [selectedProducts, setSelectedProducts] = useState([]);
     const [type, setType] = useState('');
@@ -30,16 +30,6 @@ const EditServiceRequest = () => {
 
     const [productDetails, setProductDetails] = useState([]);
     const [totalPrice, setTotalPrice] = useState(0);
-
-    const handleProductDetailAdd = () => {
-        const productsWithDetails = selectedProducts.map((product, index) => ({
-            product,
-            quantity: productDetails[index]?.quantity || 0,
-            amount_paid: productDetails[index]?.amount_paid || 0,
-        }));
-
-        console.log(productsWithDetails);
-    };
 
     const handleDetailChange = (index, field, value) => {
         const updatedDetails = [...productDetails];
@@ -105,18 +95,25 @@ const EditServiceRequest = () => {
                 setCategories(categoriesResponse.data);
                 setProducts(productsResponse.data);
 
-                const { user_id, agent_id, type, completion_date, status, category, product, pick_address, pick_address_lat, pick_address_lng, description } = serviceRequestResponse.data;
+                const { user_id, agent_id, type, completion_date, status, amount_paid_each_product, category, product, pick_address, pick_address_lat, pick_address_lng, description } = serviceRequestResponse.data;
                 setUser_id(user_id);
                 setAgent_id(agent_id);
                 setType(type);
-                setCompletionDate(completion_date);
+                setCompletionDate(new Date(completion_date));
                 setStatus(status);
                 setSelectedCategories(category);
-                setSelectedProducts(product);
+                // setSelectedProducts(product);
                 setPick_address(pick_address);
                 setPick_address_lat(pick_address_lat);
                 setPick_address_lng(pick_address_lng);
                 setDescription(description);
+                const selectedProducts = amount_paid_each_product.map(productDetail => productDetail.product);
+                const productDetails = amount_paid_each_product.map(productDetail => ({
+                    quantity: productDetail.quantity,
+                    amount_paid: productDetail.amount_paid,
+                }));
+                setSelectedProducts(selectedProducts);
+                setProductDetails(productDetails);
                 setLoading(false);
             } catch (error) {
                 console.error('Error fetching data:', error);
@@ -143,7 +140,7 @@ const EditServiceRequest = () => {
             product: selectedProducts,
             amount_paid_each_product: productsWithDetails,
             pick_address,
-            completionDate,
+            completion_date,
             type,
             pick_address_lat,
             pick_address_lng,
@@ -313,7 +310,7 @@ const EditServiceRequest = () => {
                                     <div className="form-group mb-3 invoice">
                                         <label>Completion Date</label>
                                         <DatePicker
-                                            selected={completionDate}
+                                            selected={completion_date}
                                             onChange={(date) => setCompletionDate(date)}
                                             showTimeSelect
                                             dateFormat="MMMM d, yyyy h:mm aa"
@@ -364,12 +361,12 @@ const EditServiceRequest = () => {
                                                     value={productDetails[index]?.amount_paid || ''}
                                                     onChange={(e) => handleDetailChange(index, 'amount_paid', e.target.value)}
                                                 />
-                                                <Button variant="danger" size="sm" onClick={() => removeProduct(prod)}>Remove</Button>
+                                                {/* <Button variant="danger" size="sm" onClick={() => removeProduct(prod)}>Remove</Button> */}
                                             </li>
                                         ))}
                                     </ul>
                                     <div>Total Price: Rs.{totalPrice.toFixed(2)}</div>
-                                    <Button variant="primary" onClick={handleProductDetailAdd}>Save</Button>
+                                    {/* <Button variant="primary" onClick={handleProductDetailAdd}>Save</Button> */}
                                 </div>
                             </div>
                             <div className="text-end mt-4">
@@ -377,7 +374,7 @@ const EditServiceRequest = () => {
                                     Save Service Request
                                 </button>
                                 {status === 'completed' ? (
-                                                <Link to="#" className="btn btn-success light" onClick={() => handleChangeStatus(id)}>Approved: Click to pending</Link>
+                                                <Link to="#" className="btn btn-success light" onClick={() => handleChangeStatus(id)}>Approved: Click to unapprove</Link>
                                             ) : (
                                                 <Link to="#" className="btn btn-danger light" onClick={() => handleChangeStatus(id)}>Pending: Click to approve</Link>
                                             )}

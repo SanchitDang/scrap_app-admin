@@ -12,7 +12,10 @@ const EditAgent = () => {
         phone: '',
         email: '',
         password: '',
-        date: '',
+        city: '',
+        state: '',
+        pincode: '',
+        address: '',
     });
     const [loading, setLoading] = useState(true);
 
@@ -25,6 +28,10 @@ const EditAgent = () => {
                     phone: response.data.phone || '',
                     email: response.data.email || '',
                     password: response.data.password || '',
+                    city: response.data.city || '',
+                    state: response.data.state || '',
+                    pincode: response.data.pincode || '',
+                    address: response.data.address || '',
                 });
                 setLoading(false);
             } catch (error) {
@@ -88,8 +95,6 @@ const EditAgent = () => {
                                         />
                                     </div>
                                 </div>
-                            </div>
-                            <div className="row mb-4">
                                 <div className="col-xl-4">
                                     <div className="form-group mb-3">
                                         <label>Email</label>
@@ -103,6 +108,8 @@ const EditAgent = () => {
                                         />
                                     </div>
                                 </div>
+                            </div>
+                            <div className="row mb-4">
                                 <div className="col-xl-4">
                                     <div className="form-group mb-3">
                                         <label>Password</label>
@@ -113,6 +120,58 @@ const EditAgent = () => {
                                             value={formData.password}
                                             onChange={handleChange}
                                             placeholder="Enter Password"
+                                        />
+                                    </div>
+                                </div>
+                                <div className="col-xl-4">
+                                    <div className="form-group mb-3">
+                                        <label>City</label>
+                                        <input
+                                        type="text"
+                                        className="form-control"
+                                        name="city"
+                                        value={formData.city}
+                                        onChange={handleChange}
+                                        placeholder="Enter City"
+                                        />
+                                    </div>
+                                </div>
+                                <div className="col-xl-4">
+                                    <div className="form-group mb-3">
+                                        <label>State</label>
+                                        <input
+                                        type="text"
+                                        className="form-control"
+                                        name="state"
+                                        value={formData.state}
+                                        onChange={handleChange}
+                                        placeholder="Enter State"
+                                        />
+                                    </div>
+                                </div>
+                                <div className="col-xl-4">
+                                    <div className="form-group mb-3">
+                                        <label>Pincode</label>
+                                        <input
+                                        type="text"
+                                        className="form-control"
+                                        name="pincode"
+                                        value={formData.pincode}
+                                        onChange={handleChange}
+                                        placeholder="Enter Pincode"
+                                        />
+                                    </div>
+                                </div>
+                                <div className="col-xl-4">
+                                    <div className="form-group mb-3">
+                                        <label>Address</label>
+                                        <input
+                                        type="text"
+                                        className="form-control"
+                                        name="address"
+                                        value={formData.address}
+                                        onChange={handleChange}
+                                        placeholder="Enter Address"
                                         />
                                     </div>
                                 </div>

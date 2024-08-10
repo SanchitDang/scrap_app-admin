@@ -23,7 +23,7 @@ const CreateProduct = () => {
             }
         };
 
-        fetchCategories();
+        // fetchCategories();
     }, []);
 
     const handleSubmit = async (event) => {
@@ -66,7 +66,7 @@ const CreateProduct = () => {
                                         </div>
                                     </div>
                                 </div>
-                                <div className="row mb-4">
+                                {/* <div className="row mb-4">
                                     <div className="col-xl-4">
                                         <div className="form-group mb-3 invoice">
                                             <label>Category</label>
@@ -89,7 +89,7 @@ const CreateProduct = () => {
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                </div> */}
                                 <div className="row mb-4">
                                     <div className="col-xl-4">
                                         <div className="form-group mb-3 invoice">

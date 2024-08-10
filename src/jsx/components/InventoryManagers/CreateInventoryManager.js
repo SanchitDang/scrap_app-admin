@@ -11,6 +11,10 @@ import 'bootstrap/dist/css/bootstrap.min.css';
     const [email, setEmail] = useState('');
     const [phone, setPhone] = useState('');
     const [password, setPassword] = useState('');
+    const [city, setCity] = useState('');
+    const [state, setState] = useState('');
+    const [pincode, setPincode] = useState('');
+    const [address, setAddress] = useState('');
     const [role, setRole] = useState('');
     const history = useHistory();
 
@@ -31,6 +35,10 @@ import 'bootstrap/dist/css/bootstrap.min.css';
             email,
             phone,
             password,
+            city,
+            state,
+            pincode,
+            address,
             role
         };
 
@@ -147,6 +155,61 @@ import 'bootstrap/dist/css/bootstrap.min.css';
                                         </div>
                                     </div>									
                                 </div>
+                                <div className="row mb-4">
+                                <div className="col-xl-4">
+                                        <div className="form-group mb-3 invoice">
+                                            <label>City</label>
+                                            <input
+                                                type="text"
+                                                className="form-control"
+                                                placeholder="Enter City"
+                                                value={city}
+                                                onChange={(e) => setCity(e.target.value)}
+                                                required
+                                            />
+                                        </div>
+                                    </div>
+                                    <div className="col-xl-4">
+                                        <div className="form-group mb-3 invoice">
+                                            <label>State</label>
+                                            <input
+                                                type="text"
+                                                className="form-control"
+                                                placeholder="Enter State"
+                                                value={state}
+                                                onChange={(e) => setState(e.target.value)}
+                                                required
+                                            />
+                                        </div>
+                                    </div>
+                                    <div className="col-xl-4">
+                                        <div className="form-group mb-3 invoice">
+                                            <label>Pin Code</label>
+                                            <input
+                                                type="text"
+                                                className="form-control"
+                                                placeholder="Enter Pin Code"
+                                                value={pincode}
+                                                onChange={(e) => setPincode(e.target.value)}
+                                                required
+                                            />
+                                        </div>
+                                    </div>
+                                    <div className="col-xl-4">
+                                        <div className="form-group mb-3 invoice">
+                                            <label>Address</label>
+                                            <input
+                                                type="text"
+                                                className="form-control"
+                                                placeholder="Enter Address"
+                                                value={address}
+                                                onChange={(e) => setAddress(e.target.value)}
+                                                required
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+
                                 <h4 className="fs-24 font-w800">Profile Picture (optional)</h4>
                                 <div className="row mt-4 ">
                                     <div className="col-xl-4">
