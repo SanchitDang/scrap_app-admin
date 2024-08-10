@@ -5,7 +5,7 @@ import axios from 'axios';
 import { useHistory } from 'react-router-dom';
 import { Dropdown, Modal, Button } from 'react-bootstrap';
 
-const DropdownBlog = ({ userId, onDelete }) => {
+const DropdownBlog = ({ userId, onDelete, isApproved, isPO }) => {
     const [showModal, setShowModal] = useState(false);
     const history = useHistory();
 
@@ -17,7 +17,7 @@ const DropdownBlog = ({ userId, onDelete }) => {
     };
 
     const handleGenerateInvoice = () => {
-        history.push(`/create-invoice/${userId}`)
+        history.push(`/generate-invoice-servicerequest/${userId}`)
     }
 
     const handleDelete = () => {
@@ -38,7 +38,7 @@ const DropdownBlog = ({ userId, onDelete }) => {
                 <Dropdown.Menu className="dropdown-menu dropdown-menu-right">
                     <Dropdown.Item onClick={handleShow}>Delete</Dropdown.Item>
                     <Dropdown.Item onClick={handleEdit}>Edit</Dropdown.Item>
-                    <Dropdown.Item onClick={handleGenerateInvoice}>Generate Invoice</Dropdown.Item>
+                    {isApproved && <Dropdown.Item onClick={handleGenerateInvoice}>{isPO?"Generate PO":"Generate Invoice"}</Dropdown.Item>}
                 </Dropdown.Menu>
             </Dropdown>
 
@@ -150,7 +150,7 @@ const ServiceRequestsList = () => {
                                             )}
                                         </td>
                                         <td><span className="text-black text-nowrap">{new Date(user.createdAt).toLocaleDateString()}</span></td>
-                                        <td><DropdownBlog userId={user._id} onDelete={handleDelete} /></td>
+                                        <td><DropdownBlog userId={user._id} onDelete={handleDelete} isApproved={user.status==='completed'?true:false} isPO={user.type==='sell-request'?true:false}/></td>
                                     </tr>
                                 ))}
                             </tbody>

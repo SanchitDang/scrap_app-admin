@@ -32,6 +32,7 @@ import EditInventoryManager from "./components/InventoryManagers/EditInventoryMa
 import ServiceRequestsList from "./components/ServiceRequests/ServiceRequestsList";
 import CreateServiceRequest from "./components/ServiceRequests/CreateServiceRequest";
 import EditServiceRequest from "./components/ServiceRequests/EditServiceRequest";
+import GenerateInvoiceServiceRequest from "./components/ServiceRequests/GenerateInvoiceServiceRequest";
 
 /// Categories
 import CategoriesList from "./components/Categories/CategoriesList";
@@ -169,6 +170,7 @@ const Markup = () => {
     { url: "servicerequests-list", component: ServiceRequestsList },
     { url: "create-servicerequest", component: CreateServiceRequest },
     { url: "edit-servicerequest/:id", component: EditServiceRequest },
+    { url: "generate-invoice-servicerequest/:id", component: GenerateInvoiceServiceRequest },
 
     /// Categories
     { url: "categories-list", component: CategoriesList },
@@ -181,7 +183,7 @@ const Markup = () => {
     { url: "edit-product/:id", component: EditProduct },
 
     //// Invoice
-    { url: "create-invoice/:userId", component: CreateInvoice },
+    { url: "create-invoice", component: CreateInvoice },
     { url: "generate-invoice/:data", component: GenerateInvoice },
 
     /// Dashboard

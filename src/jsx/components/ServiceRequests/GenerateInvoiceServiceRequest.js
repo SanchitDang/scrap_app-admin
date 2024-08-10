@@ -7,7 +7,7 @@ import { Button } from 'react-bootstrap';
 import  DatePicker  from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
-const EditServiceRequest = () => {
+const GenerateInvoiceServiceRequest = () => {
     const { id } = useParams();
     const history = useHistory();
 
@@ -374,13 +374,8 @@ const EditServiceRequest = () => {
                             </div>
                             <div className="text-end mt-4">
                                 <button type="submit" className="btn btn-primary btn-lg me-1 me-sm-3">
-                                    Save Service Request
+                                    Generate Invoce
                                 </button>
-                                {status === 'completed' ? (
-                                                <Link to="#" className="btn btn-success light" onClick={() => handleChangeStatus(id)}>Approved: Click to pending</Link>
-                                            ) : (
-                                                <Link to="#" className="btn btn-danger light" onClick={() => handleChangeStatus(id)}>Pending: Click to approve</Link>
-                                            )}
                             </div>
                         </form>
                     </div>
@@ -390,4 +385,4 @@ const EditServiceRequest = () => {
     );
 };
 
-export default EditServiceRequest;
+export default GenerateInvoiceServiceRequest;
