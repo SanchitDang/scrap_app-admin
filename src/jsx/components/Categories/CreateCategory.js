@@ -8,6 +8,11 @@ const CreateCategory = () => {
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');
     const history = useHistory();
+    
+    const [selectedFile, setSelectedFile] = useState(null);
+    const handleFileChange = (e) => {
+        setSelectedFile(e.target.files[0]);
+    };
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -18,7 +23,26 @@ const CreateCategory = () => {
         };
 
         try {
-            await axios.post(apiUrl+'categories', userData);
+            const response = await axios.post(apiUrl+'categories', userData);
+
+            if (selectedFile) {
+                const formData = new FormData();
+                formData.append('user_type', 'category');
+                formData.append('user_id', response.data._id); 
+                formData.append('profilePic', selectedFile);
+                try {
+                const response = await axios.put(apiUrl+'dashboard/uploadProfilePic', formData, {
+                        headers: {
+                            'Content-Type': 'multipart/form-data'
+                        }
+                    });
+                    
+                } catch (error) {
+                    console.error('Error uploading profile picture', error);
+                    alert('Error uploading profile picture');
+                }
+            }
+
             history.push('categories-list');
         } catch (error) {
             console.error('Error creating user:', error);
@@ -64,9 +88,16 @@ const CreateCategory = () => {
                                     </div>
                                 </div>
                                 <div className="row mt-4 ">
-                                    <div className="col-xl-6">
+                                <div className="col-xl-4">
+                                        <input
+                                            type="file"
+                                            className="form-control"
+                                            id="profilePic"
+                                            accept=".jpeg, .jpg, .png"
+                                            onChange={handleFileChange}
+                                        />
                                     </div>
-                                    <div className="col-xl-6">
+                                    <div className="col-xl-8">
                                         <div className="text-end mt-4">
                                             <button type="submit" className="btn btn-primary btn-lg me-1 me-sm-3">
                                                 Save Category

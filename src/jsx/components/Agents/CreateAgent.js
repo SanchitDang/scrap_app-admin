@@ -40,7 +40,7 @@ const CreateAgent = () => {
 
             if (selectedFile) {
                 const formData = new FormData();
-                formData.append('user_type', 'user');
+                formData.append('user_type', 'agent');
                 formData.append('user_id', response.data._id); 
                 formData.append('profilePic', selectedFile);
                 try {

@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { apiUrl } from '../../../constants';
+import { apiUrl, baseUrl } from '../../../constants';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
 import { Dropdown, Modal, Button } from 'react-bootstrap';
+
+
+import profile from "../../../images/tool.png";
 
 const DropdownBlog = ({ userId, onDelete }) => {
     const [showModal, setShowModal] = useState(false);
@@ -57,6 +60,29 @@ const ProductsList = () => {
     const [totalPages, setTotalPages] = useState(0);
     const [itemsPerPage, setItemsPerPage] = useState(8);
 
+    const handleChangeStatus = async (id) => {
+        const user_type = 'product';
+        const user_id = id;
+    
+        try {
+            await axios.put(`${apiUrl}/dashboard/toggleStatusById`, {
+                user_type,
+                user_id,
+            });
+    
+            const updatedData = data.map(user => {
+                if (user._id === id) {
+                    return { ...user, disabled: !user.disabled };  // Toggle the disabled status
+                }
+                return user;
+            });
+    
+            setData(updatedData);
+        } catch (error) {
+            console.error('Error updating status:', error);
+        }
+    };
+    
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -107,6 +133,7 @@ const ProductsList = () => {
                             <thead>
                                 <tr role='row'>
                                     <th className="sorting_asc">Name</th>
+                                    <th className="sorting_asc">Status</th>
                                     <th className="sorting_asc">Date Created</th>
                                     <th className="sorting_asc"></th>
                                 </tr>
@@ -114,7 +141,21 @@ const ProductsList = () => {
                             <tbody>
                                 {currentData.map(user => (
                                     <tr key={user._id} role='row'>
-                                        <td><span className="text-black">{user.name}</span></td>
+                                        <td>
+                                            <div className="d-flex align-items-center">
+                                                <img src={user.image_url === "" ? (profile) : (baseUrl+user.image_url)} alt="" className="rounded me-3" width="50" />
+                                                <div>
+                                                    <h6 className="fs-16 text-black font-w600 mb-0 text-nowrap">{user.name}</h6>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            {!user.disabled ? (
+                                                <Link to="#" className="btn btn-success light" onClick={() => handleChangeStatus(user._id)}>Enabled</Link>
+                                            ) : (
+                                                <Link to="#" className="btn btn-danger light" onClick={() => handleChangeStatus(user._id)}>Disabled</Link>
+                                            )}
+                                        </td>
                                         <td><span className="text-black text-nowrap">{new Date(user.createdAt).toLocaleDateString()}</span></td>
                                         <td><DropdownBlog userId={user._id} onDelete={handleDelete} /></td>
                                     </tr>

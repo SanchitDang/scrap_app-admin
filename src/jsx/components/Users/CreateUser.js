@@ -39,6 +39,8 @@ const CreateUser = () => {
             role
         };
 
+        console.log(userData)
+
         try {
             const response = await axios.post(apiUrl+'users', userData);
 

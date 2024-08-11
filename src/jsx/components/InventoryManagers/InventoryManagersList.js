@@ -59,6 +59,29 @@ const InventoryManagersList = () => {
     const [totalPages, setTotalPages] = useState(0);
     const [itemsPerPage, setItemsPerPage] = useState(8);
 
+    const handleChangeStatus = async (id) => {
+        const user_type = 'admin';
+        const user_id = id;
+    
+        try {
+            await axios.put(`${apiUrl}/dashboard/toggleStatusById`, {
+                user_type,
+                user_id,
+            });
+    
+            const updatedData = data.map(user => {
+                if (user._id === id) {
+                    return { ...user, disabled: !user.disabled };  // Toggle the disabled status
+                }
+                return user;
+            });
+    
+            setData(updatedData);
+        } catch (error) {
+            console.error('Error updating status:', error);
+        }
+    };
+
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -113,6 +136,7 @@ const InventoryManagersList = () => {
                                     <th className="sorting_asc">Name</th>
                                     <th className="sorting_asc">Email</th>
                                     <th className="sorting_asc">Role</th>
+                                    <th className="sorting_asc">Status</th>
                                     <th className="sorting_asc">Date Created</th>
                                     <th className="sorting_asc"></th>
                                 </tr>
@@ -130,6 +154,13 @@ const InventoryManagersList = () => {
                                         </td>
                                         <td><span className="text-black">{user.email}</span></td>
                                         <td><span className="text-black">{user.role}</span></td>
+                                        <td>
+                                            {!user.disabled ? (
+                                                <Link to="#" className="btn btn-success light" onClick={() => handleChangeStatus(user._id)}>Enabled</Link>
+                                            ) : (
+                                                <Link to="#" className="btn btn-danger light" onClick={() => handleChangeStatus(user._id)}>Disabled</Link>
+                                            )}
+                                        </td>
                                         <td><span className="text-black text-nowrap">{new Date(user.createdAt).toLocaleDateString()}</span></td>
                                         <td><DropdownBlog userId={user._id} onDelete={handleDelete} /></td>
                                     </tr>
