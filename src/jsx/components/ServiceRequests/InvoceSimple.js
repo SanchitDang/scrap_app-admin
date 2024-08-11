@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom/cjs/react-router-dom.min";
 import html2pdf from "html2pdf.js";
 import mysign from '../../../images/sign.jpg';
 
-const InvoicePO = () => {
+const InvoiceSimple = () => {
   const { data } = useParams();
   const parsedData = JSON.parse(decodeURIComponent(data));
   const [isButtonVisible, setIsButtonVisible] = useState(true);
@@ -157,4 +157,4 @@ const InvoicePO = () => {
   );
 };
 
-export default InvoicePO;
+export default InvoiceSimple;
