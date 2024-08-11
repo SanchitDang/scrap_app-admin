@@ -99,7 +99,7 @@ const EditServiceRequest = () => {
                 setUser_id(user_id);
                 setAgent_id(agent_id);
                 setType(type);
-                setCompletionDate(new Date(completion_date));
+                setCompletionDate(completion_date ? new Date(completion_date) : null);
                 setStatus(status);
                 setSelectedCategories(category);
                 // setSelectedProducts(product);
@@ -190,7 +190,7 @@ const EditServiceRequest = () => {
                                         <label>Agent</label>
                                         <Dropdown>
                                             <Dropdown.Toggle variant="primary" className="form-control">
-                                                {agent_id._id ? agents.find(agent => agent._id === agent_id._id)?.name : 'Select Agent'}
+                                            {agent_id ? agents.find(agent => agent._id === agent_id._id)?.name : 'Select Agent'}
                                             </Dropdown.Toggle>
                                             <Dropdown.Menu>
                                                 {agents.map(agent => (

@@ -138,7 +138,7 @@ const ServiceRequestsList = () => {
                                 {currentData.map(user => (
                                     <tr key={user._id} role='row'>
                                         <td><span className="text-black">{user.user_id.name}</span></td>
-                                        <td><span className="text-black">{user.agent_id.name}</span></td>
+                                        <td><span className="text-black">{user.agent_id != null ? user.agent_id.name : "No agent" }</span></td>
                                         <td><span className="text-black">{user.type}</span></td>
                                         <td>
                                             {user.status === 'completed' ? (
