@@ -215,7 +215,7 @@ const EditServiceRequest = () => {
                                             <Dropdown.Menu>
                                                     <Dropdown.Item type='waste-collection' onClick={() => setType("waste-collection")}> Waste Collection </Dropdown.Item>
                                                     <Dropdown.Item type='buy-request' onClick={() => setType("buy-request")}> Buy Request </Dropdown.Item>
-                                                    <Dropdown.Item type='sell_request' onClick={() => setType("sell_request")}> Sell Request </Dropdown.Item>
+                                                    <Dropdown.Item type='sell-request' onClick={() => setType("sell-request")}> Sell Request </Dropdown.Item>
                                             </Dropdown.Menu>
                                         </Dropdown>
                                     </div>

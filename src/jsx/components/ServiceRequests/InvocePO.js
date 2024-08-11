@@ -37,8 +37,9 @@ const InvoicePO = () => {
         </div>
         <div className="right-column">
           <h2>Scrap App</h2>
-          <div>address</div>
-          <div>cityStateZip</div>
+          <div>My Company Address</div>
+          <div>My City State</div>
+          <div>My Zip</div>
           <div>Phone: phone</div>
           <div>Email: email</div>
         </div>

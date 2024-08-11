@@ -34,6 +34,7 @@ import CreateServiceRequest from "./components/ServiceRequests/CreateServiceRequ
 import EditServiceRequest from "./components/ServiceRequests/EditServiceRequest";
 import GenerateInvoiceServiceRequest from "./components/ServiceRequests/GenerateInvoiceServiceRequest";
 import InvoicePO from "./components/ServiceRequests/InvocePO";
+import InvoiceSimple from "./components/ServiceRequests/InvoceSimple";
 
 /// Categories
 import CategoriesList from "./components/Categories/CategoriesList";
@@ -173,6 +174,7 @@ const Markup = () => {
     { url: "edit-servicerequest/:id", component: EditServiceRequest },
     { url: "generate-invoice-servicerequest/:id", component: GenerateInvoiceServiceRequest },
     { url: "final-generate-invoice-servicerequest/:data", component: InvoicePO },
+    { url: "final-generate-invoice-simple-servicerequest/:data", component: InvoiceSimple },
 
     /// Categories
     { url: "categories-list", component: CategoriesList },

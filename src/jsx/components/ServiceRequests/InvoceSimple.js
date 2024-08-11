@@ -33,12 +33,13 @@ const InvoiceSimple = () => {
     <div className="invoice" id="invoice">
       <div className="header-row">
         <div className="left-column">
-          <h1>PURCHASE ORDER</h1>
+          <h1>INVOICE</h1>
         </div>
         <div className="right-column">
           <h2>Scrap App</h2>
-          <div>address</div>
-          <div>cityStateZip</div>
+          <div>My Company Address</div>
+          <div>My City State</div>
+          <div>My Zip</div>
           <div>Phone: phone</div>
           <div>Email: email</div>
         </div>
@@ -48,7 +49,7 @@ const InvoiceSimple = () => {
           <tr>
             <th className="header-to">TO</th>
             <th className="header-ship-to">SHIP TO</th>
-            <th className="header-po-number">P.O NUMBER</th>
+            <th className="header-po-number">FROM</th>
           </tr>
         </thead>
         <tbody>
@@ -65,8 +66,10 @@ const InvoiceSimple = () => {
               <div>{parsedData.user_id.address}</div>
             </td>
             <td className="po-number">
-              <div>{parsedData.user_id._id}</div>
-              {/* <div>{parsedData.poAdditionalInfo}</div> */}
+              <div>My company address</div>
+              <div>My City State</div>
+              <div>Phone: phone</div>
+              <div>Email: email</div>
             </td>
           </tr>
         </tbody>

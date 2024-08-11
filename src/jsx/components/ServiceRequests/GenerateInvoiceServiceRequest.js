@@ -142,7 +142,10 @@ const GenerateInvoiceServiceRequest = () => {
 
         console.log(requestData);  
         const encodedData = encodeURIComponent(JSON.stringify(requestData));
-        history.push(`/final-generate-invoice-servicerequest/${encodedData}`);
+        console.log(type);
+        type == "sell-request" ?
+        history.push(`/final-generate-invoice-servicerequest/${encodedData}`) :
+        history.push(`/final-generate-invoice-simple-servicerequest/${encodedData}`);
 
     };
 
@@ -153,7 +156,6 @@ const GenerateInvoiceServiceRequest = () => {
             <div className="col-xl-12">
                 <div className="card">
                     <div className="card-body">
-                        <h4 className="fs-24 font-w800">Edit Service Request</h4>
                         <form onSubmit={handleSubmit}>
                             <div className="row mb-4">
                                 <div className="col-xl-4">
@@ -206,7 +208,7 @@ const GenerateInvoiceServiceRequest = () => {
                                             <Dropdown.Menu>
                                                     <Dropdown.Item type='waste-collection' onClick={() => setType("waste-collection")}> Waste Collection </Dropdown.Item>
                                                     <Dropdown.Item type='buy-request' onClick={() => setType("buy-request")}> Buy Request </Dropdown.Item>
-                                                    <Dropdown.Item type='sell_request' onClick={() => setType("sell_request")}> Sell Request </Dropdown.Item>
+                                                    <Dropdown.Item type='sell-request' onClick={() => setType("sell-request")}> Sell Request </Dropdown.Item>
                                             </Dropdown.Menu>
                                         </Dropdown>
                                     </div>
