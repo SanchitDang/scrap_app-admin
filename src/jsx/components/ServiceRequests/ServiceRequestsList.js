@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { apiUrl } from '../../../constants';
-import { Link } from 'react-router-dom';
 import axios from 'axios';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useParams, Link } from 'react-router-dom';
 import { Dropdown, Modal, Button } from 'react-bootstrap';
 
 const DropdownBlog = ({ userId, onDelete, isApproved, isPO }) => {
@@ -57,6 +56,8 @@ const DropdownBlog = ({ userId, onDelete, isApproved, isPO }) => {
 };
 
 const ServiceRequestsList = () => {
+    const { utype } = useParams();
+    console.log(utype)
     const [data, setData] = useState([]);
     const [currentPage, setCurrentPage] = useState(0);
     const [totalPages, setTotalPages] = useState(0);
@@ -135,7 +136,9 @@ const ServiceRequestsList = () => {
                                 </tr>
                             </thead>
                             <tbody>
-                                {currentData.map(user => (
+                                {currentData
+                                .filter(user => user.type === utype)
+                                .map(user => (
                                     <tr key={user._id} role='row'>
                                         <td><span className="text-black">{user.user_id.name}</span></td>
                                         <td><span className="text-black">{user.agent_id != null ? user.agent_id.name : "No agent" }</span></td>

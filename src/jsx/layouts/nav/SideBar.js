@@ -283,10 +283,15 @@ const SideBar = () => {
             </li>
           )}
           <li className={`${servicerequest.includes(path) ? "mm-active" : ""}`}>
-            <Link to="/servicerequests-list" className="ai-icon">
+          <Link className="has-arrow ai-icon" to="#" >
               <i className="fas fa-paper-plane"></i>
               <span className="nav-text">Service Requests</span>
             </Link>
+            <ul >
+              <li><Link className={`${path === "servicerequests-list/waste-collection" ? "mm-active" : ""}`} to="/servicerequests-list/waste-collection">Waste Collection</Link></li>
+              <li><Link className={`${path === "servicerequests-list/buy-request" ? "mm-active" : ""}`} to="/servicerequests-list/buy-request">Buy Request</Link></li>
+              <li><Link className={`${path === "servicerequests-list/sell-request" ? "mm-active" : ""}`} to="/servicerequests-list/sell-request">Sell Request</Link></li>
+            </ul>
           </li>
           
           <li className={`${category.includes(path) ? "mm-active" : ""}`}>
@@ -483,7 +488,7 @@ const SideBar = () => {
             <strong>ScrapApp Admin Dashboard</strong> © 2024 All Rights Reserved
           </p>
           <p className="fs-12">
-            Made with <span className="heart"></span> by Dem & Mux
+             <span className="heart"></span>
           </p>
         </div>
       </PerfectScrollbar>

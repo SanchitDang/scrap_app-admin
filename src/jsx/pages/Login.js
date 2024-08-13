@@ -47,8 +47,8 @@ function Login (props) {
                       </Link>
                     <div className="login-description">
                         <h2 className="main-title mb-2">Welcome To ScrapApp</h2>
-                        <p className="">It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters,</p>
-                        <ul className="social-icons mt-4">
+                        <p className="">Discover a seamless way to buy and sell scrap materials with our app. Connect with buyers and sellers, get real-time market prices, and streamline transactions. Ideal for businesses and individuals looking to maximize their scrap value and simplify the trading process.</p>
+                        {/* <ul className="social-icons mt-4">
                             <li><Link to={"#"}><i className="fab fa-facebook-f"></i></Link></li>
                             <li><Link to={"#"}><i className="fab fa-twitter"></i></Link></li>
                             <li><Link to={"#"}><i className="fab fa-linkedin-in"></i></Link></li>
@@ -57,7 +57,7 @@ function Login (props) {
                             <Link to={"#"} className="mr-4">Privacy Policy</Link>
                             <Link to={"#"} className="mr-4">Contact</Link>
                             <Link to={"#"} className="">© 2024 Dem & Mux</Link>
-                        </div>
+                        </div> */}
                     </div>
                 </div>
                 <div className="login-aside-right">

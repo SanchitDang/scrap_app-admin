@@ -169,7 +169,7 @@ const Markup = () => {
     { url: "edit-inventorymanager/:id", component: EditInventoryManager },
 
     /// Service Requests
-    { url: "servicerequests-list", component: ServiceRequestsList },
+    { url: "servicerequests-list/:utype", component: ServiceRequestsList },
     { url: "create-servicerequest", component: CreateServiceRequest },
     { url: "edit-servicerequest/:id", component: EditServiceRequest },
     { url: "generate-invoice-servicerequest/:id", component: GenerateInvoiceServiceRequest },

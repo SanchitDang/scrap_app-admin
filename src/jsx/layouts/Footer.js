@@ -5,13 +5,13 @@ const Footer = () => {
   return (
     <div className="footer">
       <div className="copyright">
-        <p>
+        {/* <p>
           Copyright © Designed &amp; Developed by {" "}
           <a href="http://demnmux.com/" target="_blank" rel="noreferrer">
             Dem & Mux
           </a>{" "}
           {d.getFullYear()}
-        </p>
+        </p> */}
       </div>
     </div>
   );
