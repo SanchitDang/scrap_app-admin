@@ -65,7 +65,7 @@ const ProductsList = () => {
         const user_id = id;
     
         try {
-            await axios.put(`${apiUrl}/dashboard/toggleStatusById`, {
+            await axios.put(`${apiUrl}dashboard/toggleStatusById`, {
                 user_type,
                 user_id,
             });
@@ -133,6 +133,7 @@ const ProductsList = () => {
                             <thead>
                                 <tr role='row'>
                                     <th className="sorting_asc">Name</th>
+                                    <th className="sorting_asc">Category</th>
                                     <th className="sorting_asc">Status</th>
                                     <th className="sorting_asc">Date Created</th>
                                     <th className="sorting_asc"></th>
@@ -149,6 +150,7 @@ const ProductsList = () => {
                                                 </div>
                                             </div>
                                         </td>
+                                        <td><span className="text-black">{user.category_id.name}</span></td>
                                         <td>
                                             {!user.disabled ? (
                                                 <Link to="#" className="btn btn-success light" onClick={() => handleChangeStatus(user._id)}>Enabled</Link>

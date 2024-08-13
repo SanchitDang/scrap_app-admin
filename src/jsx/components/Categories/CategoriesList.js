@@ -64,7 +64,7 @@ const CategoriesList = () => {
         const user_id = id;
     
         try {
-            await axios.put(`${apiUrl}/dashboard/toggleStatusById`, {
+            await axios.put(`${apiUrl}dashboard/toggleStatusById`, {
                 user_type,
                 user_id,
             });

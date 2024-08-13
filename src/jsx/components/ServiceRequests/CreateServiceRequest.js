@@ -4,6 +4,7 @@ import { Link, useHistory } from 'react-router-dom';
 import axios from 'axios';
 import Dropdown from 'react-bootstrap/Dropdown';
 import Button from 'react-bootstrap/Button';
+import { Table } from 'react-bootstrap';
 
 const CreateServiceRequest = () => {
     const [user_id, setUser_id] = useState('');
@@ -119,7 +120,7 @@ const CreateServiceRequest = () => {
 
         try {
             await axios.post(apiUrl+'serviceRequests', requestData);
-            history.push('/servicerequests-list');
+            history.push('/servicerequests-list/'+type);
         } catch (error) {
             console.error('Error creating service request:', error);
         }
@@ -210,14 +211,26 @@ const CreateServiceRequest = () => {
                                                         ))}
                                                     </Dropdown.Menu>
                                                 </Dropdown>
-                                                <ul className="mt-2">
-                                                    {selectedCategories.map((cat, index) => (
-                                                        <li key={index}>
-                                                            {cat} 
-                                                            <Button variant="danger" size="sm" onClick={() => removeCategory(cat)}>Remove</Button>
-                                                        </li>
-                                                    ))}
-                                                </ul>
+                                                <Table striped bordered hover className="mt-2">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>#</th>
+                                                            <th>Category</th>
+                                                            <th>Action</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        {selectedCategories.map((cat, index) => (
+                                                            <tr key={index}>
+                                                                <td>{index + 1}</td>
+                                                                <td>{cat}</td>
+                                                                <td>
+                                                                    <Button variant="danger" size="sm" onClick={() => removeCategory(cat)}>Remove</Button>
+                                                                </td>
+                                                            </tr>
+                                                        ))}
+                                                    </tbody>
+                                                </Table>
                                             </div>
                                         </div>
                                         <div className="col-xl-4">
@@ -238,14 +251,26 @@ const CreateServiceRequest = () => {
                                                         ))}
                                                     </Dropdown.Menu>
                                                 </Dropdown>
-                                                <ul className="mt-2">
-                                                    {selectedProducts.map((prod, index) => (
-                                                        <li key={index}>
-                                                            {prod} 
-                                                            <Button variant="danger" size="sm" onClick={() => removeProduct(prod)}>Remove</Button>
-                                                        </li>
-                                                    ))}
-                                                </ul>
+                                                <Table striped bordered hover className="mt-2">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>#</th>
+                                                            <th>Product</th>
+                                                            <th>Action</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        {selectedProducts.map((prod, index) => (
+                                                            <tr key={index}>
+                                                                <td>{index + 1}</td>
+                                                                <td>{prod}</td>
+                                                                <td>
+                                                                    <Button variant="danger" size="sm" onClick={() => removeProduct(prod)}>Remove</Button>
+                                                                </td>
+                                                            </tr>
+                                                        ))}
+                                                    </tbody>
+                                                </Table>
                                             </div>
                                         </div>
                                     </div>
@@ -302,30 +327,52 @@ const CreateServiceRequest = () => {
                                         </div>
                                     </div>
                                 </div>
-                                <div>
-                                    <ul className="mt-2">
+                                <Table striped bordered hover className="mt-2">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Product</th>
+                                            <th>Quantity</th>
+                                            <th>Price</th>
+                                            <th>Total</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
                                         {selectedProducts.map((prod, index) => (
-                                            <li key={index}>
-                                                {prod}
-                                                <input
-                                                    type="number"
-                                                    placeholder="Enter quantity"
-                                                    value={productDetails[index]?.quantity || ''}
-                                                    onChange={(e) => handleDetailChange(index, 'quantity', e.target.value)}
-                                                />
-                                                <input
-                                                    type="number"
-                                                    placeholder="Enter price"
-                                                    value={productDetails[index]?.amount_paid || ''}
-                                                    onChange={(e) => handleDetailChange(index, 'amount_paid', e.target.value)}
-                                                />
-                                                <Button variant="danger" size="sm" onClick={() => removeProduct(prod)}>Remove</Button>
-                                            </li>
+                                            <tr key={index}>
+                                                <td>{index + 1}</td>
+                                                <td>{prod}</td>
+                                                <td>
+                                                    <input
+                                                        type="number"
+                                                        placeholder="Enter quantity"
+                                                        value={productDetails[index]?.quantity || ''}
+                                                        onChange={(e) => handleDetailChange(index, 'quantity', e.target.value)}
+                                                        className="form-control"
+                                                    />
+                                                </td>
+                                                <td>
+                                                    <input
+                                                        type="number"
+                                                        placeholder="Enter price"
+                                                        value={productDetails[index]?.amount_paid || ''}
+                                                        onChange={(e) => handleDetailChange(index, 'amount_paid', e.target.value)}
+                                                        className="form-control"
+                                                    />
+                                                </td>
+                                                <td>
+                                                    Rs.{((productDetails[index]?.quantity || 0) * (productDetails[index]?.amount_paid || 0)).toFixed(2)}
+                                                </td>
+                                            </tr>
                                         ))}
-                                    </ul>
-                                    <div>Total Price: Rs.{totalPrice.toFixed(2)}</div>
-                                    <Button variant="primary" onClick={handleProductDetailAdd}>Save</Button>
-                                </div>
+                                    </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <td colSpan="4" className="text-right"><strong>Total Price:</strong></td>
+                                            <td><strong>Rs.{totalPrice.toFixed(2)}</strong></td>
+                                        </tr>
+                                    </tfoot>
+                                </Table>
                                 <div className="text-end mt-4">
                                     <button type="submit" className="btn btn-primary btn-lg me-1 me-sm-3">
                                         Save Service Request

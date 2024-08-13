@@ -43,7 +43,7 @@ const EditProduct = () => {
         };
 
         fetchProductData();
-        // fetchCategories();
+        fetchCategories();
     }, [id]);
 
     const handleChange = (e) => {
@@ -102,7 +102,7 @@ const EditProduct = () => {
                                     </div>
                                 </div>
                             </div>
-                            {/* <div className="row mb-4">
+                            <div className="row mb-4">
                                 <div className="col-xl-4">
                                     <div className="form-group mb-3 invoice">
                                         <label>Category</label>
@@ -127,7 +127,7 @@ const EditProduct = () => {
                                         </div>
                                     </div>
                                 </div>
-                            </div> */}
+                            </div>
                             <div className="text-end mt-4">
                                 <button type="submit" className="btn btn-primary btn-lg me-1 me-sm-3">Save Product</button>
                                 <button

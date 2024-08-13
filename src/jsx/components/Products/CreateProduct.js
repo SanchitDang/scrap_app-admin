@@ -3,7 +3,6 @@ import { apiUrl } from '../../../constants';
 import { Link, useHistory } from 'react-router-dom';
 import axios from 'axios';
 import Dropdown from 'react-bootstrap/Dropdown';
-import DropzoneBlog from '../Dashboard/Invoices/DropzoneBlog';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const CreateProduct = () => {
@@ -18,7 +17,6 @@ const CreateProduct = () => {
         setSelectedFile(e.target.files[0]);
     };
 
-    // correct use effect if want to uncomment this feature
     useEffect(() => {
         const fetchCategories = async () => {
             try {
@@ -29,7 +27,7 @@ const CreateProduct = () => {
             }
         };
 
-        // fetchCategories();
+        fetchCategories();
     }, []);
 
     const handleSubmit = async (event) => {
@@ -91,7 +89,7 @@ const CreateProduct = () => {
                                         </div>
                                     </div>
                                 </div>
-                                {/* <div className="row mb-4">
+                                <div className="row mb-4">
                                     <div className="col-xl-4">
                                         <div className="form-group mb-3 invoice">
                                             <label>Category</label>
@@ -114,7 +112,7 @@ const CreateProduct = () => {
                                             </div>
                                         </div>
                                     </div>
-                                </div> */}
+                                </div>
                                 <div className="row mb-4">
                                     <div className="col-xl-4">
                                         <div className="form-group mb-3 invoice">
