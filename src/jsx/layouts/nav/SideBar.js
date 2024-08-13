@@ -75,8 +75,10 @@ const SideBar = () => {
     user = ["users-list", "create-user", "edit-user/:id"],
     agent = ["agents-list", "create-agent", "edit-agent/:id"],
     servicerequest = [
-      "servicerequests-list",
       "create-servicerequest",
+      'servicerequests-list/waste-collection',
+      'servicerequests-list/buy-request',
+      'servicerequests-list/sell-request',
       "edit-servicerequest/:id",
     ],
     inventorymanager = [
@@ -283,7 +285,7 @@ const SideBar = () => {
             </li>
           )}
           <li className={`${servicerequest.includes(path) ? "mm-active" : ""}`}>
-          <Link className="has-arrow ai-icon" to="#" >
+            <Link className="has-arrow" to="#" >
               <i className="fas fa-paper-plane"></i>
               <span className="nav-text">Service Requests</span>
             </Link>
