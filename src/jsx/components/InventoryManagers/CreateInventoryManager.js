@@ -75,7 +75,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
                 <div className="col-xl-12">
                     <div className="card">
                         <div className="card-body">
-                            <h4 className="fs-24 font-w800">GENERAL</h4>
+                            
                             <form onSubmit={handleSubmit}>
                                 <div className="row mb-4">
                                     <div className="col-xl-4">

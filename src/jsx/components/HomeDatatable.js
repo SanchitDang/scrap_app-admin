@@ -20,7 +20,7 @@ const HomeDatatable = ({ data }) => {
   return (
     <div className="card">
       <div className="card-header">
-        <h4 className="card-title">Basic Datatable</h4>
+        <h4 className="card-title">Data Insights</h4>
       </div>
       <div className="card-body">
         <div className="table-responsive">
@@ -36,8 +36,8 @@ const HomeDatatable = ({ data }) => {
               {paginatedData.map((item, index) => (
                 <tr key={index} className={index % 2 === 0 ? "even" : "odd"}>
                   <td className="sorting_1">{item._id}</td>
+                  <td>{item.totalQuantities}</td>
                   <td>{item.totalRequests}</td>
-                  <td>{item.totalAmount}</td>
                 </tr>
               ))}
             </tbody>

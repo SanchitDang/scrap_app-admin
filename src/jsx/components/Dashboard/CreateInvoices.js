@@ -70,7 +70,7 @@ const CreateInvoices = () =>{
 									</div>
 								</div>
 							</div>
-							<h4 className="fs-24 font-w800">GENERAL</h4>
+							
 							<div className="row mb-4">
 								<div className="col-xl-4">
 									<div className="form-group mb-3 invoice">

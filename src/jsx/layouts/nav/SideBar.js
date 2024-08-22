@@ -307,7 +307,9 @@ const SideBar = () => {
             </Link>
           </li>
 
-          <li className={`${deshBoard.includes(path) ? "mm-active" : ""}`}>
+
+
+          {/* <li className={`${deshBoard.includes(path) ? "mm-active" : ""}`}>
             <Link className="has-arrow" to="#" >
               <i className="fas fa-home"></i>
               <span className="nav-text">Dashboard</span>
@@ -480,7 +482,10 @@ const SideBar = () => {
                 </li>
                 <li><Link className={`${path === "page-lock-screen" ? "mm-active" : ""}`} to="/page-lock-screen">Lock Screen</Link></li>
               </ul>
-          </li>
+          </li> */}
+        
+
+        
         </MM>
         <div className="copyright">
           <p>

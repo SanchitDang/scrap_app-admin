@@ -21,6 +21,9 @@ const EditUser = () => {
         pincode: '',
         address: '',
         role: '',
+        company_name: '',
+        pan: '',    
+        gst: '',
     });
     const [loading, setLoading] = useState(true);
 
@@ -35,6 +38,9 @@ const EditUser = () => {
                     email: response.data.email || '',
                     password: response.data.password || '',
                     city: response.data.city || '',
+                    company_name: response.data.company_name || '',
+                    pan: response.data.pan || '',
+                    gst: response.data.gst || '',
                     state: response.data.state || '',
                     pincode: response.data.pincode || '',
                     address: response.data.address || '',
@@ -188,6 +194,49 @@ const EditUser = () => {
                                         />
                                     </div>
                                 </div>
+
+                                <div className="col-xl-4">
+                                    <div className="form-group mb-3">
+                                        <label>Company Name</label>
+                                        <input
+                                        type="text"
+                                        className="form-control"
+                                        name="company_name"
+                                        value={formData.company_name}
+                                        onChange={handleChange}
+                                        placeholder="Enter Company Name"
+                                        />
+                                    </div>
+                                </div>
+
+                                <div className="col-xl-4">
+                                    <div className="form-group mb-3">
+                                        <label>GST</label>
+                                        <input
+                                        type="text"
+                                        className="form-control"
+                                        name="gst"
+                                        value={formData.gst}
+                                        onChange={handleChange}
+                                        placeholder="Enter GST"
+                                        />
+                                    </div>
+                                </div>
+
+                                <div className="col-xl-4">
+                                    <div className="form-group mb-3">
+                                        <label>PAN</label>
+                                        <input
+                                        type="text"
+                                        className="form-control"
+                                        name="pan"
+                                        value={formData.pan}
+                                        onChange={handleChange}
+                                        placeholder="Enter PAN"
+                                        />
+                                    </div>
+                                </div>
+
                                 <div className="col-xl-4">
                                 <div className="form-group mb-3 invoice">
                                     <label>User Role</label>

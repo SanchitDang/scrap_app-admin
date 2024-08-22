@@ -13,6 +13,9 @@ const CreateAgent = () => {
     const [state, setState] = useState('');
     const [pincode, setPincode] = useState('');
     const [address, setAddress] = useState('');
+    const [company_name, setCompany_name] = useState('');
+    const [pan, setPan] = useState('');
+    const [gst, setGst] = useState('');
     const history = useHistory();
 
     const [selectedFile, setSelectedFile] = useState(null);
@@ -33,6 +36,9 @@ const CreateAgent = () => {
             state,
             pincode,
             address,
+            company_name,
+            pan,    
+            gst
         };
 
         try {
@@ -68,7 +74,7 @@ const CreateAgent = () => {
                 <div className="col-xl-12">
                     <div className="card">
                         <div className="card-body">
-                            <h4 className="fs-24 font-w800">GENERAL</h4>
+                            
                             <form onSubmit={handleSubmit}>
                                 <div className="row mb-4">
                                     <div className="col-xl-4">
@@ -177,7 +183,47 @@ const CreateAgent = () => {
                                             />
                                         </div>
                                     </div>
+                                    <div className="col-xl-4">
+                                        <div className="form-group mb-3 invoice">
+                                            <label>Company Name</label>
+                                            <input
+                                                type="text"
+                                                className="form-control"
+                                                placeholder="Enter Company Name"
+                                                value={company_name}
+                                                onChange={(e) => setCompany_name(e.target.value)}
+                                                required
+                                            />
+                                        </div>
+                                    </div>
+                                    <div className="col-xl-4">
+                                        <div className="form-group mb-3 invoice">
+                                            <label>Gst</label>
+                                            <input
+                                                type="text"
+                                                className="form-control"
+                                                placeholder="Enter Gst"
+                                                value={gst}
+                                                onChange={(e) => setGst(e.target.value)}
+                                                required
+                                            />
+                                        </div>
+                                    </div>
+                                    <div className="col-xl-4">
+                                        <div className="form-group mb-3 invoice">
+                                            <label>Pan</label>
+                                            <input
+                                                type="text"
+                                                className="form-control"
+                                                placeholder="Enter Pan"
+                                                value={pan}
+                                                onChange={(e) => setPan(e.target.value)}
+                                                required
+                                            />
+                                        </div>
+                                    </div>
                                 </div>
+                                
                                 <h4 className="fs-24 font-w800">Profile Picture</h4>
                                 <div className="row mt-4 ">
                                     <div className="col-xl-4">
