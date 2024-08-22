@@ -7,7 +7,7 @@ import { Dropdown, Modal, Button } from 'react-bootstrap';
 
 import profile from "../../../images/user.jpg";
 
-const DropdownBlog = ({ userId, onDelete }) => {
+const DropdownBlog = ({ userId, onDelete, isDisabled }) => {
     const [showModal, setShowModal] = useState(false);
     const history = useHistory();
 
@@ -34,19 +34,19 @@ const DropdownBlog = ({ userId, onDelete }) => {
                     </svg>
                 </Dropdown.Toggle>
                 <Dropdown.Menu className="dropdown-menu dropdown-menu-right">
-                    <Dropdown.Item onClick={handleShow}>Disable</Dropdown.Item>
+                    <Dropdown.Item onClick={handleShow}>{isDisabled ? 'Enable' : 'Disable'}</Dropdown.Item>
                     <Dropdown.Item onClick={handleEdit}>Edit</Dropdown.Item>
                 </Dropdown.Menu>
             </Dropdown>
 
             <Modal className="fade" show={showModal} onHide={handleClose}>
                 <Modal.Header closeButton>
-                    <Modal.Title>Disable Inventory Manager</Modal.Title>
+                    <Modal.Title>{isDisabled ? 'Enable' : 'Disable'} Inventory Manager</Modal.Title>
                 </Modal.Header>
-                <Modal.Body>Are you sure you want to disable this inventory manager?</Modal.Body>
+                <Modal.Body>Are you sure you want to {isDisabled ? 'Enable' : 'Disable'} this inventory manager?</Modal.Body>
                 <Modal.Footer>
                     <Button variant="primary" onClick={handleClose}>Close</Button>
-                    <Button variant="danger light" onClick={handleDelete}>Disable</Button>
+                    <Button variant="danger light" onClick={handleDelete}>{isDisabled ? 'Enable' : 'Disable'}</Button>
                 </Modal.Footer>
             </Modal>
         </>
@@ -182,7 +182,7 @@ const InventoryManagersList = () => {
                                             )}
                                         </td>
                                         <td><span className="text-black text-nowrap">{new Date(user.createdAt).toLocaleDateString()}</span></td>
-                                        <td><DropdownBlog userId={user._id} onDelete={handleDelete} /></td>
+                                        <td><DropdownBlog userId={user._id} onDelete={handleDelete} isDisabled={user.disabled} /></td>
                                     </tr>
                                 ))}
                             </tbody>
