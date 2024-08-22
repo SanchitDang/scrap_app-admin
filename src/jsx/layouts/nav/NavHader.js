@@ -23,7 +23,7 @@ const NavHader = () => {
               <h2 className="">
                 Recycle<span>Right</span>
               </h2>
-              <span className="brand-sub-title">Reduce|Reuse|Recycle</span>					
+              {/* <span className="brand-sub-title">Reduce|Reuse|Recycle</span>					 */}
             </div>
           </Fragment>
         ) : (
@@ -39,7 +39,7 @@ const NavHader = () => {
               <h2 className="">
                 Recycle<span>Right</span>
               </h2>
-              <span className="brand-sub-title">Reduce|Reuse|Recycle</span>					
+              {/* <span className="brand-sub-title">Reduce|Reuse|Recycle</span>					 */}
             </div>
           </Fragment>
         )}

@@ -11,8 +11,6 @@ import "react-datepicker/dist/react-datepicker.css";
 const CreateServiceRequest = () => {
   const [user_id, setUser_id] = useState("");
   const [agent_id, setAgent_id] = useState(null);
-  const [category, setCategory] = useState("");
-  const [product, setProduct] = useState("");
   const [selectedCategories, setSelectedCategories] = useState([]);
   const [selectedProducts, setSelectedProducts] = useState([]);
   const [pick_address, setPick_address] = useState("");
