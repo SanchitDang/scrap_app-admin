@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom'
 import { loadingToggleAction,loginAction,
 } from '../../store/actions/AuthActions';
 
-// image
 import logo from "../../images/logo-white.png";
 import logoWhite from "../../images/logo-whiite-text.png";
 import loginbg from "../../images/bg-login.jpg";
@@ -41,10 +40,10 @@ function Login (props) {
 		<div className="login-main-page" style={{backgroundImage:"url("+ loginbg +")"}}>
             <div className="login-wrapper">
                 <div className="login-aside-left" >
-                    <Link to={"#"} className="login-logo">
+                     {/* <Link to={"#"} className="login-logo">
                         <img src={logo} alt="" width="50px"/>
                         <img src={logoWhite} alt="" className="ms-3"/>
-                      </Link>
+                    </Link> */}
                     <div className="login-description">
                         <h2 className="main-title mb-2">Welcome To ScrapApp</h2>
                         <p className="">Discover a seamless way to buy and sell scrap materials with our app. Connect with buyers and sellers, get real-time market prices, and streamline transactions. Ideal for businesses and individuals looking to maximize their scrap value and simplify the trading process.</p>
