@@ -1,21 +1,13 @@
-/// Menu
 import Metismenu from "metismenujs";
 import React, { Component, useContext, useEffect } from "react";
-
 import { baseUrl } from "../../../constants";
-
-/// Scroll
 import PerfectScrollbar from "react-perfect-scrollbar";
-
-/// Link
 import { Link } from "react-router-dom";
 import { Dropdown } from "react-bootstrap";
 import { useScrollPosition } from "@n8tb1t/use-scroll-position";
 import { ThemeContext } from "../../../context/ThemeContext";
-import LogoutPage from "./Logout";
-
-/// Image
 import profile from "../../../images/user.jpg";
+import LogoutPage from "./Logout";
 
 class MM extends Component {
   componentDidMount() {
@@ -33,6 +25,10 @@ class MM extends Component {
     );
   }
 }
+
+const isActive = (routes, path, path2) => {
+  return routes.includes(path) || routes.includes(path2);
+};
 
 const SideBar = () => {
   const { iconHover, sidebarposition, headerposition, sidebarLayout } =
@@ -61,6 +57,11 @@ const SideBar = () => {
   path = path.split("/");
   path = path[path.length - 1];
 
+  /// Path Second Last
+  let pathSecondLast = window.location.pathname;
+  pathSecondLast = pathSecondLast.split("/");
+  pathSecondLast = pathSecondLast[pathSecondLast.length - 2];
+
   /// Active menu
   let deshBoard = [
       "",
@@ -72,22 +73,22 @@ const SideBar = () => {
       "transaction-details",
       "task",
     ],
-    user = ["users-list", "create-user", "edit-user/:id"],
-    agent = ["agents-list", "create-agent", "edit-agent/:id"],
+    user = ["users-list", "create-user", "edit-user"],
+    agent = ["agents-list", "create-agent", "edit-agent"],
     servicerequest = [
       "create-servicerequest",
       'servicerequests-list/waste-collection',
       'servicerequests-list/buy-request',
       'servicerequests-list/sell-request',
-      "edit-servicerequest/:id",
+      "edit-servicerequest",
     ],
     inventorymanager = [
       "inventorymanagers-list",
       "create-inventorymanager",
-      "edit-inventorymanager/:id",
+      "edit-inventorymanager",
     ],
-    category = ["categories-list", "create-category", "edit-category/:id"],
-    product = ["products-list", "create-product", "edit-product/:id"],
+    category = ["categories-list", "create-category", "edit-category"],
+    product = ["products-list", "create-product", "edit-product"],
     app = [
       "app-profile",
       "post-details",
@@ -257,7 +258,7 @@ const SideBar = () => {
         </Dropdown>
         <MM className="metismenu" id="menu">
           {userData.user?.role === "admin" && (
-            <li className={`${user.includes(path) ? "mm-active" : ""}`}>
+            <li className={`${isActive(user, path, pathSecondLast) ? "mm-active" : ""}`}>
               <Link to="/users-list" className="ai-icon">
                 <i className="fas fa-user"></i>
                 <span className="nav-text">Users</span>
@@ -265,7 +266,7 @@ const SideBar = () => {
             </li>
           )}
           {userData.user?.role === "admin" && (
-            <li className={`${agent.includes(path) ? "mm-active" : ""}`}>
+            <li className={`${isActive(agent, path, pathSecondLast) ? "mm-active" : ""}`}>
               <Link to="/agents-list" className="ai-icon">
                 <i className="fas fa-user-check"></i>
                 <span className="nav-text">Agents</span>
@@ -273,18 +274,14 @@ const SideBar = () => {
             </li>
           )}
           {userData.user?.role === "admin" && (
-            <li
-              className={`${
-                inventorymanager.includes(path) ? "mm-active" : ""
-              }`}
-            >
+            <li className={`${isActive(inventorymanager, path, pathSecondLast) ? "mm-active" : ""}`}>
               <Link to="/inventorymanagers-list" className="ai-icon">
                 <i className="fas fa-user-md"></i>
                 <span className="nav-text">Inventory Managers</span>
               </Link>
             </li>
           )}
-          <li className={`${servicerequest.includes(path) ? "mm-active" : ""}`}>
+          <li className={`${isActive(servicerequest, path, pathSecondLast) ? "mm-active" : ""}`}>
             <Link className="has-arrow" to="#" >
               <i className="fas fa-paper-plane"></i>
               <span className="nav-text">Service Requests</span>
@@ -296,21 +293,21 @@ const SideBar = () => {
             </ul>
           </li>
           
-          <li className={`${category.includes(path) ? "mm-active" : ""}`}>
+          <li className={`${isActive(category, path, pathSecondLast) ? "mm-active" : ""}`}>
             <Link to="/categories-list" className="ai-icon">
               <i className="fas fa-clone"></i>
               <span className="nav-text">Categories</span>
             </Link>
           </li>
           
-          <li className={`${product.includes(path) ? "mm-active" : ""}`}>
+          <li className={`${isActive(product, path, pathSecondLast) ? "mm-active" : ""}`}>
             <Link to="/products-list" className="ai-icon">
               <i className="fas fa-clone"></i>
               <span className="nav-text">Products</span>
             </Link>
           </li>
 
-          {/* <li className={`${deshBoard.includes(path) ? "mm-active" : ""}`}>
+          <li className={`${deshBoard.includes(path) ? "mm-active" : ""}`}>
             <Link className="has-arrow" to="#" >
               <i className="fas fa-home"></i>
               <span className="nav-text">Dashboard</span>
@@ -483,7 +480,7 @@ const SideBar = () => {
                 </li>
                 <li><Link className={`${path === "page-lock-screen" ? "mm-active" : ""}`} to="/page-lock-screen">Lock Screen</Link></li>
               </ul>
-          </li> */}
+          </li>
         </MM>
         <div className="copyright">
           <p>

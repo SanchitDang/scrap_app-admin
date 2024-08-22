@@ -35,19 +35,19 @@ const DropdownBlog = ({ userId, onDelete }) => {
                     </svg>
                 </Dropdown.Toggle>
                 <Dropdown.Menu className="dropdown-menu dropdown-menu-right">
-                    <Dropdown.Item onClick={handleShow}>Delete</Dropdown.Item>
+                    <Dropdown.Item onClick={handleShow}>Disable</Dropdown.Item>
                     <Dropdown.Item onClick={handleEdit}>Edit</Dropdown.Item>
                 </Dropdown.Menu>
             </Dropdown>
 
             <Modal className="fade" show={showModal} onHide={handleClose}>
                 <Modal.Header closeButton>
-                    <Modal.Title>Delete product</Modal.Title>
+                    <Modal.Title>Disable product</Modal.Title>
                 </Modal.Header>
-                <Modal.Body>Are you sure you want to delete this product?</Modal.Body>
+                <Modal.Body>Are you sure you want to disable this product?</Modal.Body>
                 <Modal.Footer>
                     <Button variant="primary" onClick={handleClose}>Close</Button>
-                    <Button variant="danger light" onClick={handleDelete}>Delete</Button>
+                    <Button variant="danger light" onClick={handleDelete}>Disable</Button>
                 </Modal.Footer>
             </Modal>
         </>
@@ -101,11 +101,31 @@ const ProductsList = () => {
     };
 
     const handleDelete = async (userId) => {
+        // try {
+        //     await axios.delete(apiUrl+`products/${userId}`);
+        //     setData(data.filter(user => user._id !== userId));
+        // } catch (error) {
+        //     console.error('Error deleting user:', error);
+        // }
+        const user_type = 'product';
+        const user_id = userId;
+    
         try {
-            await axios.delete(apiUrl+`products/${userId}`);
-            setData(data.filter(user => user._id !== userId));
+            await axios.put(`${apiUrl}dashboard/toggleStatusById`, {
+                user_type,
+                user_id,
+            });
+    
+            const updatedData = data.map(user => {
+                if (user._id === userId) {
+                    return { ...user, disabled: !user.disabled };  // Toggle the disabled status
+                }
+                return user;
+            });
+    
+            setData(updatedData);
         } catch (error) {
-            console.error('Error deleting user:', error);
+            console.error('Error updating status:', error);
         }
     };
 

@@ -6,6 +6,7 @@ import pMinDelay from "p-min-delay";
 import { Link } from "react-router-dom";
 import { Tab } from "react-bootstrap";
 import { ThemeContext } from "../../../context/ThemeContext";
+import HomeDatatable from "../HomeDatatable";
 
 const TotalInvoices = loadable(() =>
   pMinDelay(import("./Dashboard/TotalInvoices"), 1000)
@@ -32,7 +33,7 @@ const Home = () => {
 
   const [noUsers, setNoUsers] = useState("");
   const [noAgents, setNoAgents] = useState("");
-  const [catData, setCatData] = useState("");
+  const [catData, setCatData] = useState([]);
   const [noInventoryManagers, setNoInventoryManagers] = useState("");
   const [noServiceRequests, setNoServiceRequests] = useState("");
   const [recentServiceRequests, setRecentServiceRequests] = useState([]);
@@ -40,7 +41,7 @@ const Home = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(apiUrl+"dashboard");
+        const response = await axios.get(apiUrl + "dashboard");
         const data = response.data;
         console.log(data);
         setNoUsers(data.users);
@@ -56,7 +57,6 @@ const Home = () => {
 
     fetchData();
   }, []);
-
 
   const CategoryData = ({ dashboardData }) => {
     return (
@@ -101,7 +101,6 @@ const Home = () => {
       </div>
     );
   };
-  
 
   return (
     <>
@@ -266,112 +265,51 @@ const Home = () => {
             </div>
           </div>
         </div>
-        {catData.length > 0 ? (    
+        {catData.length > 0 ? (
           <div className="col-xl-12">
-          <div className="row">
-            {catData.map((categoryData, index) => (
-              <div className="col-xl-3 col-sm-6" key={index}>
-                <div className="card overflow-hidden">
-                  <div className="card-header border-0">
-                    <div className="d-flex">
-                      <span className="mt-2">
-                        <svg
-                          width="32"
-                          height="40"
-                          viewBox="0 0 32 40"
-                          fill="none"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            fillRule="evenodd"
-                            clipRule="evenodd"
-                            d="M9.812 34.64L3.2 39.6C2.594 40.054 1.784 40.128 1.106 39.788C0.428 39.45 0 38.758 0 38V2C0 0.896 0.896 0 2 0H30C31.104 0 32 0.896 32 2V38C32 38.758 31.572 39.45 30.894 39.788C30.216 40.128 29.406 40.054 28.8 39.6L22.188 34.64L17.414 39.414C16.634 40.196 15.366 40.196 14.586 39.414L9.812 34.64ZM28 34V4H4V34L8.8 30.4C9.596 29.802 10.71 29.882 11.414 30.586L16 35.172L20.586 30.586C21.29 29.882 22.404 29.802 23.2 30.4L28 34ZM14 20H18C19.104 20 20 19.104 20 18C20 16.896 19.104 16 18 16H14C12.896 16 12 16.896 12 18C12 19.104 12.896 20 14 20ZM10 12H22C23.104 12 24 11.104 24 10C24 8.896 23.104 8 22 8H10C8.896 8 8 8.896 8 10C8 11.104 8.896 12 10 12Z"
-                            fill="#717579"
-                          />
-                        </svg>
-                      </span>
-                      <div className="invoices">
-                        <h4>Rs.{categoryData.totalAmount}</h4>
-                        <span>{categoryData._id}</span>
+            <div className="row">
+              {catData.map((categoryData, index) => (
+                <div className="col-xl-3 col-sm-6" key={index}>
+                  <div className="card overflow-hidden">
+                    <div className="card-header border-0">
+                      <div className="d-flex">
+                        <span className="mt-2">
+                          <svg
+                            width="32"
+                            height="40"
+                            viewBox="0 0 32 40"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              fillRule="evenodd"
+                              clipRule="evenodd"
+                              d="M9.812 34.64L3.2 39.6C2.594 40.054 1.784 40.128 1.106 39.788C0.428 39.45 0 38.758 0 38V2C0 0.896 0.896 0 2 0H30C31.104 0 32 0.896 32 2V38C32 38.758 31.572 39.45 30.894 39.788C30.216 40.128 29.406 40.054 28.8 39.6L22.188 34.64L17.414 39.414C16.634 40.196 15.366 40.196 14.586 39.414L9.812 34.64ZM28 34V4H4V34L8.8 30.4C9.596 29.802 10.71 29.882 11.414 30.586L16 35.172L20.586 30.586C21.29 29.882 22.404 29.802 23.2 30.4L28 34ZM14 20H18C19.104 20 20 19.104 20 18C20 16.896 19.104 16 18 16H14C12.896 16 12 16.896 12 18C12 19.104 12.896 20 14 20ZM10 12H22C23.104 12 24 11.104 24 10C24 8.896 23.104 8 22 8H10C8.896 8 8 8.896 8 10C8 11.104 8.896 12 10 12Z"
+                              fill="#717579"
+                            />
+                          </svg>
+                        </span>
+                        <div className="invoices">
+                          <h4>Rs.{categoryData.totalAmount}</h4>
+                          <span>{categoryData._id}</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="card-body p-0">
+                      <div id="totalInvoices">
+                        <TotalInvoices />
                       </div>
                     </div>
                   </div>
-                  <div className="card-body p-0">
-                    <div id="totalInvoices">
-                      <TotalInvoices />
-                    </div>
-                  </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
-        </div>
         ) : (
           <p>Loading...</p>
         )}
         <div className="col-xl-6">
-          <div className="row">
-            <div className="col-xl-12">
-              <div className="card">
-                <div className="card-header d-sm-flex d-block border-0 pb-0">
-                  <div className="pe-3 me-auto mb-sm-0 mb-3">
-                    <h4 className="fs-20 text-black mb-1 font-w700">
-                      Service Requests Overview
-                    </h4>
-                    <span className="fs-12">Summary of previous week's Service Requests</span>
-                  </div>
-                </div>
-                <div className="card-body">
-                  <div id="chartBar" className="chartBar">
-                    <ChartBarApex />
-                  </div>
-                  <div className="d-flex justify-content-between flex-wrap">
-                    <div className="d-flex"></div>
-                    <div>
-                      <span className="fs-16 font-w600">
-                        <svg
-                          className="me-2"
-                          width="20"
-                          height="19"
-                          viewBox="0 0 20 19"
-                          fill="none"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <rect
-                            x="0.639771"
-                            width="18.9471"
-                            height="19"
-                            rx="9.47357"
-                            fill="#09BD3C"
-                          />
-                        </svg>
-                        Completed
-                      </span>
-                      <span className="fs-16 font-w600">
-                        <svg
-                          className="mx-2"
-                          width="20"
-                          height="19"
-                          viewBox="0 0 20 19"
-                          fill="none"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <rect
-                            x="0.344925"
-                            width="18.9471"
-                            height="19"
-                            rx="9.47357"
-                            fill="#FD5353"
-                          />
-                        </svg>
-                        Pending
-                      </span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+          <HomeDatatable data={catData}/>
         </div>
         <div className="col-xl-6">
           <div className="row">
