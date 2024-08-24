@@ -11,8 +11,6 @@ import "react-datepicker/dist/react-datepicker.css";
 const CreateServiceRequest = () => {
   const [user_id, setUser_id] = useState("");
   const [agent_id, setAgent_id] = useState(null);
-  const [selectedCategories, setSelectedCategories] = useState([]);
-  const [selectedProducts, setSelectedProducts] = useState([]);
   const [pick_address, setPick_address] = useState("");
   const [pick_address_lat, setPick_address_lat] = useState("");
   const [pick_address_lng, setPick_address_lng] = useState("");
@@ -22,22 +20,15 @@ const CreateServiceRequest = () => {
   const [users, setUsers] = useState([]);
   const [type, setType] = useState("");
   const [agents, setAgents] = useState([]);
+  const history = useHistory();
+  
   const [categories, setCategories] = useState([]);
   const [products, setProducts] = useState([]);
-  const history = useHistory();
-
+  const [totalProducts, setTotalProducts] = useState([]);
   const [productDetails, setProductDetails] = useState([]);
+  const [selectedCategories, setSelectedCategories] = useState([]);
+  const [selectedProducts, setSelectedProducts] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
-
-  const handleProductDetailAdd = () => {
-    const productsWithDetails = selectedProducts.map((product, index) => ({
-      product,
-      quantity: productDetails[index]?.quantity || 0,
-      amount_paid: productDetails[index]?.amount_paid || 0,
-    }));
-
-    console.log(productsWithDetails);
-  };
 
   const handleDetailChange = (index, field, value) => {
     const updatedDetails = [...productDetails];
@@ -60,11 +51,31 @@ const CreateServiceRequest = () => {
   const addCategory = (category) => {
     if (!selectedCategories.includes(category)) {
       setSelectedCategories([...selectedCategories, category]);
+      setProducts(totalProducts.filter((data) => data.category_id.name === category))
     }
   };
 
   const removeCategory = (category) => {
+    // Remove the category from the selected categories list
     setSelectedCategories(selectedCategories.filter((cat) => cat !== category));
+  
+    // Find the products associated with the removed category
+    const productss = totalProducts
+      .filter((data) => data.category_id.name === category)
+      .map((data) => data.name);
+  
+    // Loop through the productss array and apply the logic of removeProduct directly
+    const updatedProducts = selectedProducts.filter(
+      (p) => !productss.includes(p)
+    );
+    
+    const updatedDetails = productDetails.filter(
+      (item) => !productss.includes(item.product)
+    );
+  
+    // Update the state with the filtered products and details
+    setSelectedProducts(updatedProducts);
+    setProductDetails(updatedDetails);
   };
 
   const addProduct = (product) => {
@@ -92,7 +103,8 @@ const CreateServiceRequest = () => {
         setUsers(usersResponse.data);
         setAgents(agentsResponse.data);
         setCategories(categoriesResponse.data);
-        setProducts(productsResponse.data);
+        // setProducts(productsResponse.data);  // initially dont set any products, as they will come acc to categories
+        setTotalProducts(productsResponse.data);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
